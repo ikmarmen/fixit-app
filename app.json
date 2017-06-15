@@ -1,4 +1,7 @@
 {
   "name": "FixIt",
-  "displayName": "FixIt"
+  "displayName": "FixIt",
+  "expo": {
+    "sdkVersion": "17.0.0"
+  }
 }
