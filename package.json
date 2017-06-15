@@ -12,12 +12,14 @@
   },
   "dependencies": {
     "expo": "^17.0.0",
-    "react": "16.0.0-alpha.6",
-    "react-native": "^0.44.0",
-    "native-base": "^2.1.5",
+    "isomorphic-fetch": "^2.2.1",
     "mobx": "^3.1.15",
     "mobx-react": "^4.2.1",
-    "react-native-mobx":"^0.3.1",
+    "native-base": "^2.1.5",
+    "react": "16.0.0-alpha.6",
+    "react-native": "^0.44.0",
+    "react-native-device-info": "^0.10.2",
+    "react-native-mobx": "^0.3.1",
     "react-native-router-flux": "^3.40.1"
   },
   "jest": {
@@ -34,6 +36,7 @@
     "jest": "20.0.4",
     "react-native-scripts": "0.0.31",
     "jest-expo": "~1.0.1",
-    "react-test-renderer": "16.0.0-alpha.6"
+    "react-test-renderer": "16.0.0-alpha.6",
+    "react-native-debugger":"20.0.4"
   }
 }
