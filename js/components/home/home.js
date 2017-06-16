@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-import { Container, Content, H1 } from 'native-base';
+import { Container, Content, Text, Button } from 'native-base';
+import RouterStore from '../routerStore';
 
 export default class Home extends Component {
-    render() {
-        return (
-            <Container>
-                <Content>
-                    <H1>Home</H1>
-                </Content>
-            </Container>
-        );
-    }
+  constructor(props) {
+    super(props);
+    this.store = RouterStore;
+  }
+  render() {
+    return <Container>
+      <Content padder>
+        <Text>Text Example</Text>
+        <Button onPress={this.store.fetchUserInfo}>
+          <Text>Load User info</Text>
+        </Button>
+      </Content>
+    </Container>;
+  }
 }
