@@ -1,7 +1,6 @@
 import { observable, computed, action, asMap, autorun } from 'mobx';
 import { AsyncStorage } from 'react-native';
 import Fetch from '../utils/fetch-json';
-import Expo from 'expo';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
 class RouterStore {
@@ -10,10 +9,7 @@ class RouterStore {
   @observable user = null;
 
   constructor() {
-    this.loadfonts()
-      .then(() => {
-        this.fetchUserInfo();
-      });
+    this.fetchUserInfo();
   }
 
   @action
@@ -28,16 +24,6 @@ class RouterStore {
         this.isAuthenticated = false;
         AsyncStorage.removeItem('TOKEN');
       });
-  }
-
-  @action
-  async loadfonts() {
-    await Expo.Font.loadAsync({
-      'Roboto': require('native-base/Fonts/Roboto.ttf'),
-      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-      'Ionicons': require('native-base/Fonts/Ionicons.ttf'),
-    });
-    this.isFontsLoaded = true;
   }
 }
 

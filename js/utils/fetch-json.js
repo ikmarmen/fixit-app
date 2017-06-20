@@ -20,12 +20,13 @@ function checkStatus(data) {
 
 export default async function enhancedFetch(url, options) {
   let token = await AsyncStorage.getItem('TOKEN');
+  debugger;
   options.headers = Object.assign({
     'Accept': 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
     'platform': Platform.OS,
     'app-version': Config.APP_VERSION,
-    'device-id': '100123456789',//DeviceInfo.getUniqueID(),
+    'device-id': DeviceInfo.getUniqueID(),
     'token': token
   },
     options.headers);

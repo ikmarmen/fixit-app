@@ -17,9 +17,9 @@ export default class AppRouter extends React.Component {
 
   render() {
     return <Router>
-      <Scene key="root">
-        <Scene key="loading" component={Loading} initial={true} hideNavBar={true} />
-        <Scene key="login" component={Login} hideNavBar={true} />
+      <Scene key="root" hideNavBar={true}>
+        <Scene key="loading" component={Loading} initial={true} />
+        <Scene key="login" component={Login}  />
         <Scene key="home" component={Home} />
       </Scene>
     </Router>;
