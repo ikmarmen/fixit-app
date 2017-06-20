@@ -1,7 +1,15 @@
 {
   "name": "FixIt",
   "displayName": "FixIt",
+   "version": "1.0.0",
+   "slug": "fix-it-slug",
   "expo": {
+      "ios": {
+     "bundleIdentifier": "com.margasoft.fixit"
+   },
+   "android": {
+     "package": "com.margasoft.fixit"
+   },
     "sdkVersion": "17.0.0"
   }
 }

@@ -3,6 +3,7 @@ import { AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import RouterStore from '../routerStore';
 import Fetch from '../../utils/fetch-json';
+import qs from 'qs';
 
 class LoginStore {
   @observable isAuthenticated = false;
@@ -32,7 +33,8 @@ class LoginStore {
     }
 
     let that=this;
-    Fetch('user/login', { method: 'POST', body: {email:that.userName, password:that.password} })
+    let request = qs.stringify({email:that.userName, password:that.password});
+    Fetch('user/login', { method: 'POST', body: request })
       .then(data => {
         if (data.token) {
           that.isAuthenticated = true;
