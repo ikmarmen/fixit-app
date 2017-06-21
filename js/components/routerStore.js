@@ -18,7 +18,7 @@ class RouterStore {
       .then(data => {
         this.isAuthenticated = true;
         this.user = data.user;
-        Actions.home({type: ActionConst.REPLACE});
+        //Actions.home({type: ActionConst.REPLACE});
       })
       .catch(error => {
         this.isAuthenticated = false;

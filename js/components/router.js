@@ -5,8 +5,9 @@ import { Router, Scene, Actions } from 'react-native-router-flux';
 import RouterStore from './routerStore';
 
 import Loading from './loading';
-import Home from './home/home';
-import Login from './login/login';
+import Home from './home/';
+import Login from './login/';
+import Auth from './auth/';
 
 @observer
 export default class AppRouter extends React.Component {
@@ -18,7 +19,8 @@ export default class AppRouter extends React.Component {
   render() {
     return <Router>
       <Scene key="root" hideNavBar={true}>
-        <Scene key="loading" component={Loading} initial={true} />
+        <Scene key="auth" component={Auth} initial={true} />
+        <Scene key="loading" component={Loading}/>
         <Scene key="login" component={Login}  />
         <Scene key="home" component={Home} />
       </Scene>

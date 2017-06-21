@@ -3,8 +3,8 @@ import { Image, Platform } from 'react-native';
 import { Content, Text, List, ListItem, Icon, Container, Left, Right, Badge, Button, View, StyleProvider, getTheme, variables } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
-import material from '../../theme/variables/material';
-import { changePlatform, changeMaterial, closeDrawer } from '../../actions/drawer';
+import material from '../../../native-base-theme/variables/material';
+//import { changePlatform, changeMaterial, closeDrawer } from '../../actions/drawer';
 //import navigateTo from '../../actions/sideBarNav';
 import styles from './style';
 
