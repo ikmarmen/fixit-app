@@ -20,7 +20,6 @@ function checkStatus(data) {
 
 export default async function enhancedFetch(url, options) {
   let token = await AsyncStorage.getItem('TOKEN');
-  debugger;
   options.headers = Object.assign({
     'Accept': 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',

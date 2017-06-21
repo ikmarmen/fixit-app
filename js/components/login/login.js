@@ -12,35 +12,28 @@ export default class Login extends Component {
 
   render() {
     return <Container>
-      {/*      <Header>
-        <Left />
-        <Body>
-          <Title>Header</Title>
-        </Body>
-        <Right />
-      </Header>*/}
-      <Content>
-        <Form>
-          {
-            this.store.error
-              ? <Item error>
-                <Text>{this.store.error}</Text>
-              </Item>
-              : null
-          }
-          <Item floatingLabel>
-            <Label>Username</Label>
-            <Input onChangeText={this.store.setUserName} />
-          </Item>
-          <Item floatingLabel last>
-            <Label>Password</Label>
-            <Input onChangeText={this.store.setPassword} />
-          </Item>
-          <Button block onPress={this.store.login}>
-            <Text>Sign In</Text>
-          </Button>
-        </Form>
-      </Content>
-    </Container>;
+        <Content>
+          <Form>
+            {
+              this.store.error
+                ? <Item error>
+                  <Text>{this.store.error}</Text>
+                </Item>
+                : null
+            }
+            <Item floatingLabel>
+              <Label>Username</Label>
+              <Input onChangeText={this.store.setUserName} />
+            </Item>
+            <Item floatingLabel last>
+              <Label>Password</Label>
+              <Input onChangeText={this.store.setPassword} />
+            </Item>
+            <Button block onPress={this.store.login}>
+              <Text>Sign In</Text>
+            </Button>
+          </Form>
+        </Content>
+      </Container>;
   }
 }
