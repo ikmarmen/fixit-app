@@ -1,5 +1,4 @@
-import Fetch from 'isomorphic-fetch';
-import Config from '../../config.js'
+import Config from '../../config.js';
 import { Platform, AsyncStorage } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { Actions, ActionConst } from 'react-native-router-flux';
@@ -9,10 +8,10 @@ function parseJson(response) {
 }
 function checkStatus(data) {
   if(data.error && data.error.status === 401){
-    Actions.login({type:ActionConst.REPLACE});
+    //Actions.login({type:ActionConst.REPLACE});
     throw data.error;
   }else if(data.error){
-     throw data.error;
+     throw data;
   }else{
     return data;
   }
@@ -34,7 +33,7 @@ export default async function enhancedFetch(url, options) {
     options.body = JSON.stringify(options.body);
   }
 
-  return Fetch(`${Config.BASE_URL}${url}`, options)
+  return fetch(`${Config.BASE_URL}${url}`, options)
     .then(parseJson)
     .then(checkStatus);
 }
