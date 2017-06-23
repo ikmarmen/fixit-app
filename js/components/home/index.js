@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
-import { Container, Content, Text, Button, Body, Title, Icon, Left,Right, Header } from 'native-base';
-import RouterStore from '../routerStore';
+import { Container, Content, Button, Icon, Left, Header, Input, Item } from 'native-base';
+import { observer } from 'mobx-react';
+import { Actions, ActionConst } from 'react-native-router-flux';
+import { AuthStore } from '../auth/authStore';
+import Adverts from '../adverts/'
 
+@observer
 export default class Home extends Component {
   constructor(props) {
     super(props);
-    this.store = RouterStore;
   }
+
+  _renderAccountOrLogin=()=>{
+    if(AuthStore.isAuthenticated){
+      return <Icon name='person' onPress={() => Actions.account({ type: ActionConst.PUSH })} />;
+    }
+    return <Icon name='log-in' onPress={() => Actions.auth({ type: ActionConst.PUSH })} />;
+  }
+
   render() {
     return <Container>
-      <Header backgroundColor="red">
-        <Left />
-        <Body>
-           <Title>Home</Title>
-        </Body>
-        <Right />
+      <Header searchBar rounded>
+        <Left>
+          <Button transparent>
+            {this._renderAccountOrLogin()}
+          </Button>
+        </Left>
+        <Item>
+          <Icon name="ios-search" />
+          <Input placeholder="Search" />
+        </Item>
       </Header>
-      <Content padder>
-        <Button onPress={this.store.fetchUserInfo}>
-          <Text>Load User info</Text>
-        </Button>
+      <Content>
+        <Adverts />
       </Content>
     </Container>;
   }
