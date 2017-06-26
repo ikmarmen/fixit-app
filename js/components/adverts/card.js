@@ -12,7 +12,7 @@ export default class FixItCard extends Component {
 
   _photo = (photos) => {
     try {
-      /*if (photos.length > 0) {
+      if (photos.length > 0) {
         let chars = [];
         for (let i = 0; i < photos[0].data.data.length; i++) {
           chars.push(String.fromCharCode(photos[0].data.data[i]))
@@ -20,13 +20,12 @@ export default class FixItCard extends Component {
         let base64str = btoa(chars.join(''));
 
         return 'data:image/jpeg;base64,' + base64str;
-      }*/
+      }
     }
-    catch (error)
-    {
+    catch (error) {
       let x = 54;
     }
-    
+
     return null;
 
   }
@@ -34,13 +33,9 @@ export default class FixItCard extends Component {
   render() {
     return <Card>
       <CardItem>
-        <Left>
-          <Thumbnail source={{ uri: this._photo(this.store.advert.photos) }}/>
-          <Body>
-            <Text>{this.store.advert.title}</Text>
-            <Text note>{this.store.advert.userId}</Text>
-          </Body>
-        </Left>
+        <Body>
+          <Text>{this.store.advert.title}</Text>
+        </Body>
       </CardItem>
       <CardItem cardBody>
         <Image source={{ uri: this._photo(this.store.advert.photos) }} style={{ height: 200, width: null, flex: 1 }} />

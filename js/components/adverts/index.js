@@ -3,7 +3,7 @@ import { Content } from 'native-base';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import AdvertsListStore from './advertsStore';
-import FixItCard from '../card/'
+import FixItCard from './card'
 
 @observer
 export default class AdvertsList extends Component {
