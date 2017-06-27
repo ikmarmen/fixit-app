@@ -6,7 +6,8 @@ import { Router, Scene, Actions } from 'react-native-router-flux';
 import Loading from './loading';
 import Home from './home/';
 import Auth from './auth/';
-import Account from './auth/account';
+import Account from './account/';
+import Advert from './adverts/advert';
 
 @observer
 export default class AppRouter extends React.Component {
@@ -21,6 +22,7 @@ export default class AppRouter extends React.Component {
         <Scene key="auth" component={Auth} />
         <Scene key="loading" component={Loading}/>
         <Scene key="account" component = {Account}/>
+        <Scene key="advert" component = {Advert}/>
       </Scene>
     </Router>;
   }

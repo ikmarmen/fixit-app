@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Container, Content, Form, Item, Input, Label, Button, Text, Header, Body, Left, Right, Title, Toast, Icon } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { AuthStore } from './authStore';
+import { AuthStore } from '../auth/authStore';
 
 @observer
 export default class Login extends Component {
