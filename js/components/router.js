@@ -22,7 +22,7 @@ export default class AppRouter extends React.Component {
         <Scene key="auth" component={Auth} />
         <Scene key="loading" component={Loading}/>
         <Scene key="account" component = {Account}/>
-        <Scene key="advert" component = {Advert}/>
+        <Scene key="advert" component = {Advert} direction='vertical'/>
       </Scene>
     </Router>;
   }
