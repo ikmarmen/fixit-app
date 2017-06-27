@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "react-devtools": "npm run react-devtools"
+    "devtools": "react-devtools"
   },
   "dependencies": {
     "color": "^1.0.3",
@@ -20,6 +20,7 @@
     "react-native-fetch-blob": "^0.10.5",
     "react-native-mobx": "^0.3.1",
     "react-native-router-flux": "^3.40.1",
+    "react-native-swiper": "^1.5.4",
     "react-native-vector-icons": "^4.2.0"
   },
   "jest": {

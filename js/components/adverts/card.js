@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Card, CardItem, Thumbnail, Body, Text, Left, Right, Icon, Item, Button, DeckSwiper, ListItem, List, Content, View } from 'native-base';
+import { observer } from 'mobx-react';
+import { Card, CardItem, Thumbnail, Body, Text, Left, Right, Icon, Item, Button, DeckSwiper, ListItem, List, Content, View, Spinner } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { timeSince } from '../../utils/dateHelper';
-import CardImage from './card-image';
 
+@observer
 export default class FixItCard extends Component {
   constructor(props) {
     super(props);
@@ -12,8 +13,17 @@ export default class FixItCard extends Component {
   }
 
   _onClicked = () => {
-    let store = this.store ;
+    let store = this.store;
     Actions.advert({ type: ActionConst.PUSH, store: store });
+  }
+
+  _renderImage = () => {
+    let photo = this.store.mainPhoto;
+    if (photo) {
+      return <Image source={{ uri: photo }} style={{ height: 200, width: null, flex: 1 }} />;
+    } else {
+      return <Spinner style={{ height: 200, width: null, flex: 1 }} />;
+    }
   }
 
   render() {
@@ -23,7 +33,7 @@ export default class FixItCard extends Component {
           <Body>
             <Text>{this.store.advert.title}</Text>
           </Body>
-          <CardImage imgId={this.store.advert.photos[0]._id} />
+          {this._renderImage()}
           <Body>
             <Left>
               <Button transparent>
