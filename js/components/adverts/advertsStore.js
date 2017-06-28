@@ -9,10 +9,12 @@ class AdvertStore {
   @observable error = null;
   @observable mainPhoto = null;
   @observable photos = [];
+  @observable comments = [];
 
   constructor(advert) {
     this.advert = advert;
     this.loadMainPhoto();
+    this.loadComments();
   }
 
   @action
@@ -20,6 +22,18 @@ class AdvertStore {
     FetchBlob(`posts/photo/${this.advert.photos[0]._id}`, { method: 'GET' })
       .then(response => {
         this.mainPhoto = `data:image/jpeg;base64,${response.data}`;
+      })
+      .catch(error => {
+        console.warn(error.message);
+        this.error = error.message;
+      });
+  }
+
+  @action
+  loadComments() {
+    Fetch(`posts/${this.advert._id}/comments`, { method: 'GET' })
+      .then(response => {
+        this.comments = response;
       })
       .catch(error => {
         console.warn(error.message);
@@ -44,7 +58,7 @@ class AdvertsListStore {
         this.getAdverts({ coords: this.position.coords });
       },
       (error) => alert(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+      { enableHighAccuracy: true, timeout: 60000, maximumAge: 100000 }
     );
   }
 

@@ -17,16 +17,16 @@ class MainStore {
       isAvtive: true
     });
     this.tabs.push({
-      text: 'My Adverts',
+      text: 'My Adv',
       icon: 'keypad',
-      badgeCount: 0,
+      badgeCount: 3,
       component: <MyAdverts/>,
       isAvtive: false
     });
     this.tabs.push({
       text: 'My Bids',
       icon: 'stats',
-      badgeCount: 0,
+      badgeCount: 2,
       component: <MyBids/>,
       isAvtive: false
     });

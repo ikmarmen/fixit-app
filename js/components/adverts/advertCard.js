@@ -38,16 +38,16 @@ export default class FixItCard extends Component {
             <Left>
               <Button transparent>
                 <Icon active name="cash" />
-                <Text>{this.store.advert.bids.length.toString() + ' bids'}</Text>
+                <Text>{`${this.store.advert.bids.length} bids`}</Text>
               </Button>
               <Button transparent>
                 <Icon active name="chatbubbles" />
-                <Text>4 comments</Text>
+                <Text>{`${this.store.comments.length} comments`}</Text>
               </Button>
             </Left>
             <Right>
-              <Text>{this.store.advert.distance + ' km'}</Text>
-              <Text>{timeSince(this.store.advert.createdAt) + ' ago'}</Text>
+              <Text>{`${this.store.advert.distance} km`}</Text>
+              <Text>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
             </Right>
           </Body>
         </Content>
