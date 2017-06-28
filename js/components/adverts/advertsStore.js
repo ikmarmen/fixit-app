@@ -2,6 +2,7 @@ import { observable, computed, action } from 'mobx';
 import Fetch from '../../utils/fetch-json';
 import FetchBlob from '../../utils/fetch-blob';
 import { Actions, ActionConst } from 'react-native-router-flux';
+import qs from 'qs';
 
 class AdvertStore {
   @observable advert = null;
@@ -29,14 +30,39 @@ class AdvertStore {
 
 class AdvertsListStore {
   @observable adverts = [];
+  position = null;
 
   constructor() {
-    this.getAdverts();
+    this.getPosition();
   }
 
   @action
-  async getAdverts() {
-    Fetch('posts/all', { method: 'POST', body: {} })
+  async getPosition() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.position = position;
+        this.getAdverts({ coords: this.position.coords });
+      },
+      (error) => alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+  }
+
+  @action
+  async getAdverts(options) {
+    let request = {
+      maxDistance: 100
+    };
+    if (options.coords) {
+      request.longitude = options.coords.longitude;
+      request.latitude = options.coords.latitude;
+    } 
+    if (options.zip) {
+      request.zip= options.zip;
+    }
+
+    request = qs.stringify(request);
+    Fetch('posts/all', { method: 'POST', body: request })
       .then(data => {
         data.map((item) => {
           this.adverts.push(new AdvertStore(item))

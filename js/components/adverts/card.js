@@ -46,7 +46,7 @@ export default class FixItCard extends Component {
               </Button>
             </Left>
             <Right>
-              <Text>{this.store.advert.distance + ' miles'}</Text>
+              <Text>{this.store.advert.distance + ' km'}</Text>
               <Text>{timeSince(this.store.advert.createdAt) + ' ago'}</Text>
             </Right>
           </Body>
