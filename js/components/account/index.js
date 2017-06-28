@@ -27,17 +27,6 @@ export default class Login extends Component {
     return (
       this.store.user 
       ? <Container>
-      <Header hasTabs>
-        <Left>
-          <Button transparent>
-            <Icon name='close' onPress={() => Actions.pop()} />
-          </Button>
-        </Left>
-        <Body>
-          <Title>Account</Title>
-        </Body>
-        <Right />
-      </Header>
       <Content>
         <Form>
           <Item floatingLabel>

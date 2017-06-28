@@ -32,10 +32,12 @@ class AuthenticationStore {
     Fetch('startup', { method: 'GET' })
       .then(data => {
         this.user = data.user;
+        Actions.main({type: ActionConst.REPLACE});
       })
       .catch(error => {
         this.user = null
         AsyncStorage.removeItem('TOKEN');
+        Actions.auth({type:ActionConst.REPLACE});
       });
   }
 
@@ -63,6 +65,7 @@ class AuthenticationStore {
           .then(data => {
             this.user = null
             AsyncStorage.removeItem('TOKEN');
+            Actions.auth({type:ActionConst.REPLACE});
           })
           .catch(error => {
             that.error = error.message;
@@ -150,7 +153,6 @@ export class LoginStore {
             .then(() => {
               that.error = null;
               AuthStore.fetchUserInfo();
-              Actions.pop();
             })
             .catch((error) => {
               throw error;

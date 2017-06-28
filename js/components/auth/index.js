@@ -17,17 +17,6 @@ export default class Auth extends Component {
   render() {
     return (
       <Container>
-        <Header hasTabs>
-          <Left>
-            <Button transparent>
-              <Icon name='close' onPress={()=>Actions.pop()}/>
-            </Button>
-          </Left>
-          <Body>
-            <Title>Login</Title>
-          </Body>
-          <Right />
-        </Header>
         <Tabs>
           <Tab heading={<TabHeading><Text>Log In</Text></TabHeading>}>
             <Login />

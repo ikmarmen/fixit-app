@@ -8,7 +8,7 @@ function parseJson(response) {
 }
 function checkStatus(data) {
   if(data.error && data.error.status === 401){
-    //Actions.login({type:ActionConst.REPLACE});
+    Actions.auth({type:ActionConst.REPLACE});
     throw data.error;
   }else if(data.error){
      throw data;
