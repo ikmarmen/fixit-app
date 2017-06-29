@@ -9,6 +9,7 @@ import Main from './main/';
 import Auth from './auth/';
 import Account from './account/';
 import Advert from './adverts/advert';
+import AdvertAdd from './adverts/advertAdd';
 
 @observer
 export default class AppRouter extends React.Component {
@@ -27,6 +28,7 @@ export default class AppRouter extends React.Component {
         <Scene key="main" component={Main}/>
         <Scene key="auth" component={Auth} />
         <Scene key="advert" component = {Advert} direction='vertical'/>
+        <Scene key="advertAdd" component = {AdvertAdd} direction='vertical'/>
       </Scene>
     </Router>;
   }

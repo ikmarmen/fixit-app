@@ -27,8 +27,7 @@ export default class FixItCard extends Component {
   }
 
   render() {
-    return <List>
-      <ListItem button={true} onPress={this._onClicked} >
+    return <ListItem button={true} onPress={this._onClicked} >
         <Content style={{ padding:4, shadowColor: "#000", elevation: 4, backgroundColor: '#FFFFFF'}}>
           {this._renderImage()}
           <View style={{marginLeft:4, marginRight:4}}>
@@ -49,7 +48,6 @@ export default class FixItCard extends Component {
             </View>
           </View>
         </Content>
-      </ListItem>
-    </List>;
+      </ListItem>;
   }
 }

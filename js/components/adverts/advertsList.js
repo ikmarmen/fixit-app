@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Content, Spinner } from 'native-base';
+import { Content, Spinner, List, Fab, View, Icon, Button } from 'native-base';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import AdvertsListStore from './advertsStore';
@@ -12,12 +12,19 @@ export default class AdvertsList extends Component {
     this.store = AdvertsListStore;
   }
   render() {
-    return <Content>
-      {this.store.adverts.length > 0
-        ? this.store.adverts.map((item, index) => {
-          return <AdvertCard key={index} advert={item} />;
-        })
-        : <Spinner />}
-    </Content>;
+    return <View style={{ flex: 1 }}>
+      <Content>
+        <List>
+          {this.store.adverts.length > 0
+            ? this.store.adverts.map((item, index) => {
+              return <AdvertCard key={index} advert={item} />;
+            })
+            : <Spinner />}
+        </List>
+      </Content>  
+        <Fab position="bottomLeft" active={false} style={{backgroundColor:'#38947a'}} onPress={()=>Actions.advertAdd({type:ActionConst.PUSH})}>
+          <Icon name="add" />
+        </Fab>
+      </View>;
   }
 }

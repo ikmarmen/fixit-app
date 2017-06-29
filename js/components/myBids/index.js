@@ -10,7 +10,7 @@ export default class MyAdvertsExplore extends Component {
   render() {
     return <Container>
       <Content>
-        <Text>My Bids</Text>
+        <Text>Notifications</Text>
       </Content>
     </Container>;
   }
