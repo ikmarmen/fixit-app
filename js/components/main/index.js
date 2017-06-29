@@ -15,8 +15,8 @@ export default class Home extends Component {
     return (
       <Button key={index} badge={tab.badgeCount > 0} vertical active={tab.isAvtive} onPress={() => this.store.selectTab(index)}>
         {tab.badgeCount > 0 ? <Badge><Text>{tab.badgeCount}</Text></Badge> : null}
-        <Icon name={tab.icon} />
-        <Text>{tab.text}</Text>
+        {tab.icon ? <Icon name={tab.icon} /> : null}
+        {tab.text ? <Text>{tab.text}</Text> : null}
       </Button>
     );
   }

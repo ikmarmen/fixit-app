@@ -10,30 +10,23 @@ class MainStore {
 
   constructor() {
     this.tabs.push({
-      text: 'Explore',
       icon: 'search',
-      badgeCount: 0,
       component: <Adverts/>,
       isAvtive: true
     });
     this.tabs.push({
-      text: 'My Adv',
       icon: 'keypad',
-      badgeCount: 3,
       component: <MyAdverts/>,
       isAvtive: false
     });
     this.tabs.push({
-      text: 'My Bids',
-      icon: 'stats',
+      icon: 'notifications',
       badgeCount: 2,
       component: <MyBids/>,
       isAvtive: false
     });
     this.tabs.push({
-      text: 'Profile',
       icon: 'person',
-      badgeCount: 0,
       component: <Account/>,
       isAvtive: false
     });

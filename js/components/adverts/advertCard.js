@@ -28,28 +28,26 @@ export default class FixItCard extends Component {
 
   render() {
     return <List>
-      <ListItem button={true} onPress={this._onClicked}>
-        <Content>
-          <Body>
-            <Text>{this.store.advert.title}</Text>
-          </Body>
+      <ListItem button={true} onPress={this._onClicked} >
+        <Content style={{ padding:4, shadowColor: "#000", elevation: 4, backgroundColor: '#FFFFFF'}}>
           {this._renderImage()}
-          <Body>
-            <Left>
-              <Button transparent>
+          <View style={{marginLeft:4, marginRight:4}}>
+            <Text style={{ textAlign: 'left' }}>{this.store.advert.title}</Text>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text>{`${this.store.advert.distance} km`}</Text>
+              <Text>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
+            </View>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Button transparent style={{ paddingBottom: 0, paddingTop: 0, paddingRight: 0, paddingLeft: 0, height: 25 }}>
                 <Icon active name="cash" />
                 <Text>{`${this.store.advert.bids.length} bids`}</Text>
               </Button>
-              <Button transparent>
+              <Button transparent style={{ paddingBottom: 0, paddingTop: 0, paddingRight: 0, paddingLeft: 0, height: 25 }}>
                 <Icon active name="chatbubbles" />
                 <Text>{`${this.store.comments.length} comments`}</Text>
               </Button>
-            </Left>
-            <Right>
-              <Text>{`${this.store.advert.distance} km`}</Text>
-              <Text>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
-            </Right>
-          </Body>
+            </View>
+          </View>
         </Content>
       </ListItem>
     </List>;
