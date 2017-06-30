@@ -17,16 +17,17 @@ class AuthenticationStore {
     autorun(() => this.showErrors());
 
     AsyncStorage.getItem('TOKEN', (err, result) => {
-      this.canStart = true
       if (result) {
         this.token = result;
         this.fetchUserInfo();
+      } else {
+        this.canStart = true
       }
     });
   }
 
-  showErrors(){
-    if(this.error!=null){
+  showErrors() {
+    if (this.error != null) {
       alert(this.error);
       this.error = null;
     }
@@ -37,6 +38,7 @@ class AuthenticationStore {
       if (this.user) {
         Actions.main({ type: ActionConst.REPLACE });
       } else {
+        debugger;
         Actions.auth({ type: ActionConst.REPLACE });
       }
     }
@@ -67,9 +69,11 @@ class AuthenticationStore {
     Fetch('startup', { method: 'GET' })
       .then(data => {
         this.user = data.user;
+        this.canStart = true
       })
       .catch(error => {
         this.user = null;
+        this.canStart = true
         this.error = error.message;
       });
   }
