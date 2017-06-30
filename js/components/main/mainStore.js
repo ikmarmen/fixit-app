@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observable, computed, action, autorun } from 'mobx';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import Adverts from '../adverts/'
 import MyAdverts from '../myAdverts/'
 import Notifications from '../notifications/'
@@ -7,8 +8,10 @@ import Account from '../account/'
 
 class MainStore {
   @observable tabs = [];
+  @observable activeTab = null;
   @observable type = null;
   @observable error = null;
+  @observable isFabActive = false;
 
   types = {
     camera: 'camera',
@@ -19,30 +22,26 @@ class MainStore {
     autorun(() => this.pushView(this.type));
     autorun(() => this.showErrors());
 
-    this.tabs.push({
+    this.activeTab = {
       icon: 'search',
-      component: <Adverts />,
-      isAvtive: true
-    });
+      component: <Adverts />
+    };
+    this.tabs.push(this.activeTab);
     this.tabs.push({
       icon: 'keypad',
-      component: <MyAdverts />,
-      isAvtive: false
+      component: <MyAdverts />
     });
     this.tabs.push({
       icon: 'notifications',
       badgeCount: 2,
-      component: <Notifications />,
-      isAvtive: false
+      component: <Notifications />
     });
     this.tabs.push({
       icon: 'person',
-      component: <Account />,
-      isAvtive: false
+      component: <Account />
     });
-
   }
-  
+
   showErrors() {
     if (this.error != null) {
       alert(this.error);
@@ -51,18 +50,20 @@ class MainStore {
   }
 
   @action
-  selectTab = (index) => {
-    this.tabs.forEach((tab) => {
-      tab.isAvtive = false;
-    })
-    this.tabs[index].isAvtive = true;
+  selectTab = (tab) => {
+    this.activeTab = tab;
+  }
+
+  @action
+  toggleFab = () => {
+    this.isFabActive = !this.isFabActive;
   }
 
   pushView(type) {
     switch (type) {
       case this.types.camera:
         {
-
+          Actions.camera({ type: ActionConst.PUSH });
         }
         break;
       case this.types.galery:
@@ -78,10 +79,12 @@ class MainStore {
   }
 
   @action
-  openCamera() {
+  openCamera=()=> {
+    this.pushView(this.types.camera);
   }
   @action
-  openGalery() {
+  openGalery=()=> {
+    this.pushView(this.types.galery);
   }
 }
 const Store = new MainStore();

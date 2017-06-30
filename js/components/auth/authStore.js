@@ -69,7 +69,8 @@ class AuthenticationStore {
         this.user = data.user;
       })
       .catch(error => {
-        this.user = null
+        this.user = null;
+        this.error = error.message;
       });
   }
 

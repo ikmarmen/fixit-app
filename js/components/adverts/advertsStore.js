@@ -33,7 +33,6 @@ class AdvertStore {
         this.mainPhoto = `data:image/jpeg;base64,${response.data}`;
       })
       .catch(error => {
-        console.warn(error.message);
         this.error = error.message;
       });
   }
@@ -45,7 +44,6 @@ class AdvertStore {
         this.comments = response;
       })
       .catch(error => {
-        console.warn(error.message);
         this.error = error.message;
       });
   }

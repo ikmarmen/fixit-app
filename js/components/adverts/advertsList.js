@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Content, Spinner, List, Fab, View, Icon, Button } from 'native-base';
+import { Content, Spinner, List, View } from 'native-base';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import AdvertsListStore from './advertsStore';
