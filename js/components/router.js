@@ -18,19 +18,19 @@ export default class AppRouter extends React.Component {
     super(props);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this.store = AuthStore;
   }
 
   render() {
     return <Router>
       <Scene key="root" hideNavBar={true}>
-        <Scene key="loading" component={Loading} initial={true}/>
-        <Scene key="main" component={Main}/>
+        <Scene key="loading" component={Loading} initial={true} />
         <Scene key="auth" component={Auth} />
-        <Scene key="advert" component = {Advert} direction='vertical'/>
-        <Scene key="advertAdd" component = {AdvertAdd} direction='vertical'/>
-        <Scene key="camera" component = {CameraView} direction='vertical'/>
+        <Scene key="main" component={Main} />
+        <Scene key="advert" component={Advert} direction='vertical' />
+        <Scene key="advertAdd" component={AdvertAdd} direction='vertical' />
+        <Scene key="camera" component={CameraView} direction='vertical' />
       </Scene>
     </Router>;
   }

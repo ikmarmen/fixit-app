@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, autorun } from 'mobx';
 import Adverts from '../adverts/'
 import MyAdverts from '../myAdverts/'
 import Notifications from '../notifications/'
@@ -7,35 +7,47 @@ import Account from '../account/'
 
 class MainStore {
   @observable tabs = [];
+  @observable type = null;
+  @observable error = null;
+
+  types = {
+    camera: 'camera',
+    galery: 'galery'
+  }
 
   constructor() {
+    autorun(() => this.pushView(this.type));
+    autorun(() => this.showErrors());
+
     this.tabs.push({
       icon: 'search',
-      component: <Adverts/>,
+      component: <Adverts />,
       isAvtive: true
     });
     this.tabs.push({
       icon: 'keypad',
-      component: <MyAdverts/>,
+      component: <MyAdverts />,
       isAvtive: false
     });
     this.tabs.push({
       icon: 'notifications',
       badgeCount: 2,
-      component: <Notifications/>,
+      component: <Notifications />,
       isAvtive: false
     });
     this.tabs.push({
       icon: 'person',
-      component: <Account/>,
+      component: <Account />,
       isAvtive: false
     });
 
   }
-
-  @computed
-  get isAuthenticated() {
-    return (this.user != null);
+  
+  showErrors() {
+    if (this.error != null) {
+      alert(this.error);
+      this.error = null;
+    }
   }
 
   @action
@@ -44,6 +56,32 @@ class MainStore {
       tab.isAvtive = false;
     })
     this.tabs[index].isAvtive = true;
+  }
+
+  pushView(type) {
+    switch (type) {
+      case this.types.camera:
+        {
+
+        }
+        break;
+      case this.types.galery:
+        {
+
+        }
+        break;
+      default:
+        {
+          return
+        }
+    }
+  }
+
+  @action
+  openCamera() {
+  }
+  @action
+  openGalery() {
   }
 }
 const Store = new MainStore();

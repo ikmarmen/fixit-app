@@ -32,18 +32,7 @@ export default class Advert extends Component {
     super(props);
     this.store = this.props.store;
   }
-
-  _checkErrors = () => {
-    return this.store.error
-      ? Toast.show({
-        supportedOrientations: ['portrait', 'landscape'],
-        text: this.store.error,
-        position: 'center',
-        duration: 3000,
-        buttonText: 'Ok'
-      })
-      : null;
-  }
+  
   _renderImages = (id) => {
     return (
       <Image key={id} resizeMode='stretch' style={styles.image} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
@@ -68,7 +57,6 @@ export default class Advert extends Component {
         </Body>
         <View style={styles.rowViewContainer} />
         <Comments store={this.store} />
-        {this._checkErrors()}
       </Content>
       <Button transparent style={{ position: 'absolute' }}>
         <Icon name='close' onPress={() => Actions.pop()} />

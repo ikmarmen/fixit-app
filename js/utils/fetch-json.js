@@ -2,13 +2,15 @@ import Config from '../../config.js';
 import { Platform, AsyncStorage } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { Actions, ActionConst } from 'react-native-router-flux';
+import {AuthStore} from '../components/auth/authStore'
+
 
 function parseJson(response) {
   return response.json();
 }
 function checkStatus(data) {
   if(data.error && data.error.status === 401){
-    Actions.auth({type:ActionConst.REPLACE});
+    //Ugly Hack
     throw data.error;
   }else if(data.error){
      throw data;
@@ -18,15 +20,13 @@ function checkStatus(data) {
 }
 
 export default async function enhancedFetch(url, options) {
-  let token = await AsyncStorage.getItem('TOKEN');
-
   options.headers = Object.assign({
     'Accept': 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
     'platform': Platform.OS,
     'app-version': Config.APP_VERSION,
     'device-id': DeviceInfo.getUniqueID(),
-    'token': token
+    'token': AuthStore.token
   },
     options.headers);
 

@@ -24,11 +24,9 @@ export default class Example extends React.Component {
     if (this.camera) {
       this.camera.capture()
         .then((data) => {
-          debugger;
           console.log(data)
         })
         .catch(err => {
-          debugger;
           console.error(err)
         });
     }

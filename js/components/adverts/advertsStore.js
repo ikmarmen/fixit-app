@@ -1,4 +1,4 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, autorun } from 'mobx';
 import Fetch from '../../utils/fetch-json';
 import FetchBlob from '../../utils/fetch-blob';
 import { Actions, ActionConst } from 'react-native-router-flux';
@@ -12,9 +12,18 @@ class AdvertStore {
   @observable comments = [];
 
   constructor(advert) {
+    autorun(() => this.showErrors());
+
     this.advert = advert;
     this.loadMainPhoto();
     this.loadComments();
+  }
+
+  showErrors() {
+    if (this.error != null) {
+      alert(this.error);
+      this.error = null;
+    }
   }
 
   @action
@@ -44,10 +53,20 @@ class AdvertStore {
 
 class AdvertsListStore {
   @observable adverts = [];
+  @observable error = null;
   position = null;
 
   constructor() {
+    autorun(() => this.showErrors());
+
     this.getPosition();
+  }
+
+  showErrors() {
+    if (this.error != null) {
+      alert(this.error);
+      this.error = null;
+    }
   }
 
   @action
@@ -57,7 +76,9 @@ class AdvertsListStore {
         this.position = position;
         this.getAdverts({ coords: this.position.coords });
       },
-      (error) => alert(error.message),
+      (error) => {
+         this.error = error.message;
+      },
       { enableHighAccuracy: true, timeout: 60000, maximumAge: 100000 }
     );
   }
@@ -70,9 +91,9 @@ class AdvertsListStore {
     if (options.coords) {
       request.longitude = options.coords.longitude;
       request.latitude = options.coords.latitude;
-    } 
+    }
     if (options.zip) {
-      request.zip= options.zip;
+      request.zip = options.zip;
     }
 
     request = qs.stringify(request);
@@ -83,7 +104,7 @@ class AdvertsListStore {
         })
       })
       .catch(error => {
-
+        this.error = error.message;
       });
   }
 }

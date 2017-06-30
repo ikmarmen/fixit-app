@@ -6,15 +6,50 @@ import qs from 'qs';
 
 class AuthenticationStore {
   @observable user = null;
+  @observable token = null;
   @observable error = null;
+  @observable canStart = false;
+
 
   constructor() {
-    this.fetchUserInfo();
+    autorun(() => this.redirectloginOrHome());
+    autorun(() => this.manageToken());
+    autorun(() => this.showErrors());
+
+    AsyncStorage.getItem('TOKEN', (err, result) => {
+      this.canStart = true
+      if (result) {
+        this.token = result;
+        this.fetchUserInfo();
+      }
+    });
   }
 
-  @computed
-  get isAuthenticated() {
-    return (this.user != null);
+  showErrors(){
+    if(this.error!=null){
+      alert(this.error);
+      this.error = null;
+    }
+  }
+
+  redirectloginOrHome() {
+    if (this.canStart) {
+      if (this.user) {
+        Actions.main({ type: ActionConst.REPLACE });
+      } else {
+        Actions.auth({ type: ActionConst.REPLACE });
+      }
+    }
+  }
+
+  manageToken() {
+    if (this.canStart) {
+      if (this.token) {
+        AsyncStorage.setItem('TOKEN', this.token)
+      } else {
+        AsyncStorage.removeItem('TOKEN');
+      }
+    }
   }
 
   @computed
@@ -32,12 +67,9 @@ class AuthenticationStore {
     Fetch('startup', { method: 'GET' })
       .then(data => {
         this.user = data.user;
-        Actions.main({type: ActionConst.REPLACE});
       })
       .catch(error => {
         this.user = null
-        AsyncStorage.removeItem('TOKEN');
-        Actions.auth({type:ActionConst.REPLACE});
       });
   }
 
@@ -56,24 +88,40 @@ class AuthenticationStore {
   }
 
   @action
+  login = (request) => {
+    let that = this;
+    request = qs.stringify(request);
+
+    Fetch('user/login', { method: 'POST', body: request })
+      .then(data => {
+        if (data.token) {
+          this.token = data.token;
+          this.fetchUserInfo();
+        } else {
+          that.error = 'Wrong Username or Password';
+        }
+      })
+      .catch(error => {
+        that.error = 'Server connection error';
+      });
+  }
+
+  @action
   logauth = () => {
     let that = this;
-    AsyncStorage.getItem('TOKEN', (err, result) => {
-      if (result) {
-        let request = qs.stringify({ token: result });
-        Fetch('user/logauth', { method: 'POST', body: request })
-          .then(data => {
-            this.user = null
-            AsyncStorage.removeItem('TOKEN');
-            Actions.auth({type:ActionConst.REPLACE});
-          })
-          .catch(error => {
-            that.error = error.message;
-          });
-      }else{
-        this.user = null;
-      }
-    })
+    if (this.token) {
+      let request = qs.stringify({ token: this.token });
+      Fetch('user/logauth', { method: 'POST', body: request })
+        .then(data => {
+          this.token = null;
+          this.user = null;
+        })
+        .catch(error => {
+          that.error = error.message;
+        });
+    } else {
+      this.user = null;
+    }
   }
 }
 export const AuthStore = new AuthenticationStore();
@@ -106,15 +154,7 @@ export class SignupStore {
     Fetch('user', { method: 'POST', body: request })
       .then(data => {
         if (data.tokens && data.tokens[0]) {
-          AsyncStorage.setItem('TOKEN', data.tokens[0])
-            .then(() => {
-              that.error = null;
-              AuthStore.fetchUserInfo();
-              Actions.pop();
-            })
-            .catch((error) => {
-              throw error;
-            });
+          AuthStore.token = data.tokens[0];
         }
       })
       .catch(error => {
@@ -139,30 +179,5 @@ export class LoginStore {
   @computed
   get isValid() {
     return !!(this.password && this.email);
-  }
-
-  @action
-  login = () => {
-    let that = this;
-    let request = qs.stringify({ email: that.email, password: that.password });
-
-    Fetch('user/login', { method: 'POST', body: request })
-      .then(data => {
-        if (data.token) {
-          AsyncStorage.setItem('TOKEN', data.token)
-            .then(() => {
-              that.error = null;
-              AuthStore.fetchUserInfo();
-            })
-            .catch((error) => {
-              throw error;
-            });
-        } else {
-          that.error = 'Wrong Username or Password';
-        }
-      })
-      .catch(error => {
-        that.error = 'Server connection error';
-      });
   }
 }

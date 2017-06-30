@@ -26,18 +26,6 @@ export default class AdvertsList extends Component {
             : <Spinner />}
         </List>
       </Content>
-      <Fab position="bottomLeft" style={{ backgroundColor: '#38947a' }}
-        active={this.state.isFabVisible}
-        onPress={() => this.setState({ isFabVisible: !this.state.isFabVisible })}>
-        <Icon name="add" />
-        <Button style={{ backgroundColor: '#38947a' }}
-          onPress={() => Actions.camera({ type: ActionConst.PUSH })}>
-          <Icon name="camera" />
-        </Button>
-        <Button style={{ backgroundColor: '#38947a' }}>
-          <Icon name="photos" />
-        </Button>
-      </Fab>
     </View>;
   }
 }

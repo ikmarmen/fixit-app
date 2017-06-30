@@ -11,18 +11,6 @@ export default class Login extends Component {
     this.store = AuthStore;
   }
 
-  _checkErrors = () => {
-    return this.store.error
-      ? Toast.show({
-        supportedOrientations: ['portrait', 'landscape'],
-        text: this.store.error,
-        position: 'center',
-        duration: 3000,
-        buttonText: 'Ok'
-      })
-      : null;
-  }
-
   render() {
     return (
       this.store.user 
@@ -51,7 +39,6 @@ export default class Login extends Component {
             <Text>Log Auth</Text>
           </Button>
         </Form>
-        {this._checkErrors()}
       </Content>
     </Container>
     : null );

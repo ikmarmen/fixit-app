@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Content, Button, Icon, Left, Header, Input, Item, Footer, FooterTab, Badge, Text, View } from 'native-base';
+import { Container, Content, Button, Icon, Footer, FooterTab, Fab, View, Badge, Text  } from 'native-base';
 import { observer } from 'mobx-react';
+import NewAdvertStore from '../newAdvert/newAdvertStore'
 import MainStore from './mainStore';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
@@ -31,7 +32,7 @@ export default class Home extends Component {
 
   render() {
     return <Container>
-      {this._renderContent()}
+        {this._renderContent()}
       <Footer>
         <FooterTab>
           {this.store.tabs.map((tab, index) => this._renderTabs(tab, index))}
