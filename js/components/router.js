@@ -10,6 +10,7 @@ import Auth from './auth/';
 import Account from './account/';
 import Advert from './adverts/advert';
 import AdvertAdd from './adverts/advertAdd';
+import CameraView from './camera/';
 
 @observer
 export default class AppRouter extends React.Component {
@@ -29,6 +30,7 @@ export default class AppRouter extends React.Component {
         <Scene key="auth" component={Auth} />
         <Scene key="advert" component = {Advert} direction='vertical'/>
         <Scene key="advertAdd" component = {AdvertAdd} direction='vertical'/>
+        <Scene key="camera" component = {CameraView} direction='vertical'/>
       </Scene>
     </Router>;
   }

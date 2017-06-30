@@ -10,7 +10,11 @@ export default class AdvertsList extends Component {
   constructor(props) {
     super(props);
     this.store = AdvertsListStore;
+    this.state = {
+      isFabVisible: false
+    }
   }
+
   render() {
     return <View style={{ flex: 1 }}>
       <Content>
@@ -21,10 +25,19 @@ export default class AdvertsList extends Component {
             })
             : <Spinner />}
         </List>
-      </Content>  
-        <Fab position="bottomLeft" active={false} style={{backgroundColor:'#38947a'}} onPress={()=>Actions.advertAdd({type:ActionConst.PUSH})}>
-          <Icon name="add" />
-        </Fab>
-      </View>;
+      </Content>
+      <Fab position="bottomLeft" style={{ backgroundColor: '#38947a' }}
+        active={this.state.isFabVisible}
+        onPress={() => this.setState({ isFabVisible: !this.state.isFabVisible })}>
+        <Icon name="add" />
+        <Button style={{ backgroundColor: '#38947a' }}
+          onPress={() => Actions.camera({ type: ActionConst.PUSH })}>
+          <Icon name="camera" />
+        </Button>
+        <Button style={{ backgroundColor: '#38947a' }}>
+          <Icon name="photos" />
+        </Button>
+      </Fab>
+    </View>;
   }
 }
