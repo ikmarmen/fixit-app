@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observable, computed, action } from 'mobx';
 import Adverts from '../adverts/'
 import MyAdverts from '../myAdverts/'
-import MyBids from '../myBids/'
+import Notifications from '../notifications/'
 import Account from '../account/'
 
 class MainStore {
@@ -22,7 +22,7 @@ class MainStore {
     this.tabs.push({
       icon: 'notifications',
       badgeCount: 2,
-      component: <MyBids/>,
+      component: <Notifications/>,
       isAvtive: false
     });
     this.tabs.push({

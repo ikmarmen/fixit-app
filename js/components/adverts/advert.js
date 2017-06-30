@@ -60,19 +60,19 @@ export default class Advert extends Component {
               return this._renderImages(photo._id);
             })}
           </Swiper>
-          <Button transparent style={{ position: 'absolute' }}>
-            <Icon name='close' onPress={() => Actions.pop()} />
-          </Button>
         </View>
         <View style={styles.rowViewContainer} />
         <Body>
           <Text>{this.store.advert.title}</Text>
           <Text note style={{ textAlign: 'center' }}>{this.store.advert.description}</Text>
         </Body>
-        <View style={styles.rowViewContainer}/>
-        <Comments store={this.store}/>
+        <View style={styles.rowViewContainer} />
+        <Comments store={this.store} />
         {this._checkErrors()}
       </Content>
+      <Button transparent style={{ position: 'absolute' }}>
+        <Icon name='close' onPress={() => Actions.pop()} />
+      </Button>
     </Container>;
   }
 }
