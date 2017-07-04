@@ -4,39 +4,54 @@ import qs from 'qs';
 import Fetch from '../../utils/fetch-json';
 
 export default class NewAdvertStore {
-  @observable type = null;
-  types = {
-    camera: 'camera',
-    galery: 'galery'
+  @observable photo = null;
+  @observable error = null;
+  @observable title = null;
+  @observable description = null;
+  type = null;
+
+  constructor(type) {
+    this.type = type;
+    autorun(() => this.showErrors());
   }
 
-  constructor(advert) {
-    autorun(() => this.pushView(this.type));
-  }
-
-  pushView(type) {
-    switch (type) {
-      case this.types.camera:
-        {
-
-        }
-        break;
-        case this.types.galery:
-        {
-
-        }
-        break;
-        default:
-        {
-          return
-        }
+  showErrors() {
+    if (this.error != null) {
+      alert(this.error);
+      this.error = null;
     }
   }
 
   @action
-  openCamera() {
+  addCameraPhoto = (photo) => {
+    this.photo = photo;
+    Actions.newAdvert({ type: ActionConst.PUSH, store: this })
   }
+
   @action
-  openGalery() {
+  setProp = (value, name) => {
+    this[name] = value;
+  }
+
+  @action
+  postAdvert = () => {
+    let request = new FormData();
+    request.append('photos', {uri: this.photo.path, name:'photo',  type: 'image/jpeg'});
+    request.append('title', this.title);
+    request.append('description', this.description);
+
+
+    Fetch('posts/', { method: 'POST', body: request, headers:{'Content-Type': 'multipart/form-data'} })
+      .then(data => {
+        Actions.myAdvert({ type: ActionConst.RESET })
+      })
+      .catch(error => {
+        this.error = error.message;
+      });
+  }
+
+  @computed
+  get isValid() {
+    return !!this.title;
   }
 }

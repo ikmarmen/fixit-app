@@ -30,10 +30,9 @@ export default async function enhancedFetch(url, options) {
   },
     options.headers);
 
-  if (options.body && typeof options.body !== 'string') {
+  if (options.body && typeof options.body !== 'string' && !(options.body instanceof FormData)) {
     options.body = JSON.stringify(options.body);
   }
-
   return fetch(`${Config.BASE_URL}${url}`, options)
     .then(parseJson)
     .then(checkStatus);

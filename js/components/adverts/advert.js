@@ -58,8 +58,8 @@ export default class Advert extends Component {
         <View style={styles.rowViewContainer} />
         <Comments store={this.store} />
       </Content>
-      <Button transparent style={{ position: 'absolute' }}>
-        <Icon name='close' onPress={() => Actions.pop()} />
+      <Button transparent style={{ position: 'absolute' }} onPress={() => Actions.pop()}>
+        <Icon name='close' />
       </Button>
     </Container>;
   }

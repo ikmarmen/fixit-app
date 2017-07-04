@@ -1,13 +1,16 @@
 import React from 'react';
-import { Image, StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Icon } from 'native-base';
+import { StatusBar, StyleSheet, View } from 'react-native';
+import { Icon, Button } from 'native-base';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Camera from 'react-native-camera';
 
-export default class Example extends React.Component {
+export default class MyCamera extends React.Component {
   constructor(props) {
     super(props);
     this.camera = null;
+    this.store = props.store;
+
     this.state = {
       camera: {
         aspect: Camera.constants.Aspect.fill,
@@ -24,20 +27,11 @@ export default class Example extends React.Component {
     if (this.camera) {
       this.camera.capture()
         .then((data) => {
-          console.log(data)
+          this.store.addCameraPhoto(data);
         })
         .catch(err => {
-          console.error(err)
+          //console.error(err)
         });
-    }
-  }
-
-  stopRecording = () => {
-    if (this.camera) {
-      this.camera.stopCapture();
-      this.setState({
-        isRecording: false
-      });
     }
   }
 
@@ -61,9 +55,9 @@ export default class Example extends React.Component {
     let icon;
     const { back, front } = Camera.constants.Type;
     if (this.state.camera.type === back) {
-      icon = <MaterialIcon name="camera-rear" size={30} color="white"/>
+      icon = <MaterialIcon name="camera-rear" size={30} color="white" />
     } else if (this.state.camera.type === front) {
-       icon = <MaterialIcon name="camera-front" size={30} color="white"/>
+      icon = <MaterialIcon name="camera-front" size={30} color="white" />
     }
     return icon;
   }
@@ -71,7 +65,7 @@ export default class Example extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar animated hidden/>
+        <StatusBar animated hidden />
         <Camera
           ref={(cam) => {
             this.camera = cam;
@@ -87,17 +81,20 @@ export default class Example extends React.Component {
           mirrorImage={false}
         />
         <View style={[styles.overlay, styles.topOverlay]}>
-          <TouchableOpacity style={styles.typeButton} onPress={this.switchType}>
+          <Button transparent onPress={() => Actions.pop()}>
+            <Icon name='close' style={{ color: 'white' }}  />
+          </Button>
+          <Button transparent  onPress={this.switchType}>
             {this.typeIcon}
-          </TouchableOpacity>
+          </Button>
         </View>
         <View style={[styles.overlay, styles.bottomOverlay]}>
           {
             !this.state.isRecording
             &&
-            <TouchableOpacity style={styles.captureButton} onPress={this.takePicture}>
-              <Icon name="camera" />
-            </TouchableOpacity>
+            <Button transparent onPress={this.takePicture}>
+              <Icon name="camera" style={{ color: 'white'}}/>
+            </Button>
             ||
             null
           }
@@ -136,19 +133,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  captureButton: {
-    padding: 15,
-    backgroundColor: 'white',
-    borderRadius: 40,
-  },
-  typeButton: {
-    padding: 5,
-  },
-  flashButton: {
-    padding: 5,
-  },
-  buttonsSpace: {
-    width: 10,
   },
 });

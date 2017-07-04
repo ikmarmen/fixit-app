@@ -9,8 +9,9 @@ import Main from './main/';
 import Auth from './auth/';
 import Account from './account/';
 import Advert from './adverts/advert';
-import AdvertAdd from './adverts/advertAdd';
 import CameraView from './camera/';
+import NewAdvert from './newAdvert/newAdvert';
+import MyAdvert from './myAdverts/myAdvert';
 
 @observer
 export default class AppRouter extends React.Component {
@@ -24,13 +25,14 @@ export default class AppRouter extends React.Component {
 
   render() {
     return <Router>
-      <Scene key="root" hideNavBar={true}>
+      <Scene key="root" hideNavBar={true} duration={0}>
         <Scene key="loading" component={Loading} initial={true} />
         <Scene key="auth" component={Auth} />
-        <Scene key="main" component={Main} />
-        <Scene key="advert" component={Advert} direction='vertical' />
-        <Scene key="advertAdd" component={AdvertAdd} direction='vertical' />
+        <Scene key="main" component={Main}/>
+        <Scene key="advert" component={Advert} />
         <Scene key="camera" component={CameraView} direction='vertical' />
+        <Scene key="newAdvert" component={NewAdvert} direction='vertical' />
+        <Scene key="myAdvert" component={MyAdvert} direction='vertical'/>
       </Scene>
     </Router>;
   }

@@ -2,6 +2,7 @@ import Config from '../../config.js';
 import { Platform } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import RNFetchBlob from 'react-native-fetch-blob';
+import {AuthStore} from '../components/auth/authStore'
 
 function checkStatus(data) {
   if(data.error){
@@ -11,7 +12,7 @@ function checkStatus(data) {
   }
 }
 
-export default async function enhancedFetch(url, options) {
+export default async function enhancedFetch(url, options, data) {
 
   options.headers = Object.assign({
     'Accept': 'application/json',
@@ -19,6 +20,7 @@ export default async function enhancedFetch(url, options) {
     'platform': Platform.OS,
     'app-version': Config.APP_VERSION,
     'device-id': DeviceInfo.getUniqueID(),
+    'token': AuthStore.token
   },
     options.headers);
 
@@ -26,6 +28,6 @@ export default async function enhancedFetch(url, options) {
     options.body = JSON.stringify(options.body);
   }
 
-  return RNFetchBlob.fetch(options.method, `${Config.BASE_URL}${url}`, options.headers)
+  return RNFetchBlob.fetch(options.method, `${Config.BASE_URL}${url}`, options.headers, data)
     .then(checkStatus);
 }

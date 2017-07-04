@@ -5,6 +5,7 @@ import Adverts from '../adverts/'
 import MyAdverts from '../myAdverts/'
 import Notifications from '../notifications/'
 import Account from '../account/'
+import NewAdvertStore from '../newAdvert/newAdvertStore'
 
 class MainStore {
   @observable tabs = [];
@@ -60,10 +61,11 @@ class MainStore {
   }
 
   pushView(type) {
+    let newAdvertStore = new NewAdvertStore(type);
     switch (type) {
       case this.types.camera:
-        {
-          Actions.camera({ type: ActionConst.PUSH });
+        {         
+          Actions.camera({ type: ActionConst.PUSH, store: newAdvertStore });
         }
         break;
       case this.types.galery:
