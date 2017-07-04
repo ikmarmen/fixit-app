@@ -38,7 +38,6 @@ class AuthenticationStore {
       if (this.user) {
         Actions.main({ type: ActionConst.REPLACE });
       } else {
-        debugger;
         Actions.auth({ type: ActionConst.REPLACE });
       }
     }

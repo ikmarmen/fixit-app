@@ -4,14 +4,12 @@ import qs from 'qs';
 import Fetch from '../../utils/fetch-json';
 
 export default class NewAdvertStore {
-  @observable photo = null;
+  @observable photos = [];
   @observable error = null;
   @observable title = null;
   @observable description = null;
-  type = null;
 
   constructor(type) {
-    this.type = type;
     autorun(() => this.showErrors());
   }
 
@@ -23,8 +21,8 @@ export default class NewAdvertStore {
   }
 
   @action
-  addCameraPhoto = (photo) => {
-    this.photo = photo;
+  addPhotos = (photos) => {
+    this.photos= photos;
     Actions.newAdvert({ type: ActionConst.PUSH, store: this })
   }
 
@@ -36,12 +34,14 @@ export default class NewAdvertStore {
   @action
   postAdvert = () => {
     let request = new FormData();
-    request.append('photos', {uri: this.photo.path, name:'photo',  type: 'image/jpeg'});
+    debugger;
+    this.photos.forEach((item) => {
+      request.append('photos', { uri: item.path, name: 'photo', type: item.mime });
+    })
     request.append('title', this.title);
     request.append('description', this.description);
 
-
-    Fetch('posts/', { method: 'POST', body: request, headers:{'Content-Type': 'multipart/form-data'} })
+    Fetch('posts/', { method: 'POST', body: request, headers: { 'Content-Type': 'multipart/form-data' } })
       .then(data => {
         Actions.myAdvert({ type: ActionConst.RESET })
       })

@@ -60,17 +60,18 @@ class MainStore {
     this.isFabActive = !this.isFabActive;
   }
 
+  @action
   pushView(type) {
     let newAdvertStore = new NewAdvertStore(type);
     switch (type) {
       case this.types.camera:
-        {         
+        {
           Actions.camera({ type: ActionConst.PUSH, store: newAdvertStore });
         }
         break;
       case this.types.galery:
         {
-
+          //Actions.galery({ type: ActionConst.PUSH, store: newAdvertStore });
         }
         break;
       default:
@@ -78,15 +79,6 @@ class MainStore {
           return
         }
     }
-  }
-
-  @action
-  openCamera=()=> {
-    this.pushView(this.types.camera);
-  }
-  @action
-  openGalery=()=> {
-    this.pushView(this.types.galery);
   }
 }
 const Store = new MainStore();

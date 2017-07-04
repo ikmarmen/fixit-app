@@ -3,6 +3,7 @@ import { Container, Content, Button, Icon, Footer, FooterTab, Fab, View, Badge, 
 import { observer } from 'mobx-react';
 import NewAdvertStore from '../newAdvert/newAdvertStore'
 import MainStore from './mainStore';
+import ImagePicker from 'react-native-image-crop-picker';
 
 @observer
 export default class Home extends Component {
@@ -25,6 +26,44 @@ export default class Home extends Component {
     return this.store.activeTab.component;
   }
 
+  addAdvert = (photos) => {
+    let newAdvertStore = new NewAdvertStore();
+    newAdvertStore.addPhotos(photos);
+  }
+
+  onSelectPhoto = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+      multiple: true
+    })
+      .then(images => {
+        if (images.length > 0) {
+          this.addAdvert(images);
+        }
+      })
+      .catch(err => {
+        this.store.error = err.message
+      });
+  }
+
+  onCamera = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true
+    })
+      .then(images => {
+        if (images.length > 0) {
+          this.addAdvert(images);
+        }
+      })
+      .catch(err => {
+        this.store.error = err.message
+      });
+  }
+
   _renderAddBtn = () => {
     return (
       <Fab position="bottomLeft"
@@ -33,11 +72,11 @@ export default class Home extends Component {
         style={{ backgroundColor: '#38947a' }}>
         <Icon name="add" />
         <Button style={{ backgroundColor: '#38947a' }}
-          onPress={this.store.openCamera}>
+          onPress={this.onCamera}>
           <Icon name="camera" />
         </Button>
         <Button style={{ backgroundColor: '#38947a' }}
-          onPress={this.store.openGalery}>
+          onPress={this.onSelectPhoto}>
           <Icon name="photos" />
         </Button>
       </Fab>
