@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FixIt</string>
+    <string name="account_type">com.margasoft.account</string>
+    <string name="content_authority">com.margasoft.authority</string>
 </resources>

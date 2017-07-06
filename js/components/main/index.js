@@ -35,7 +35,6 @@ export default class Home extends Component {
     ImagePicker.openPicker({
       width: 300,
       height: 400,
-      cropping: true,
       multiple: true
     })
       .then(images => {
@@ -52,11 +51,10 @@ export default class Home extends Component {
     ImagePicker.openCamera({
       width: 300,
       height: 400,
-      cropping: true
     })
-      .then(images => {
-        if (images.length > 0) {
-          this.addAdvert(images);
+      .then(image => {
+        if (image) {
+          this.addAdvert([image]);
         }
       })
       .catch(err => {

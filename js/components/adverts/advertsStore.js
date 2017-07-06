@@ -56,8 +56,6 @@ class AdvertsListStore {
 
   constructor() {
     autorun(() => this.showErrors());
-
-    this.getPosition();
   }
 
   showErrors() {
@@ -68,21 +66,7 @@ class AdvertsListStore {
   }
 
   @action
-  async getPosition() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.position = position;
-        this.getAdverts({ coords: this.position.coords });
-      },
-      (error) => {
-         this.error = error.message;
-      },
-      { enableHighAccuracy: true, timeout: 60000, maximumAge: 100000 }
-    );
-  }
-
-  @action
-  async getAdverts(options) {
+  getAdverts(options) {
     let request = {
       maxDistance: 100
     };
@@ -97,6 +81,7 @@ class AdvertsListStore {
     request = qs.stringify(request);
     Fetch('posts/all', { method: 'POST', body: request })
       .then(data => {
+
         data.map((item) => {
           this.adverts.push(new AdvertStore(item))
         })
@@ -104,6 +89,10 @@ class AdvertsListStore {
       .catch(error => {
         this.error = error.message;
       });
+  }
+  @action
+  cleanAdverts() {
+    this.adverts = [];
   }
 }
 

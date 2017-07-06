@@ -3,6 +3,7 @@ import { AsyncStorage } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Fetch from '../../utils/fetch-json';
 import qs from 'qs';
+import LocationStore from '../../stores/locationStore';
 
 class AuthenticationStore {
   @observable user = null;
@@ -35,9 +36,9 @@ class AuthenticationStore {
 
   redirectloginOrHome() {
     if (this.canStart) {
-      if (this.user) {
-        Actions.main({ type: ActionConst.REPLACE });
-      } else {
+      if (this.user && LocationStore.location) {
+          Actions.main({ type: ActionConst.REPLACE });
+      } else if(!this.user) {
         Actions.auth({ type: ActionConst.REPLACE });
       }
     }

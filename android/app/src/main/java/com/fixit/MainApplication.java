@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
+import com.marianhello.react.BackgroundGeolocationPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -32,7 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RCTCameraPackage(),
             new RNFetchBlobPackage(),
             new VectorIconsPackage(),
-          new RNDeviceInfo()
+            new BackgroundGeolocationPackage(),
+            new RNDeviceInfo()
       );
     }
   };

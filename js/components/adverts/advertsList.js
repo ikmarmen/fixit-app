@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import AdvertsListStore from './advertsStore';
 import AdvertCard from './advertCard'
+import LocationStore from '../../stores/locationStore';
 
 @observer
 export default class AdvertsList extends Component {
@@ -13,6 +14,16 @@ export default class AdvertsList extends Component {
     this.state = {
       isFabVisible: false
     }
+  }
+
+  componentWillMount() {
+    let coords = { longitude: LocationStore.location.longitude, latitude: LocationStore.location.latitude };
+    AdvertsListStore.getAdverts({ coords: coords });
+  }
+
+  componentWillUnmount(){
+    debugger;
+    AdvertsListStore.cleanAdverts();
   }
 
   render() {
