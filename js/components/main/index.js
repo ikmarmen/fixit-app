@@ -35,7 +35,9 @@ export default class Home extends Component {
     ImagePicker.openPicker({
       width: 300,
       height: 400,
-      multiple: true
+      multiple: true,
+      compressImageMaxWidth: 1600,
+      compressImageMaxHeight:1200
     })
       .then(images => {
         if (images.length > 0) {
@@ -51,6 +53,8 @@ export default class Home extends Component {
     ImagePicker.openCamera({
       width: 300,
       height: 400,
+      compressImageMaxWidth: 1600,
+      compressImageMaxHeight:1200
     })
       .then(image => {
         if (image) {

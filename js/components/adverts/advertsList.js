@@ -22,7 +22,6 @@ export default class AdvertsList extends Component {
   }
 
   componentWillUnmount(){
-    debugger;
     AdvertsListStore.cleanAdverts();
   }
 
