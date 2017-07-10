@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { RefreshControl } from 'react-native';
 import { Content, Spinner, List, View } from 'native-base';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
@@ -11,30 +12,35 @@ export default class AdvertsList extends Component {
   constructor(props) {
     super(props);
     this.store = AdvertsListStore;
-    this.state = {
-      isFabVisible: false
-    }
   }
 
   componentWillMount() {
     let coords = { longitude: LocationStore.location.longitude, latitude: LocationStore.location.latitude };
-    AdvertsListStore.getAdverts({ coords: coords });
+    AdvertsListStore.initialize({ coords: coords });
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     AdvertsListStore.cleanAdverts();
   }
 
   render() {
+    const adverts = this.store.adverts.toJS();
+
     return <View style={{ flex: 1 }}>
-      <Content>
-        <List>
-          {this.store.adverts.length > 0
-            ? this.store.adverts.map((item, index) => {
-              return <AdvertCard key={index} advert={item} />;
-            })
-            : <Spinner />}
-        </List>
+      <Content scrollEventThrottle={300}
+        refreshControl={
+          <RefreshControl onRefresh={this.store.onRefresh}
+            refreshing={this.store.isRefreshing} />
+        }
+        removeClippedSubviews={true}
+        onScroll={this.store.onScrolePositionChange}>
+        {adverts.length > 0
+          ? <List dataArray={adverts}
+            renderRow={(item) =>
+              <AdvertCard advert={item} />
+            }>
+          </List>
+          : <Spinner />}
       </Content>
     </View>;
   }

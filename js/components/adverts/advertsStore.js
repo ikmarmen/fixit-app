@@ -52,10 +52,18 @@ class AdvertStore {
 class AdvertsListStore {
   @observable adverts = [];
   @observable error = null;
-  position = null;
+  @observable isRefreshing = false;
+  isLoading = false;
+  options = null;
+  pageCount = null;
+  pageNumber = null;
 
-  constructor() {
+
+
+  constructor(pageCount = 10) {
     autorun(() => this.showErrors());
+    this.pageCount = pageCount;
+    this.pageNumber = 0;
   }
 
   showErrors() {
@@ -66,10 +74,25 @@ class AdvertsListStore {
   }
 
   @action
-  getAdverts(options) {
+  initialize = (options) => {
+    this.options = options;
+    this.load(this.options, false);
+  }
+
+  @action
+  cleanAdverts = () => {
+    this.adverts = [];
+  }
+
+  load = (options, append = true, isRefrash = false) => {
+    let that = this;
+
     let request = {
-      maxDistance: 100
+      maxDistance: options.distance || 100,
+      skip: this.pageNumber * this.pageCount,
+      take: this.pageCount
     };
+
     if (options.coords) {
       request.longitude = options.coords.longitude;
       request.latitude = options.coords.latitude;
@@ -79,20 +102,58 @@ class AdvertsListStore {
     }
 
     request = qs.stringify(request);
+    this.isLoading = true;
     Fetch('posts/all', { method: 'POST', body: request })
       .then(data => {
-
-        data.map((item) => {
-          this.adverts.push(new AdvertStore(item))
-        })
+        let adverts = [];
+        if (append) {
+          that.adverts.map((item) => {
+            adverts.push(item)
+          });
+          data.map((item) => {
+            adverts.push(new AdvertStore(item))
+          });
+        } else {
+          data.map((item) => {
+            adverts.push(new AdvertStore(item))
+          });
+        }
+        that.adverts = adverts;
+        that.isLoading = false;
+        if (isRefrash) {
+          that.isRefreshing = false;
+        }
       })
       .catch(error => {
-        this.error = error.message;
+        that.isLoading = false;
+        if (isRefrash) {
+          that.isRefreshing = false;
+        }
+        that.error = error.message;
       });
   }
+
   @action
-  cleanAdverts() {
-    this.adverts = [];
+  onRefresh = () => {
+    this.isRefreshing = true;
+    this.pageNumber = 0;
+    this.load(this.options, false, true);
+  }
+
+  @action
+  onScrolePositionChange = (event) => {
+    if (!this.isLoading) {
+      //Load next page logic hear
+      let itemHeight = 280;
+      let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);
+      let currentItemIndex = Math.ceil(currentOffset / itemHeight);
+
+      let page = (currentItemIndex + this.pageCount * 1 / 3) / this.pageCount;
+      if (page> this.pageNumber) {
+        this.pageNumber++;
+        this.load(this.options)
+      }
+    }
   }
 }
 

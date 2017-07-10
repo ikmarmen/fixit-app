@@ -20,14 +20,14 @@ export default class FixItCard extends Component {
   _renderImage = () => {
     let photo = this.store.mainPhoto;
     if (photo) {
-      return <Image source={{ uri: photo }} style={{ height: 200, width: null, flex: 1 }} />;
+      return <Image source={{ uri: photo }} style={{ height: 200, width: null, flex: 1, resizeMode: 'cover' }} />;
     } else {
       return <Spinner style={{ height: 200, width: null, flex: 1 }} />;
     }
   }
 
   render() {
-    return <ListItem button={true} onPress={this._onClicked} >
+    return <ListItem button={true} onPress={this._onClicked} style={{ height :310 }}>
         <Content style={{ padding:4, shadowColor: "#000", elevation: 4, backgroundColor: '#FFFFFF'}}>
           {this._renderImage()}
           <View style={{marginLeft:4, marginRight:4}}>
