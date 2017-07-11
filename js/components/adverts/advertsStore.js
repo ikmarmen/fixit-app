@@ -103,22 +103,19 @@ class AdvertsListStore {
 
     request = qs.stringify(request);
     this.isLoading = true;
+
     Fetch('posts/all', { method: 'POST', body: request })
       .then(data => {
-        let adverts = [];
         if (append) {
-          that.adverts.map((item) => {
-            adverts.push(item)
-          });
           data.map((item) => {
-            adverts.push(new AdvertStore(item))
+            that.adverts.push(new AdvertStore(item))
           });
         } else {
+          that.adverts.clear();
           data.map((item) => {
-            adverts.push(new AdvertStore(item))
+            that.adverts.push(new AdvertStore(item))
           });
         }
-        that.adverts = adverts;
         that.isLoading = false;
         if (isRefrash) {
           that.isRefreshing = false;
@@ -149,7 +146,7 @@ class AdvertsListStore {
       let currentItemIndex = Math.ceil(currentOffset / itemHeight);
 
       let page = (currentItemIndex + this.pageCount * 1 / 3) / this.pageCount;
-      if (page> this.pageNumber) {
+      if (page > this.pageNumber) {
         this.pageNumber++;
         this.load(this.options)
       }
