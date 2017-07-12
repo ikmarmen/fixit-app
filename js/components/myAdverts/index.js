@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Content, Header, Item, Icon, Input, Text,Button } from 'native-base';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
+import MyAdvertsList from './myAdvertsList'
 
 @observer
 export default class MyAdvertsExplore extends Component {
@@ -16,12 +17,7 @@ export default class MyAdvertsExplore extends Component {
           <Input placeholder="Search" />
         </Item>
       </Header>
-      <Content>
-        <Text>My adverts</Text>
-        <Button transparent onPress={() => Actions.myAdvert({ type: ActionConst.RESET })}>
-          <Icon name='open' />
-        </Button>
-      </Content>
+      <MyAdvertsList/>
     </Container>;
   }
 }
