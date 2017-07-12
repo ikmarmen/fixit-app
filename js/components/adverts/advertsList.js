@@ -19,10 +19,6 @@ export default class AdvertsList extends Component {
     AdvertsListStore.initialize({ coords: coords });
   }
 
-  componentWillUnmount() {
-    AdvertsListStore.cleanAdverts();
-  }
-
   render() {
     const adverts = this.store.adverts.toJS();
 

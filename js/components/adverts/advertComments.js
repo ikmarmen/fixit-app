@@ -39,8 +39,10 @@ export default class AdvertsComments extends Component {
         <Input style={{ margin: 2, borderColor: 'gray', borderWidth: 0.5 }}
           multiline={true}
           numberOfLines={3}
-          placeholder='Enter youre question.' />
-        <Button>
+          placeholder='Enter youre question.'
+          onChangeText={ this.store.addQuestionText} 
+          value={this.store.newQuestion} />
+        <Button onPress={this.store.addQuestion}>
           <Text>Send Question</Text>
         </Button>
       </View>

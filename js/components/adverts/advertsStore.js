@@ -6,6 +6,7 @@ import Fetch from '../../utils/fetch-json';
 class AdvertStore {
   @observable advert = null;
   @observable error = null;
+  @observable newQuestion = null;
 
   constructor(advert) {
     autorun(() => this.showErrors());
@@ -19,6 +20,23 @@ class AdvertStore {
     }
   }
 
+  @action addQuestion = () => {
+    var that = this;
+
+    let request = qs.stringify({ body: this.newQuestion });
+    Fetch(`posts/${this.advert._id}/questions`, { method: 'POST', body: request })
+      .then(data => {
+        that.advert.questions = data;
+        that.newQuestion = null;
+      })
+      .catch(error => {
+        that.error = error.message;
+      });
+  }
+
+  @action addQuestionText = (text) => {
+    this.newQuestion = text;
+  }
 }
 
 class AdvertsListStore {
@@ -29,8 +47,6 @@ class AdvertsListStore {
   options = null;
   pageCount = null;
   pageNumber = null;
-
-
 
   constructor(pageCount = 10) {
     autorun(() => this.showErrors());
@@ -47,13 +63,10 @@ class AdvertsListStore {
 
   @action
   initialize = (options) => {
+    this.pageCount = 10;
+    this.pageNumber = 0;
     this.options = options;
     this.load(this.options, false);
-  }
-
-  @action
-  cleanAdverts = () => {
-    this.adverts = [];
   }
 
   load = (options, append = true, isRefrash = false) => {
