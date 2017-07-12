@@ -9,16 +9,16 @@ export default class AdvertsComments extends Component {
     this.store = props.store;
   }
 
-  _renderComment = (comment) => {
+  _renderQuestion = (question) => {
     return (
-      <View key={comment._id} style={{ flex: 1, borderWidth: 0.5, margin: 1, borderColor: 'gray' }}>
+      <View key={question._id} style={{ flex: 1, borderWidth: 0.5, margin: 1, borderColor: 'gray' }}>
         <View style={{ marginLeft: 2 }}>
-          <Text note style={{ textAlign: 'left' }}>{`Q: ${comment.body}`}</Text>
+          <Text note style={{ textAlign: 'left' }}>{`Q: ${question.body}`}</Text>
         </View>
-        {comment.children && comment.children.length > 0
+        {question.answer
           &&
           <View style={{ marginLeft: 10 }}>
-            <Text note style={{ textAlign: 'left' }}>{`A: ${comment.children[0].body}`}</Text>
+            <Text note style={{ textAlign: 'left' }}>{`A: ${question.answer.body}`}</Text>
           </View>
           ||
           null
@@ -31,8 +31,8 @@ export default class AdvertsComments extends Component {
     return <View style={{ paddingLeft: 5, paddingRight: 5, paddingTop: 2, paddingBottom: 2 }}>
       <Text style={{ textAlign: 'left' }}>FAQ</Text>
       <View>
-        {this.store.comments.map((comment) => {
-          return this._renderComment(comment)
+        {this.store.advert.questions.map((question) => {
+          return this._renderQuestion(question)
         })}
       </View>
       <View>

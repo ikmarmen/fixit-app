@@ -40,7 +40,6 @@ export default class Advert extends Component {
   }
 
   render() {
-    const photo = this.store.mainPhoto;
     return <Container>
       <Content>
         <View>

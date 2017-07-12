@@ -1,22 +1,15 @@
 import { observable, computed, action, autorun } from 'mobx';
-import Fetch from '../../utils/fetch-json';
-import FetchBlob from '../../utils/fetch-blob';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import qs from 'qs';
+import Fetch from '../../utils/fetch-json';
 
 class AdvertStore {
   @observable advert = null;
   @observable error = null;
-  @observable mainPhoto = null;
-  @observable photos = [];
-  @observable comments = [];
 
   constructor(advert) {
     autorun(() => this.showErrors());
-
     this.advert = advert;
-    this.loadMainPhoto();
-    this.loadComments();
   }
 
   showErrors() {
@@ -26,27 +19,6 @@ class AdvertStore {
     }
   }
 
-  @action
-  loadMainPhoto() {
-    FetchBlob(`posts/photo/${this.advert.photos[0]._id}`, { method: 'GET' })
-      .then(response => {
-        this.mainPhoto = `data:image/jpeg;base64,${response.data}`;
-      })
-      .catch(error => {
-        this.error = error.message;
-      });
-  }
-
-  @action
-  loadComments() {
-    Fetch(`posts/${this.advert._id}/comments`, { method: 'GET' })
-      .then(response => {
-        this.comments = response;
-      })
-      .catch(error => {
-        this.error = error.message;
-      });
-  }
 }
 
 class AdvertsListStore {

@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { Card, CardItem, Thumbnail, Body, Text, Left, Right, Icon, Item, Button, ListItem, List, Content, View, Spinner } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { timeSince } from '../../utils/dateHelper';
+import Config from '../../../config.js';
 
 @observer
 export default class FixItCard extends Component {
@@ -18,19 +19,18 @@ export default class FixItCard extends Component {
   }
 
   _renderImage = () => {
-    let photo = this.store.mainPhoto;
-    if (photo) {
-      return <Image source={{ uri: photo }} style={{ height: 200, width: null, flex: 1, resizeMode: 'cover' }} />;
-    } else {
-      return <Spinner style={{ height: 200, width: null, flex: 1 }} />;
-    }
+    let id = this.store.advert.photos[0]._id;
+    return (
+      <Image key={id} resizeMode='stretch' style={{ height: 200, width: null, flex: 1, resizeMode: 'cover' }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
+    );
   }
 
   render() {
-    return <ListItem button={true} onPress={this._onClicked} style={{ height :310 }}>
-        <Content style={{ padding:4, shadowColor: "#000", elevation: 4, backgroundColor: '#FFFFFF'}}>
+    return (
+      <ListItem button={true} onPress={this._onClicked} style={{ height: 310 }}>
+        <Content style={{ padding: 4, shadowColor: "#000", elevation: 4, backgroundColor: '#FFFFFF' }}>
           {this._renderImage()}
-          <View style={{marginLeft:4, marginRight:4}}>
+          <View style={{ marginLeft: 4, marginRight: 4 }}>
             <Text style={{ textAlign: 'left' }}>{this.store.advert.title}</Text>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text>{`${this.store.advert.distance} km`}</Text>
@@ -43,11 +43,12 @@ export default class FixItCard extends Component {
               </Button>
               <Button transparent style={{ paddingBottom: 0, paddingTop: 0, paddingRight: 0, paddingLeft: 0, height: 25 }}>
                 <Icon active name="chatbubbles" />
-                <Text>{`${this.store.comments.length} comments`}</Text>
+                <Text>{`${this.store.advert.questions.length} questions`}</Text>
               </Button>
             </View>
           </View>
         </Content>
-      </ListItem>;
+      </ListItem>
+    );
   }
 }
