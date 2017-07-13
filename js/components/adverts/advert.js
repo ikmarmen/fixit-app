@@ -32,12 +32,6 @@ export default class Advert extends Component {
     super(props);
     this.store = this.props.store;
   }
-  
-  _renderImages = (id) => {
-    return (
-      <Image key={id} resizeMode='stretch' style={styles.image} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
-    );
-  }
 
   render() {
     return <Container>
@@ -45,7 +39,7 @@ export default class Advert extends Component {
         <View>
           <Swiper height={250}>
             {this.store.advert.photos.map((photo) => {
-              return this._renderImages(photo._id);
+              return <Image key={photo._id} resizeMode='stretch' style={styles.image} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
             })}
           </Swiper>
         </View>

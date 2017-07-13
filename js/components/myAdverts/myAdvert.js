@@ -1,21 +1,59 @@
 import React, { Component } from 'react';
-import { Container, Content, Text, Button, Icon} from 'native-base';
+import { Image } from 'react-native';
+import { Container, Content, Button, Text, Body, Title, Toast, Icon, View, H1} from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { observer } from 'mobx-react';
+import Swiper from 'react-native-swiper'
+import Config from '../../../config.js';
+import Comments from './myAdvertComments';
+
+const styles = {
+  image: {
+    flex: 1
+  },
+  rowViewContainer: {
+    flex: 1,
+    paddingRight: 15,
+    paddingTop: 2,
+    paddingBottom: 2,
+    borderBottomWidth: 0.5,
+    borderColor: '#c9c9c9',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rowText: {
+    marginLeft: 15,
+  },
+}
 
 @observer
 export default class MyAdvert extends Component {
   constructor(props) {
     super(props);
+    this.store = this.props.store;
   }
+
   render() {
     return <Container>
       <Content>
-        <Text>---------------My advert--------</Text>
+        <View>
+          <Swiper height={250}>
+            {this.store.advert.photos.map((photo) => {
+              return <Image key={photo._id} resizeMode='stretch' style={styles.image} source={{ uri: `${Config.BASE_URL}posts/photo/${photo._id}` }} />
+            })}
+          </Swiper>
+        </View>
+        <View style={styles.rowViewContainer} />
+        <Body>
+          <Text>{this.store.advert.title}</Text>
+          <Text note style={{ textAlign: 'center' }}>{this.store.advert.description}</Text>
+        </Body>
+        <View style={styles.rowViewContainer} />
+        <Comments store={this.store} />
       </Content>
-      <Button transparent onPress={() => Actions.main({ type: ActionConst.RESET })}>
-          <Icon name='close' />
-        </Button>
+      <Button transparent style={{ position: 'absolute' }} onPress={() => Actions.pop()}>
+        <Icon name='close' />
+      </Button>
     </Container>;
   }
 }
