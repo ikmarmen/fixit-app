@@ -37,7 +37,7 @@ class AuthenticationStore {
   redirectloginOrHome() {
     if (this.canStart) {
       if (this.user && LocationStore.location) {
-          Actions.main({ type: ActionConst.REPLACE });
+          Actions.tabbar({ type: ActionConst.REPLACE });
       } else if(!this.user) {
         Actions.auth({ type: ActionConst.REPLACE });
       }
