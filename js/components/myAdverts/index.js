@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Container, Content, Header, Item, Icon, Input, Text,Button } from 'native-base';
+import { Container, Content, Header, Item, Icon, Input, Text, Button } from 'native-base';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import MyAdvertsList from './myAdvertsList'
 
 @observer
-export default class MyAdvertsExplore extends Component {
+export default class MyAdverts extends Component {
   constructor(props) {
     super(props);
   }

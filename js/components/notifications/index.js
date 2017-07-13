@@ -3,7 +3,7 @@ import { Container, Content, Header, Item, Icon, Input, Text } from 'native-base
 import { observer } from 'mobx-react';
 
 @observer
-export default class MyAdvertsExplore extends Component {
+export default class Notifications extends Component {
   constructor(props) {
     super(props);
   }

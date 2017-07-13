@@ -2,6 +2,7 @@ import { observable, computed, action, autorun } from 'mobx';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import qs from 'qs';
 import Fetch from '../../utils/fetch-json';
+import LocationStore from '../../stores/locationStore';
 
 class AdvertStore {
   @observable advert = null;
@@ -44,6 +45,7 @@ class AdvertsListStore {
   @observable error = null;
   @observable isRefreshing = false;
   isLoading = false;
+  isInitialized = false;
   options = null;
   pageCount = null;
   pageNumber = null;
@@ -54,19 +56,20 @@ class AdvertsListStore {
     this.pageNumber = 0;
   }
 
+  @action
+  initialize = () => {
+    if (!this.isInitialized) {
+      let coords = { longitude: LocationStore.location.longitude, latitude: LocationStore.location.latitude };
+      this.load({ coords: coords }, false);
+      this.isInitialized = true;
+    }
+  }
+
   showErrors() {
     if (this.error != null) {
       alert(this.error);
       this.error = null;
     }
-  }
-
-  @action
-  initialize = (options) => {
-    this.pageCount = 10;
-    this.pageNumber = 0;
-    this.options = options;
-    this.load(this.options, false);
   }
 
   load = (options, append = true, isRefrash = false) => {
@@ -119,7 +122,9 @@ class AdvertsListStore {
   onRefresh = () => {
     this.isRefreshing = true;
     this.pageNumber = 0;
-    this.load(this.options, false, true);
+
+    let coords = { longitude: LocationStore.location.longitude, latitude: LocationStore.location.latitude };
+    this.load({ coords: coords }, false, true);
   }
 
   @action
@@ -133,7 +138,8 @@ class AdvertsListStore {
       let page = (currentItemIndex + this.pageCount * 1 / 3) / this.pageCount;
       if (page > this.pageNumber) {
         this.pageNumber++;
-        this.load(this.options)
+        let coords = { longitude: LocationStore.location.longitude, latitude: LocationStore.location.latitude };
+        this.load({ coords: coords })
       }
     }
   }

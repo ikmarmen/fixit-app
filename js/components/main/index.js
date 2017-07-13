@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import NewAdvertStore from '../newAdvert/newAdvertStore'
 import MainStore from './mainStore';
 import ImagePicker from 'react-native-image-crop-picker';
+import Display from '../display/';
 
 @observer
 export default class Home extends Component {
@@ -23,7 +24,11 @@ export default class Home extends Component {
   }
 
   _renderContent = () => {
-    return this.store.activeTab.component;
+    for (let i = 0; i < this.store.tabs.length; i++) {
+      let tab = this.store.tabs[i];
+      if (tab.isActive)
+        return <tab.component/>;
+    }
   }
 
   addAdvert = (photos) => {
@@ -37,7 +42,7 @@ export default class Home extends Component {
       height: 400,
       multiple: true,
       compressImageMaxWidth: 1600,
-      compressImageMaxHeight:1200
+      compressImageMaxHeight: 1200
     })
       .then(images => {
         if (images.length > 0) {
@@ -54,7 +59,7 @@ export default class Home extends Component {
       width: 300,
       height: 400,
       compressImageMaxWidth: 1600,
-      compressImageMaxHeight:1200
+      compressImageMaxHeight: 1200
     })
       .then(image => {
         if (image) {
@@ -88,6 +93,11 @@ export default class Home extends Component {
   render() {
     return <Container>
       <View style={{ flex: 1 }}>
+        {/*         {this.store.tabs.map((tab, index) => {
+          return (<Display enable={tab.isActive} key={index}>
+            <tab.component />
+          </Display>)
+        })} */}
         {this._renderContent()}
         {this._renderAddBtn()}
       </View>

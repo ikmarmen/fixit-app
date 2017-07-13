@@ -9,7 +9,6 @@ import NewAdvertStore from '../newAdvert/newAdvertStore'
 
 class MainStore {
   @observable tabs = [];
-  @observable activeTab = null;
   @observable type = null;
   @observable error = null;
   @observable isFabActive = false;
@@ -23,23 +22,26 @@ class MainStore {
     autorun(() => this.pushView(this.type));
     autorun(() => this.showErrors());
 
-    this.activeTab = {
+    this.tabs.push({
       icon: 'search',
-      component: <Adverts />
-    };
-    this.tabs.push(this.activeTab);
+      component: Adverts,
+      isActive:true
+    });
     this.tabs.push({
       icon: 'keypad',
-      component: <MyAdverts />
+      component: MyAdverts,
+      isActive:false
     });
     this.tabs.push({
       icon: 'notifications',
       badgeCount: 2,
-      component: <Notifications />
+      component: Notifications,
+      isActive:false
     });
     this.tabs.push({
       icon: 'person',
-      component: <Account />
+      component: Account,
+      isActive:false
     });
   }
 
@@ -51,8 +53,10 @@ class MainStore {
   }
 
   @action
-  selectTab = (tab) => {
-    this.activeTab = tab;
+  selectTab = (selectedTab) => {
+    this.tabs.forEach(tab=>{
+        tab.isActive = (selectedTab===tab);
+    });
   }
 
   @action
