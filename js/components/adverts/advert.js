@@ -39,7 +39,7 @@ export default class Advert extends Component {
         <View>
           <Swiper height={250}>
             {this.store.advert.photos.map((photo) => {
-              return <Image key={photo._id} resizeMode='stretch' style={styles.image} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
+              return <Image key={photo._id} resizeMode='stretch' style={styles.image} source={{ uri: `${Config.BASE_URL}posts/photo/${photo._id}` }} />
             })}
           </Swiper>
         </View>

@@ -1,4 +1,4 @@
-import { observable, computed, action, asMap, autorun } from 'mobx';
+import { observable, computed, action, asMap, autorun, reaction } from 'mobx';
 import { AsyncStorage } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Fetch from '../../utils/fetch-json';
@@ -13,9 +13,9 @@ class AuthenticationStore {
 
 
   constructor() {
-    autorun(() => this.redirectloginOrHome());
-    autorun(() => this.manageToken());
-    autorun(() => this.showErrors());
+    reaction(() => [this.user, this.canStart, LocationStore.location], () => this.redirectloginOrHome(arguments));
+    reaction(() => [this.token, this.canStart], () => this.manageToken(arguments));
+    reaction(() => this.error, () => this.showErrors(arguments));
 
     AsyncStorage.getItem('TOKEN', (err, result) => {
       if (result) {
@@ -37,8 +37,8 @@ class AuthenticationStore {
   redirectloginOrHome() {
     if (this.canStart) {
       if (this.user && LocationStore.location) {
-          Actions.tabbar({ type: ActionConst.REPLACE });
-      } else if(!this.user) {
+        Actions.tabbar({ type: ActionConst.REPLACE });
+      } else if (!this.user) {
         Actions.auth({ type: ActionConst.REPLACE });
       }
     }
