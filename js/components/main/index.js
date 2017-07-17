@@ -13,16 +13,6 @@ export default class Home extends Component {
     this.store = MainStore;
   }
 
-  _renderTabs = (tab, index) => {
-    return (
-      <Button key={index} badge={tab.badgeCount > 0} vertical active={(tab === this.store.activeTab)} onPress={() => this.store.selectTab(tab)}>
-        {tab.badgeCount > 0 ? <Badge><Text>{tab.badgeCount}</Text></Badge> : null}
-        {tab.icon ? <Icon name={tab.icon} /> : null}
-        {tab.text ? <Text>{tab.text}</Text> : null}
-      </Button>
-    );
-  }
-
   _renderContent = () => {
     for (let i = 0; i < this.store.tabs.length; i++) {
       let tab = this.store.tabs[i];
@@ -93,19 +83,9 @@ export default class Home extends Component {
   render() {
     return <Container>
       <View style={{ flex: 1 }}>
-        {/*         {this.store.tabs.map((tab, index) => {
-          return (<Display enable={tab.isActive} key={index}>
-            <tab.component />
-          </Display>)
-        })} */}
         {this._renderContent()}
         {this._renderAddBtn()}
       </View>
-      <Footer>
-        <FooterTab>
-          {this.store.tabs.map((tab, index) => this._renderTabs(tab, index))}
-        </FooterTab>
-      </Footer>
     </Container>;
   }
 }

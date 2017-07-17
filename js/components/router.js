@@ -20,7 +20,7 @@ import Notifications from './notifications/';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 const TabIcon = (props, name) => {
-  return <MaterialIcon style={{ color: props.focused ? 'red' : 'black' }} size={25} name="camera" />
+  return <MaterialIcon style={{ color: props.focused ? 'red' : 'black' }} size={25} name={name} />
 };
 
 export default class AppRouter extends React.Component {
@@ -39,24 +39,23 @@ export default class AppRouter extends React.Component {
           <Scene key="adverts"
             component={Adverts}
             hideNavBar={true}
-            icon={(props)=>{return TabIcon(props, 'name')}}
-            tabBarLabel ={'xcxcxcxc'}
+            icon={(props)=>{return TabIcon(props, 'home')}}
             initial={true}
           />
           <Scene key="myAdverts"
             component={MyAdverts}
             hideNavBar={true}
-            icon={TabIcon}
+            icon={props=>{return TabIcon(props, 'dashboard')}}
           />
           <Scene key="notifications"
             component={Notifications}
             hideNavBar={true}
-            icon={TabIcon}
+            icon={props=>{return TabIcon(props, 'notifications')}}
           />
           <Scene key="account"
             component={Account}
             hideNavBar={true}
-            icon={TabIcon}
+             icon={props=>{return TabIcon(props, 'account-box')}}
           />
         </Scene>
         <Scene key="loading" component={Loading} initial={true} />
