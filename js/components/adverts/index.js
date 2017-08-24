@@ -3,6 +3,7 @@ import { Content, Header, Left,Button , Item, Icon, Input, View, Container } fro
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import AdvertsList from './advertsList'
+import FabButton from '../fab/'
 
 @observer
 export default class AdvertsExplore extends Component {
@@ -18,6 +19,7 @@ export default class AdvertsExplore extends Component {
         </Item>
       </Header>
       <AdvertsList/>
+      <FabButton/>
     </Container>;
   }
 }

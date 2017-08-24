@@ -5,7 +5,6 @@ import { Router, Scene, Actions, Switch } from 'react-native-router-flux';
 import AuthStore from './auth/authStore'
 
 import Loading from './loading';
-import Main from './main/';
 import Auth from './auth/';
 import Advert from './adverts/advert';
 import CameraView from './camera/';
@@ -35,7 +34,7 @@ export default class AppRouter extends React.Component {
   render() {
     return <Router>
       <Scene key="root" hideNavBar={true} duration={0}>
-        <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: '#38947a' }} tabBarPosition="bottom" showIcon={true} showLabel={false}>
+      <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: '#38947a' }} tabBarPosition="bottom" showIcon={true} showLabel={false}>
           <Scene key="adverts"
             component={Adverts}
             hideNavBar={true}

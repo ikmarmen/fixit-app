@@ -7,7 +7,7 @@ import Notifications from '../notifications/'
 import Account from '../account/'
 import NewAdvertStore from '../newAdvert/newAdvertStore'
 
-class MainStore {
+class FabStore {
   @observable error = null;
   @observable isFabActive = false;
 
@@ -27,5 +27,5 @@ class MainStore {
     this.isFabActive = !this.isFabActive;
   }
 }
-const Store = new MainStore();
+const Store = new FabStore();
 export default Store;

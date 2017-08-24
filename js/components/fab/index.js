@@ -2,23 +2,15 @@ import React, { Component } from 'react';
 import { Container, Content, Button, Icon, Footer, FooterTab, Fab, View, Badge, Text } from 'native-base';
 import { observer } from 'mobx-react';
 import NewAdvertStore from '../newAdvert/newAdvertStore'
-import MainStore from './mainStore';
+import FabStore from './fabStore';
 import ImagePicker from 'react-native-image-crop-picker';
 import Display from '../display/';
 
 @observer
-export default class Home extends Component {
+export default class FabButton extends Component {
   constructor(props) {
     super(props);
-    this.store = MainStore;
-  }
-
-  _renderContent = () => {
-    for (let i = 0; i < this.store.tabs.length; i++) {
-      let tab = this.store.tabs[i];
-      if (tab.isActive)
-        return <tab.component/>;
-    }
+    this.store = FabStore;
   }
 
   addAdvert = (photos) => {
@@ -61,7 +53,7 @@ export default class Home extends Component {
       });
   }
 
-  _renderAddBtn = () => {
+  render() {
     return (
       <Fab position="bottomLeft"
         active={this.store.isFabActive}
@@ -78,14 +70,5 @@ export default class Home extends Component {
         </Button>
       </Fab>
     )
-  }
-
-  render() {
-    return <Container>
-      <View style={{ flex: 1 }}>
-        {this._renderContent()}
-        {this._renderAddBtn()}
-      </View>
-    </Container>;
   }
 }
