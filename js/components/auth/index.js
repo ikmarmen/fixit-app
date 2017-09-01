@@ -17,14 +17,7 @@ export default class Auth extends Component {
   render() {
     return (
       <Container>
-        <Tabs>
-          <Tab heading={<TabHeading><Text>Log In</Text></TabHeading>}>
-            <Login />
-          </Tab>
-          <Tab heading={<TabHeading><Text>Sign Up</Text></TabHeading>}>
-            <Signup />
-          </Tab>
-        </Tabs>
+        <Login />
       </Container>
     );
   }

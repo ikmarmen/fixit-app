@@ -58,7 +58,7 @@ export default class AppRouter extends React.Component {
           />
         </Scene>
         <Scene key="loading" component={Loading} initial={true} />
-        <Scene key="auth" component={Auth} />
+        <Scene key="auth" component={Auth} hideNavBar={true}/>
         <Scene key="advert" component={Advert} />
         <Scene key="camera" component={CameraView} direction='vertical' />
         <Scene key="newAdvert" component={NewAdvert} direction='vertical' />
