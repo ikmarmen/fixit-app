@@ -162,7 +162,7 @@ export default {
   toolbarDefaultBorder: "#38947a",
   iosStatusbar: "light-content",
   get statusBarColor() {
-    return "#f25d59";
+    return "#264559";
   },
 
   // Icon

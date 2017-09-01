@@ -5,6 +5,8 @@ import {NativeModules, processColor} from 'react-native';
 const { StatusBarManager } = NativeModules;
 import { Router, Scene, Actions, Switch } from 'react-native-router-flux';
 import AuthStore from './auth/authStore'
+import {NativeModules, processColor} from 'react-native';
+const { StatusBarManager } = NativeModules;
 
 import Loading from './loading';
 import Auth from './auth/';
@@ -28,6 +30,10 @@ export default class AppRouter extends React.Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    StatusBarManager.setColor(processColor('#f25d59'), false);
+  }
+
   componentDidMount() {
     StatusBarManager.setColor(processColor('#f25d59'), false);
   }
