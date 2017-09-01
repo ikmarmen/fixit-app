@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx';
 import { Container, Content, Text, Button, View, Badge, Icon } from 'native-base';
+import {NativeModules, processColor} from 'react-native';
+const { StatusBarManager } = NativeModules;
 import { Router, Scene, Actions, Switch } from 'react-native-router-flux';
 import AuthStore from './auth/authStore'
 
@@ -25,6 +27,9 @@ const TabIcon = (props, name) => {
 export default class AppRouter extends React.Component {
   constructor(props) {
     super(props);
+  }
+  componentDidMount() {
+    StatusBarManager.setColor(processColor('#f25d59'), false);
   }
 
   componentWillMount() {
@@ -58,7 +63,7 @@ export default class AppRouter extends React.Component {
           />
         </Scene>
         <Scene key="loading" component={Loading} initial={true} />
-        <Scene key="auth" component={Auth} hideNavBar={true}/>
+        <Scene key="auth" component={Auth} hideNavBar={true} statusBarStyle="dark-content"/>
         <Scene key="advert" component={Advert} />
         <Scene key="camera" component={CameraView} direction='vertical' />
         <Scene key="newAdvert" component={NewAdvert} direction='vertical' />
