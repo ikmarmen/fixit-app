@@ -21,61 +21,58 @@ export default class Login extends Component {
       <View style={styles.container}>
         <Image
           style={styles.logoImage}
-          source={{
-            uri: 'http://cdn.shopify.com/s/files/1/1234/8298/t/2/assets/logo.png?6150512196315954616',
-          }}
+          source={require('../../../img/noymed-logo.png')}
         />
         <View style={styles.inputContainer}>
           <TextInput style={styles.textInput} onChangeText={(text) => this.store.setProp(text, 'email')}/>
           <Image
             style={styles.emailInputImage}
-            source={{
-              uri: 'http://www.iconsdb.com/icons/preview/white/user-xxl.png',
-            }}
+            source={require('../../../img/user.png')}
           />
           <TextInput style={styles.textInput} onChangeText={(text) => this.store.setProp(text, 'password')}/>
           <Image
             style={styles.passwordInputImage}
-            source={{
-              uri: 'https://static1.squarespace.com/static/55818dfde4b04f1579628cdb/5582ff65e4b0cfb22aff8025/5583f3a9e4b09ac77310dc24/1434710954011/lock+white.png',
-            }}
+            source={require('../../../img/password.png')}
           />
         </View>
-        <TouchableOpacity  underlayColor="#042417" activeOpacity={0.5} onPress={this.onLogin} >
+        <TouchableOpacity  activeOpacity={0.5} onPress={this.onLogin} >
             <View style={styles.btnContainer}>
               <Text style={styles.btnText}>LOG IN</Text>
             </View>
           </TouchableOpacity >
-          <TouchableOpacity  underlayColor="#042417" activeOpacity={0.5} onPress={()=>{return;}} >
+          <TouchableOpacity   activeOpacity={0.5} onPress={()=>{return;}} >
             <View>
-              <Text style={styles.btnText}>Forgot password?</Text>
+              <Text style={styles.linkText}>Forgot password?</Text>
             </View>
           </TouchableOpacity >
+
         <View style={styles.socialLoginsContainer}>
-          <TouchableOpacity  underlayColor="#042417" activeOpacity={0.5}>
-            <View style={styles.btnContainer}>
+          <TouchableOpacity   activeOpacity={0.5}>
+            <View style={styles.btnContainerTransparent}>
               <Image
-                style={styles.btnIcon}
-                source={{
-                  uri: 'https://www.users.miamioh.edu/trowbrlc/IMS222/HireMe/img/Facebook.png',
-                }}
+                style={styles.btnIconFb}
+                source={require('../../../img/fb.png')}
               />
-              <Text style={styles.btnText}>Log in with Facebook</Text>
+              <Text style={styles.socBtnText}>Log in with Facebook</Text>
             </View>
           </TouchableOpacity >
-          <TouchableOpacity underlayColor="#042417" activeOpacity={0.5}>
-            <View style={styles.btnContainer}>
+          <TouchableOpacity activeOpacity={0.5}>
+            <View style={styles.btnContainerTransparent}>
               <Image
-                style={styles.btnIcon}
-                source={{
-                  uri: 'http://2.bp.blogspot.com/-k4UX8rSagsM/UcGd3sGQSbI/AAAAAAAAAa0/kDbogGEMc0U/s1600/google-plus.png',
-                }}
+                style={styles.btnIconGoogle}
+                source={require('../../../img/google.png')}
               />
-              <Text style={styles.btnText}>Log in with Google</Text>
+              <Text style={styles.socBtnText}>Log in with Google</Text>
             </View>
           </TouchableOpacity>
         </View>
+
+        <View  style={styles.bottomText} >
+          <Text style={styles.linkText}>New to FIX IT?</Text>
+          <Text style={styles.linkTextRight}>SIGN UP</Text>
+        </View>
       </View>
+      
     );
   }
 }
@@ -85,27 +82,29 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#f25d59',
+    backgroundColor: '#264559',
   },
   emailInputImage: {
-    width: 15,
-    height: 20,
+    width: 16,
+    height: 19,
     marginRight: 5,
     position: 'absolute',
-    top: -1,
+    top: -3,
     left: 1,
   },
   passwordInputImage: {
-    width: 15,
+    width: 16,
     height: 20,
     marginRight: 5,
     position: 'absolute',
-    bottom: 22,
+    bottom: 24,
     left: 1,
   },
   socialLoginsContainer: {
     marginBottom: 10,
-    width: 165,
+    width: 270,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   loginButton: {
     margin: 3,
@@ -117,11 +116,11 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     fontSize: 12,
     marginBottom: 50,
-    marginTop: 5,
+    marginTop: 8,
   },
   textInput: {
     height: 20,
-    width: 150,
+    width: 270,
     fontSize: 10,
     color: 'white',
     paddingLeft: 22,
@@ -135,26 +134,66 @@ const styles = StyleSheet.create({
   logoImage: {
     width: 60,
     height: 30,
-    marginTop: 50,
+    marginTop: 120,
+  },
+  linkText: {
+    color: '#ffffff',
+    opacity: .5,
+    marginTop: 10,
+    marginBottom: 50,
   },
   inputContainer: {
-    width: 150,
+    width: 270,
     height: 80,
     marginTop: 20,
   },
   btnContainer: {
+    width: 270,
+    height: 36,
+    borderRadius: 18,
     flexDirection: 'row',
-    marginBottom: 1,
     alignItems: 'center',
-    backgroundColor: '#2196F3',
+    backgroundColor: '#e5e642',
+    justifyContent: 'center',
   },
-  btnIcon: {
-    height: 25,
-    width: 25,
+  btnIconFb: {
+    height: 12,
+    width: 8,
+    marginRight: 2,
+  },
+  btnIconGoogle: {
+    height: 12,
+    width: 11,
+    marginRight: 3,
   },
   btnText: {
-    fontSize: 12,
+    fontSize: 14,
     padding: 20,
     color: 'white',
+    fontWeight: '800'
+  },
+  btnContainerTransparent: {
+    width: 134,
+    height: 36,
+    borderRadius: 18,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+  },
+  socBtnText: {
+    fontSize: 11,
+    color: 'white',
+  },
+  bottomText: {
+    marginTop: 40,
+    flexDirection: 'row',
+  },
+  linkTextRight: {
+    color: '#ffffff',
+    marginLeft: 10,
+    marginBottom: 50,
+    marginRight: 10,
+    marginTop: 10,
   },
 });
