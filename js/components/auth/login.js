@@ -47,9 +47,9 @@ export default class Login extends Component {
             <Input onChangeText={(text) => this.store.setProp(text, 'email')}/>
           </Item>
           <Item floatingLabel>
-            <Label>Email</Label>
+            <Label>Password</Label>
             <Icon name='lock' style={{color:'white'}}/>
-            <Input onChangeText={(text) => this.store.setProp(text, 'email')}/>
+            <Input onChangeText={(text) => this.store.setProp(text, 'password')} secureTextEntry={true}/>
           </Item>   
         </View>
         <TouchableOpacity  activeOpacity={0.5} onPress={this.onLogin} >
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: 270,
-    height: 80,
+    height: 140,
     marginTop: 20,
   },
   btnContainer: {
