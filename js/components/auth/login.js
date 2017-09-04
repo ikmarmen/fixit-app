@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity  } from 'react-native'
+import {Item, Icon, Input, Label } from 'native-base'
 import { LoginStore, AuthStore } from './authStore';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
@@ -40,16 +41,16 @@ export default class Login extends Component {
           source={require('../../../img/noymed-logo.png')}
         />
         <View style={styles.inputContainer}>
-          <TextInput style={styles.textInput} onChangeText={(text) => this.store.setProp(text, 'email')}/>
-          <Image
-            style={styles.emailInputImage}
-            source={require('../../../img/user.png')}
-          />
-          <TextInput style={styles.textInput} onChangeText={(text) => this.store.setProp(text, 'password')}/>
-          <Image
-            style={styles.passwordInputImage}
-            source={require('../../../img/password.png')}
-          />
+          <Item floatingLabel>
+            <Label>Email</Label>
+            <Icon name='person' style={{color:'white'}}/>
+            <Input onChangeText={(text) => this.store.setProp(text, 'email')}/>
+          </Item>
+          <Item floatingLabel>
+            <Label>Email</Label>
+            <Icon name='lock' style={{color:'white'}}/>
+            <Input onChangeText={(text) => this.store.setProp(text, 'email')}/>
+          </Item>   
         </View>
         <TouchableOpacity  activeOpacity={0.5} onPress={this.onLogin} >
             <View style={styles.btnContainer}>
