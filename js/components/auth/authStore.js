@@ -39,7 +39,7 @@ class AuthenticationStore {
       if (this.user && LocationStore.location) {
         Actions.tabbar({ type: ActionConst.REPLACE });
       } else if (!this.user) {
-        Actions.auth({ type: ActionConst.REPLACE });
+        Actions.login({ type: ActionConst.REPLACE });
       }
     }
   }

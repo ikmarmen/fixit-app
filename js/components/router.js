@@ -7,7 +7,9 @@ import {NativeModules, processColor} from 'react-native';
 const { StatusBarManager } = NativeModules;
 
 import Loading from './loading';
-import Auth from './auth/';
+import Login from './auth/login';
+import Signup from './auth/signup';
+import ForgotPassword from './auth/forgotPassword';
 import Advert from './adverts/advert';
 import CameraView from './camera/';
 import NewAdvert from './newAdvert/newAdvert';
@@ -63,7 +65,9 @@ export default class AppRouter extends React.Component {
           />
         </Scene>
         <Scene key="loading" component={Loading} initial={true} />
-        <Scene key="auth" component={Auth} hideNavBar={true} statusBarStyle="dark-content"/>
+        <Scene key="login" component={Login} hideNavBar={true}/>
+        <Scene key="signup" component={Signup}/>
+        <Scene key="forgotPassword" component={ForgotPassword}/>
         <Scene key="advert" component={Advert} />
         <Scene key="camera" component={CameraView} direction='vertical' />
         <Scene key="newAdvert" component={NewAdvert} direction='vertical' />

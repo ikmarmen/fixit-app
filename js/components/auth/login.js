@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity  } from 'react-native'
-import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { LoginStore, AuthStore } from './authStore';
+import { Actions, ActionConst } from 'react-native-router-flux';
 
 @observer
 export default class Login extends Component {
@@ -14,6 +14,22 @@ export default class Login extends Component {
   onLogin = () => {
     let request = { email: this.store.email, password: this.store.password }
     AuthStore.login(request)
+  }
+
+  onSignUp =()=>{
+    Actions.signup({ type: ActionConst.PUSH });
+  }
+
+  onForgotPassword =()=>{
+    Actions.forgotPassword({ type: ActionConst.PUSH });
+  }
+
+  onGoogleLogin =()=>{
+    
+  }
+
+  onFacebookLogin =()=>{
+    
   }
 
   render() {
@@ -40,14 +56,14 @@ export default class Login extends Component {
               <Text style={styles.btnText}>LOG IN</Text>
             </View>
           </TouchableOpacity >
-          <TouchableOpacity   activeOpacity={0.5} onPress={()=>{return;}} >
+          <TouchableOpacity   activeOpacity={0.5} onPress={this.onForgotPassword} >
             <View>
               <Text style={styles.linkText}>Forgot password?</Text>
             </View>
           </TouchableOpacity >
 
         <View style={styles.socialLoginsContainer}>
-          <TouchableOpacity   activeOpacity={0.5}>
+          <TouchableOpacity   activeOpacity={0.5} onPress={this.onFacebookLogin}>
             <View style={styles.btnContainerTransparent}>
               <Image
                 style={styles.btnIconFb}
@@ -56,7 +72,7 @@ export default class Login extends Component {
               <Text style={styles.socBtnText}>Log in with Facebook</Text>
             </View>
           </TouchableOpacity >
-          <TouchableOpacity activeOpacity={0.5}>
+          <TouchableOpacity activeOpacity={0.5} onPress={this.onGoogleLogin}>
             <View style={styles.btnContainerTransparent}>
               <Image
                 style={styles.btnIconGoogle}
@@ -69,7 +85,11 @@ export default class Login extends Component {
 
         <View  style={styles.bottomText} >
           <Text style={styles.linkText}>New to FIX IT?</Text>
-          <Text style={styles.linkTextRight}>SIGN UP</Text>
+          <TouchableOpacity   activeOpacity={0.5} onPress={this.onSignUp} >
+            <View>
+              <Text style={styles.linkTextRight}>SIGN UP</Text>
+            </View>
+          </TouchableOpacity >
         </View>
       </View>
       
@@ -105,18 +125,6 @@ const styles = StyleSheet.create({
     width: 270,
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  loginButton: {
-    margin: 3,
-    borderRadius: 20,
-    padding: 4
-  },
-  forgotPasswordButton: {
-    color: 'white',
-    opacity: 0.6,
-    fontSize: 12,
-    marginBottom: 50,
-    marginTop: 8,
   },
   textInput: {
     height: 20,
