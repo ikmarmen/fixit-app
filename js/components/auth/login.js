@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity  } from 'react-native'
-import {Item, Icon, Input, Label } from 'native-base'
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
+import { Item, Icon, Input, Label } from 'native-base'
 import { LoginStore, AuthStore } from './authStore';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
@@ -17,20 +17,20 @@ export default class Login extends Component {
     AuthStore.login(request)
   }
 
-  onSignUp =()=>{
+  onSignUp = () => {
     Actions.signup({ type: ActionConst.PUSH });
   }
 
-  onForgotPassword =()=>{
+  onForgotPassword = () => {
     Actions.forgotPassword({ type: ActionConst.PUSH });
   }
 
-  onGoogleLogin =()=>{
-    
+  onGoogleLogin = () => {
+
   }
 
-  onFacebookLogin =()=>{
-    
+  onFacebookLogin = () => {
+
   }
 
   render() {
@@ -40,31 +40,35 @@ export default class Login extends Component {
           style={styles.logoImage}
           source={require('../../../img/noymed-logo.png')}
         />
+
+
         <View style={styles.inputContainer}>
-          <Item floatingLabel>
-            <Label>Email</Label>
-            <Icon name='person' style={{color:'white'}}/>
-            <Input onChangeText={(text) => this.store.setProp(text, 'email')}/>
+          <Item style={StyleSheet.flatten(styles.input)} floatingLabel>
+            <Label style={StyleSheet.flatten(styles.inputLabel)}>Email</Label>
+            <Icon name='person' style={{ color: 'white' }} />
+            <Input onChangeText={(text) => this.store.setProp(text, 'email')} style={StyleSheet.flatten(styles.inputText)} />
           </Item>
-          <Item floatingLabel>
-            <Label>Password</Label>
-            <Icon name='lock' style={{color:'white'}}/>
-            <Input onChangeText={(text) => this.store.setProp(text, 'password')} secureTextEntry={true}/>
-          </Item>   
+          <Item style={StyleSheet.flatten(styles.input)} floatingLabel>
+            <Label style={StyleSheet.flatten(styles.inputLabel)}>Password</Label>
+            <Icon name='lock' style={{ color: 'white' }} />
+            <Input onChangeText={(text) => this.store.setProp(text, 'password')} style={StyleSheet.flatten(styles.inputText)} secureTextEntry={true}/>
+          </Item>
         </View>
-        <TouchableOpacity  activeOpacity={0.5} onPress={this.onLogin} >
-            <View style={styles.btnContainer}>
-              <Text style={styles.btnText}>LOG IN</Text>
-            </View>
-          </TouchableOpacity >
-          <TouchableOpacity   activeOpacity={0.5} onPress={this.onForgotPassword} >
-            <View>
-              <Text style={styles.linkText}>Forgot password?</Text>
-            </View>
-          </TouchableOpacity >
+
+
+        <TouchableOpacity activeOpacity={0.5} onPress={this.onLogin} >
+          <View style={styles.btnContainer}>
+            <Text style={styles.btnText}>LOG IN</Text>
+          </View>
+        </TouchableOpacity >
+        <TouchableOpacity activeOpacity={0.5} onPress={this.onForgotPassword} >
+          <View>
+            <Text style={styles.linkText}>Forgot password?</Text>
+          </View>
+        </TouchableOpacity >
 
         <View style={styles.socialLoginsContainer}>
-          <TouchableOpacity   activeOpacity={0.5} onPress={this.onFacebookLogin}>
+          <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
             <View style={styles.btnContainerTransparent}>
               <Image
                 style={styles.btnIconFb}
@@ -84,16 +88,15 @@ export default class Login extends Component {
           </TouchableOpacity>
         </View>
 
-        <View  style={styles.bottomText} >
+        <View style={styles.bottomText} >
           <Text style={styles.linkText}>New to FIX IT?</Text>
-          <TouchableOpacity   activeOpacity={0.5} onPress={this.onSignUp} >
+          <TouchableOpacity activeOpacity={0.5} onPress={this.onSignUp} >
             <View>
               <Text style={styles.linkTextRight}>SIGN UP</Text>
             </View>
           </TouchableOpacity >
         </View>
       </View>
-      
     );
   }
 }
@@ -105,45 +108,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#264559',
   },
-  emailInputImage: {
-    width: 16,
-    height: 19,
-    marginRight: 5,
-    position: 'absolute',
-    top: -3,
-    left: 1,
-  },
-  passwordInputImage: {
-    width: 16,
-    height: 20,
-    marginRight: 5,
-    position: 'absolute',
-    bottom: 24,
-    left: 1,
-  },
-  socialLoginsContainer: {
+  input: {
+    height: 50,
     marginBottom: 10,
-    width: 270,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
-  textInput: {
-    height: 20,
-    width: 270,
-    fontSize: 10,
+  inputLabel: {
     color: 'white',
-    paddingLeft: 22,
-    borderBottomColor: 'white',
-    borderRightWidth: 0,
-    borderTopWidth: 0,
-    borderLeftWidth: 0,
-    marginBottom: 20,
-    borderWidth: 1,
+    fontSize: 12,
+  },
+  inputText: {
+    color: 'white',
+    fontSize: 14,
   },
   logoImage: {
     width: 60,
     height: 30,
-    marginTop: 120,
+    marginTop: 100,
   },
   linkText: {
     color: '#ffffff',
@@ -181,6 +161,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '800'
   },
+  socialLoginsContainer: {
+    width: 270,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   btnContainerTransparent: {
     width: 134,
     height: 36,
@@ -195,7 +180,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   bottomText: {
-    marginTop: 40,
+    marginTop: 10,
     flexDirection: 'row',
   },
   linkTextRight: {
