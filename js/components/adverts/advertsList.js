@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { RefreshControl } from 'react-native';
-import { Content, Spinner, List, View } from 'native-base';
+import { RefreshControl, View } from 'react-native';
+import { Content, Spinner, List } from 'native-base';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import AdvertsListStore from './advertsStore';

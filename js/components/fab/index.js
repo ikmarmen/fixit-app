@@ -58,13 +58,13 @@ export default class FabButton extends Component {
       <Fab position="bottomLeft"
         active={this.store.isFabActive}
         onPress={this.store.toggleFab}
-        style={{ backgroundColor: '#38947a' }}>
+        style={{ backgroundColor: '#264559' }}>
         <Icon name="add" />
-        <Button style={{ backgroundColor: '#38947a' }}
+        <Button style={{ backgroundColor: '#264559' }}
           onPress={this.onCamera}>
           <Icon name="camera" />
         </Button>
-        <Button style={{ backgroundColor: '#38947a' }}
+        <Button style={{ backgroundColor: '#264559' }}
           onPress={this.onSelectPhoto}>
           <Icon name="photos" />
         </Button>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {View} from 'react-native';
-import { Container } from 'native-base';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import AdvertsList from './advertsList'
@@ -12,9 +11,9 @@ export default class AdvertsExplore extends Component {
     super(props);
   }
   render() {
-    return <Container>
+    return <View style={{flex:1}}>
       <AdvertsList/>
       <FabButton/>
-    </Container>;
+    </View>;
   }
 }

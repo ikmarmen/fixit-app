@@ -25,7 +25,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import NavBar from './navbar/'
 
 const TabIcon = (props, name) => {
-  return <MaterialIcon style={{ color: props.focused ? 'red' : 'black' }} size={25} name={name} />
+  return <MaterialIcon style={{ color: props.focused ? 'white' : '#a0a0a0' }} size={25} name={name} />
 };
 
 export default class AppRouter extends React.Component {
@@ -43,7 +43,7 @@ export default class AppRouter extends React.Component {
   render() {
     return <Router>
       <Scene key="root" hideNavBar={true} duration={0}>
-      <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: '#38947a' }} tabBarPosition="bottom" showIcon={true} showLabel={false}>
+      <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: '#264559' }} tabBarPosition="bottom" showIcon={true} showLabel={false}>
           <Scene key="adverts"
             component={Adverts}
             navBar={NavBar}
