@@ -1,6 +1,7 @@
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import { Actions, Router, Scene } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default class NavBar extends Component {
     render() {
@@ -10,11 +11,14 @@ export default class NavBar extends Component {
                     <Text style={styles.label}>{this.props.title}</Text>
                 </View>
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={{ }}>
-                        <Image source={require('../../../img/fb.png')} />
+                    <TouchableOpacity style={styles.buttons}>
+                        <Icon name='magnify' color={'white'} size={30}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{ }}>
-                        <Image source={require('../../../img/fb.png')} />
+                    <TouchableOpacity style={styles.buttons}>
+                        <Icon name='filter' color={'white'} size={30}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttons}>
+                        <Icon name='settings' color={'white'} size={30}/>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -38,8 +42,12 @@ const styles = {
     },
     buttonsContainer: {
         flexDirection: 'row',
-        justifyContent: 'center',
-        right: 20,
-        width: 70
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        right: 15,
+        width: 120
+    },
+    buttons: {
+        margin:3,
     }
 };
