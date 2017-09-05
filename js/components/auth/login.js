@@ -40,18 +40,23 @@ export default class Login extends Component {
           style={styles.logoImage}
           source={require('../../../img/noymed-logo.png')}
         />
+
+
         <View style={styles.inputContainer}>
-          <Item floatingLabel>
-            <Label>Email</Label>
+          <Item  style={StyleSheet.flatten(styles.input)} floatingLabel>
+            <Label style={StyleSheet.flatten(styles.inputLabel)}>Email</Label>
             <Icon name='person' style={{color:'white'}}/>
-            <Input onChangeText={(text) => this.store.setProp(text, 'email')}/>
+            <Input onChangeText={(text) => this.store.setProp(text, 'email')}  style={StyleSheet.flatten(styles.inputText)}/>
           </Item>
-          <Item floatingLabel>
-            <Label>Email</Label>
+          
+          <Item style={StyleSheet.flatten(styles.input)} floatingLabel>
+            <Label style={StyleSheet.flatten(styles.inputLabel)}>Password</Label>
             <Icon name='lock' style={{color:'white'}}/>
-            <Input onChangeText={(text) => this.store.setProp(text, 'email')}/>
+            <Input onChangeText={(text) => this.store.setProp(text, 'email')}  style={StyleSheet.flatten(styles.inputText)}/>
           </Item>   
         </View>
+
+
         <TouchableOpacity  activeOpacity={0.5} onPress={this.onLogin} >
             <View style={styles.btnContainer}>
               <Text style={styles.btnText}>LOG IN</Text>
@@ -105,45 +110,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#264559',
   },
-  emailInputImage: {
-    width: 16,
-    height: 19,
-    marginRight: 5,
-    position: 'absolute',
-    top: -3,
-    left: 1,
-  },
-  passwordInputImage: {
-    width: 16,
-    height: 20,
-    marginRight: 5,
-    position: 'absolute',
-    bottom: 24,
-    left: 1,
-  },
-  socialLoginsContainer: {
+  input: {
+    height: 50, 
     marginBottom: 10,
-    width: 270,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  }, 
+  inputLabel: {
+    color: 'white', 
+    fontSize: 12,
   },
-  textInput: {
-    height: 20,
-    width: 270,
-    fontSize: 10,
-    color: 'white',
-    paddingLeft: 22,
-    borderBottomColor: 'white',
-    borderRightWidth: 0,
-    borderTopWidth: 0,
-    borderLeftWidth: 0,
-    marginBottom: 20,
-    borderWidth: 1,
+  inputText: {
+    color: 'white', 
+    fontSize: 14,
   },
   logoImage: {
     width: 60,
     height: 30,
-    marginTop: 120,
+    marginTop: 100,
   },
   linkText: {
     color: '#ffffff',
@@ -153,7 +135,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: 270,
-    height: 80,
+    height: 140,
     marginTop: 20,
   },
   btnContainer: {
@@ -181,6 +163,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '800'
   },
+  socialLoginsContainer: {
+    width: 270,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   btnContainerTransparent: {
     width: 134,
     height: 36,
@@ -195,7 +182,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   bottomText: {
-    marginTop: 40,
+    marginTop: 10,
     flexDirection: 'row',
   },
   linkTextRight: {
