@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   inputText: {
     color: 'white', 
-    fontSize: 14,
+    fontSize: 18,
   },
   logoImage: {
     width: 60,
@@ -89,15 +89,15 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     width: 270,
-    height: 36,
-    borderRadius: 18,
+    height: 50,
+    borderRadius: 25,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#e5e642',
     justifyContent: 'center',
   },
   btnText: {
-    fontSize: 14,
+    fontSize: 18,
     padding: 20,
     color: 'white',
     fontWeight: '800',
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   bottomText: {
     marginTop: 10,
     flexDirection: 'row',
-    marginTop: 125,
+    marginTop: 270,
   },
   linkTextRight: {
     color: '#ffffff',

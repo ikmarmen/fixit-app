@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View, Text, TouchableOpacity } from 'react-native';
+import {StyleSheet,  Image, View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { timeSince } from '../../utils/dateHelper';
@@ -26,30 +26,147 @@ export default class FixItCard extends Component {
 
   render() {
     return (
-      <View button={true} onPress={this._onClicked} style={{ flex: 1, height: 310, padding: 4, shadowColor: "#000", elevation: 4, backgroundColor: '#FFFFFF' }}>
-        {this._renderImage()}
-        <View style={{ marginLeft: 4, marginRight: 4 }}>
-          <Text style={{ textAlign: 'left' }}>{this.store.advert.title}</Text>
-          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text>{`${this.store.advert.distance} km`}</Text>
-            <Text>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
-          </View>
-          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
-              <View>
-                <Image source={require('../../../img/fb.png')} />
-                <Text>{`${this.store.advert.bids.length} bids`}</Text>
+      <TouchableWithoutFeedback onPress={this._onClicked}>
+        <View style={styles.container}>
+          <View style={styles.cardContainer}>
+            {this._renderImage()}
+            
+              <View style={styles.card}>
+                  <View style={styles.cardtitleContainer}>
+                    <Text style={styles.cardTitle}>{this.store.advert.title}</Text>
+                  </View>
+
+                  <View style={styles.cardInfoTop}>
+                    <Image source={require('../../../img/location.png')} />
+                    <Text style={styles.cardText}>{`${this.store.advert.distance} km`}</Text>
+                    <Image source={require('../../../img/date.png')} />
+                    <Text style={styles.cardText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
+                    <Image source={require('../../../img/views.png')} />
+                    <Text style={styles.cardTextRight}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
+                  </View>
+
+                  <View style={styles.cardInfoBottom}>
+                    <View style={styles.cardInfo}>
+
+                      <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
+                        <View >
+                          <Text style={styles.cardInfoTextLeft}>{`${this.store.advert.bids.length} BIDS`}</Text>
+                        </View>
+                      </TouchableOpacity >
+
+                      <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
+                        <View>
+                          <Text style={styles.cardInfoTextRight}>{`${this.store.advert.questions.length} QUESTIONS`}</Text>
+                        </View>
+                      </TouchableOpacity >
+
+                    </View>
+
+                    <TouchableOpacity activeOpacity={0.5} onPress={this.onLogin} >
+                      <View style={styles.btnContainer}>
+                        <Text style={styles.btnText}>QUOTE</Text>
+                      </View>
+                    </TouchableOpacity >
+
+                  </View>
+                  
               </View>
-            </TouchableOpacity >
-            <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
-              <View>
-                <Image source={require('../../../img/fb.png')} />
-                <Text>{`${this.store.advert.questions.length} questions`}</Text>
-              </View>
-            </TouchableOpacity >
           </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#eeeeee',
+  },
+  cardContainer: {
+    backgroundColor: '#ffffff',
+    height: 320,
+    flex: 1,
+    margin: 10,
+    shadowColor: 'black',
+  },
+  card: {
+    flex: 0.75,
+    padding: 15,
+    paddingTop: 5,
+  },
+  cardtitleContainer: {
+    height: 55,
+  },
+  cardTitle: {
+    flex: 1,
+    fontSize: 20,
+    color: '#aaaaaa',
+    marginBottom: 5,
+  },
+  cardText: {
+    paddingRight: 5,
+    paddingLeft: 5,
+    color: '#bbbbbb',
+    borderRightWidth: 1,
+    borderRightColor: '#cccccc',
+    marginRight: 5,
+  },
+  cardTextRight: {
+    paddingRight: 5,
+    paddingLeft: 5,
+    color: '#bbbbbb'
+  },
+  cardInfoTop: {
+    flexDirection: 'row', 
+    alignItems: 'center' ,
+    marginBottom: 10,
+  },
+  cardInfoBottom: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center' ,    
+  },
+  cardInfo: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center' ,
+    width: 110,
+  },
+  cardInfoTextLeft: {
+    fontSize: 16,
+    paddingRight: 10,
+    color: '#aaaaaa',
+    borderRightWidth: 1,
+    borderRightColor: '#cccccc',
+  },
+  cardInfoTextRight: {
+    fontSize: 16,
+    paddingLeft: 10,
+    color: '#aaaaaa',
+  },
+
+
+
+
+
+
+
+  btnContainer: {
+    width: 150,
+    height: 40,
+    borderRadius: 25,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#e5e642',
+    justifyContent: 'center',
+  },
+  btnText: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '800',
+  },
+});

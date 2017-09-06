@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   inputText: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 18,
   },
   logoImage: {
     width: 60,
@@ -132,14 +132,14 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   inputContainer: {
-    width: 270,
+    width: 300,
     height: 140,
-    marginTop: 20,
+    marginTop: 80,
   },
   btnContainer: {
-    width: 270,
-    height: 36,
-    borderRadius: 18,
+    width: 300,
+    height: 50,
+    borderRadius: 25,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#e5e642',
@@ -156,27 +156,28 @@ const styles = StyleSheet.create({
     marginRight: 3,
   },
   btnText: {
-    fontSize: 14,
+    fontSize: 18,
     padding: 20,
     color: 'white',
     fontWeight: '800'
   },
   socialLoginsContainer: {
-    width: 270,
+    width: 300,
     flexDirection: 'row',
+    marginTop: 50,
     justifyContent: 'space-between',
   },
   btnContainerTransparent: {
-    width: 134,
-    height: 36,
-    borderRadius: 18,
+    width: 145,
+    height: 50,
+    borderRadius: 25,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
   },
   socBtnText: {
-    fontSize: 11,
+    fontSize: 12,
     color: 'white',
   },
   bottomText: {

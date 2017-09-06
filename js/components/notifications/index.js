@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Content, Header, Item, Icon, Input, Text } from 'native-base';
 import { observer } from 'mobx-react';
+import { RefreshControl, View } from 'react-native';
+import { Content, Spinner, List } from 'native-base';
+import AlertCard from './alertCard'
 
 @observer
 export default class Notifications extends Component {
@@ -8,10 +10,22 @@ export default class Notifications extends Component {
     super(props);
   }
   render() {
-    return <Container>
-      <Content>
-        <Text>Notifications</Text>
+    const adverts = [{}, {}, {}, {}, {}, {}, {},{}, {}, {}];
+
+    return <View style={{ flex: 1 }}>
+      <Content scrollEventThrottle={300}
+        refreshControl={
+          <RefreshControl />
+        }
+        removeClippedSubviews={true}>
+        {adverts.length > 0
+          ? <List dataArray={adverts}
+            renderRow={(item) =>
+              <AlertCard alert={item} />
+            }>
+          </List>
+          : <Spinner />}
       </Content>
-    </Container>;
+    </View>;
   }
 }
