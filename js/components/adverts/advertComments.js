@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Content, Text, View, Input, Button } from 'native-base';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { observer } from 'mobx-react';
 
 @observer
@@ -36,15 +36,17 @@ export default class AdvertsComments extends Component {
         })}
       </View>
       <View>
-        <Input style={{ margin: 2, borderColor: 'gray', borderWidth: 0.5 }}
+        <TextInput style={{ margin: 2, borderColor: 'gray', borderWidth: 0.5 }}
           multiline={true}
           numberOfLines={3}
           placeholder='Enter youre question.'
-          onChangeText={ this.store.addQuestionText} 
+          onChangeText={this.store.addQuestionText}
           value={this.store.newQuestion} />
-        <Button onPress={this.store.addQuestion}>
-          <Text>Send Question</Text>
-        </Button>
+        <TouchableOpacity activeOpacity={0.5} onPress={this.store.addQuestion} >
+          <View >
+            <Text >Send Question</Text>
+          </View>
+        </TouchableOpacity >
       </View>
     </View>
   }
