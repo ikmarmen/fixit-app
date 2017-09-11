@@ -10,12 +10,12 @@ export default class Notifications extends Component {
     super(props);
   }
   render() {
-    const adverts = [{}, {}, {}, {}, {}, {}, {},{}, {}, {}];
+  const adverts = [{}, {}, {}, {}, {}, {}, {},{}, {}, {}];
 
     return <View style={{ flex: 1 }}>
       <Content scrollEventThrottle={300}
         refreshControl={
-          <RefreshControl />
+          <RefreshControl refreshing={false} />
         }
         removeClippedSubviews={true}>
         {adverts.length > 0

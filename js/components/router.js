@@ -53,7 +53,8 @@ export default class AppRouter extends React.Component {
           />
           <Scene key="myAdverts"
             component={MyAdverts}
-            hideNavBar={true}
+            navBar={NavBar}
+            title={'FIXIT - Interested'}
             icon={props=>{return TabIcon(props, 'dashboard')}}
           />
           <Scene key="notifications"
@@ -63,7 +64,8 @@ export default class AppRouter extends React.Component {
           />
           <Scene key="account"
             component={Account}
-            hideNavBar={true}
+            navBar={NavBar}
+            title={'FIXIT - Alerts'}
              icon={props=>{return TabIcon(props, 'account-box')}}
           />
         </Scene>

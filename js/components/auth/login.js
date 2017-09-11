@@ -38,7 +38,7 @@ export default class Login extends Component {
       <View style={styles.container}>
         <Image
           style={styles.logoImage}
-          source={require('../../../img/noymed-logo.png')}
+          source={require('../../../img/logo.png')}
         />
 
 
@@ -121,8 +121,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   logoImage: {
-    width: 60,
-    height: 30,
+    width: 80,
+    height: 80,
     marginTop: 100,
   },
   linkText: {
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: 300,
     height: 140,
-    marginTop: 80,
+    marginTop: 60,
   },
   btnContainer: {
     width: 300,

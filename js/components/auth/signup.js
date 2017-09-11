@@ -16,7 +16,7 @@ export default class Signup extends Component {
       <View style={styles.container}>
         <Image
           style={styles.logoImage}
-          source={require('../../../img/noymed-logo.png')}
+          source={require('../../../img/logo.png')}
         />
 
 
@@ -59,14 +59,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#264559',
   },
   logoImage: {
-    width: 60,
-    height: 30,
+    width: 80,
+    height: 80,
     marginTop: 100,
   },
   inputContainer: {
     width: 300,
     height: 140,
-    marginTop: 20,
     marginBottom: 20,
   },
   input: {

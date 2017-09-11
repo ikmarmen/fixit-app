@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { StyleSheet, Image, View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { observer } from 'mobx-react';
-import { Card, CardItem, Thumbnail, Body, Text, Left, Right, Icon, Item, Button, ListItem, List, Content, View, Spinner } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { timeSince } from '../../utils/dateHelper';
 import Config from '../../../config.js';
@@ -21,21 +20,132 @@ export default class MyCard extends Component {
   _renderImage = () => {
     let id = this.store.advert.photos[0]._id;
     return (
-      <Thumbnail square large  source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
+      <Image resizeMode='stretch' style={{ flex: 1, height:200, width:200 }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
     );
   }
 
   render() {
     return (
-      <ListItem button={true} onPress={this._onClicked}>
-        {this._renderImage()}
-        <Body>
-          <Text style={{ textAlign: 'left' }}>{this.store.advert.title}</Text>
-          <Text>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
-          <Text>{`${this.store.advert.bids.length} bids`}</Text>
-          <Text>{`${this.store.advert.questions.length} questions`}</Text>
-        </Body>
-      </ListItem>
+      <View style={styles.container}>
+        <TouchableWithoutFeedback onPress={this._onClicked}>
+
+          <View  style={styles.myfixit}>
+            
+            <View style={styles.myfixitImage}>
+              {this._renderImage()}
+            </View>
+
+            <View style={styles.myfixitText}>
+            <View>
+              <Text style={styles.myfixitTitle}>{this.store.advert.title}</Text>
+              
+              <View style={styles.myfixitQuotes} >
+                <Image source={require('../../../img/date.png')} />
+                <Text  style={styles.cardTextRight}>2 min ago</Text>
+                <Image source={require('../../../img/views.png')} />
+                <Text  style={styles.cardTextRight}> 115 views</Text>
+              </View>
+              </View>
+
+
+                    <View style={styles.cardInfo}>
+
+                      <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
+                        <View style={styles.myfixitQuotes} >
+                          <Text style={styles.cardInfoTextLeft}>{`${this.store.advert.bids.length} BIDS`}</Text>
+                          <Text style={styles.cardInfonew}>(8new)</Text>
+                        </View>
+                      </TouchableOpacity >
+
+                      <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
+                        <View style={styles.myfixitQuotes}>
+                          <Text style={styles.cardInfoTextRight}>{`${this.store.advert.questions.length} QUESTIONS`}</Text>
+                          <Text style={styles.cardInfonew}>(3new)</Text>
+                        </View>
+                      </TouchableOpacity >
+
+                    </View>
+
+              
+            </View>
+          
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#eeeeee',
+  },
+  myfixit: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#ffffff',
+    marginTop: 10,
+    marginRight: 10,
+    marginLeft: 10,
+  },
+  myfixitImage: {
+    height: 150,
+    flex: 1,
+  },
+  myfixitText: {
+    flex: 1.5,
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
+    padding: 10,
+    justifyContent: 'space-between',
+  },
+  myfixitTitle: {
+    fontSize: 18,
+    marginBottom: 5,
+    maxHeight: 100,
+  },
+  myfixitQuotes: {
+    flexDirection: 'row',
+  },
+  cardTextRight: {
+    paddingRight: 5,
+    paddingLeft: 5,
+    color: '#bbbbbb'
+  },
+  cardInfo: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center' ,
+    width: 110,
+  },
+  myfixitQuotes: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  cardInfoTextLeft: {
+    fontSize: 14,
+    paddingRight: 2,
+    color: '#aaaaaa',
+    
+  },
+  cardInfoTextRight: {
+    fontSize: 14,
+    paddingLeft: 5,
+    paddingRight: 2,
+    color: '#aaaaaa',
+    borderLeftWidth: 1,
+    borderLeftColor: '#cccccc',
+  },
+  cardInfonew: {
+    fontSize: 11,
+    marginRight: 5,
+    color: '#46c6e9',
+    fontWeight: '800',
+  },
+
+
+  
+});

@@ -14,7 +14,7 @@ export default class ForgotPassword extends Component {
       <View style={styles.container}>
         <Image
           style={styles.logoImage}
-          source={require('../../../img/noymed-logo.png')}
+          source={require('../../../img/logo.png')}
         />
 
 
@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   logoImage: {
-    width: 60,
-    height: 30,
+    width: 80,
+    height: 80,
     marginTop: 100,
   },
   linkText: {
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: 270,
     height: 140,
-    marginTop: 20,
   },
   btnContainer: {
     width: 270,
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
   bottomText: {
     marginTop: 10,
     flexDirection: 'row',
-    marginTop: 270,
+    marginTop: 220,
   },
   linkTextRight: {
     color: '#ffffff',
