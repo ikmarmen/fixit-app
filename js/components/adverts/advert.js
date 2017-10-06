@@ -79,7 +79,7 @@ const styles = {
   postTitle: {
     marginLeft: 15,
     marginRight: 15,
-    justifyContent: 'spaceBetween',
+    justifyContent: 'space-between',
   },
   postMainTitle: {
     fontSize: 20,
