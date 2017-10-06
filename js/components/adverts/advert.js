@@ -24,9 +24,33 @@ export default class Advert extends Component {
           </Swiper>
         </View>
         <View style={styles.rowViewContainer} />
-        <View>
-          <Text>{this.store.advert.title}</Text>
-          <Text note style={{ textAlign: 'center' }}>{this.store.advert.description}</Text>
+        <View  style={styles.postTitle}>
+          <Text  style={styles.postMainTitle}>{this.store.advert.title}</Text>
+          <Text style={styles.name}>Serita Collington</Text>
+
+
+
+          <View style={styles.info}>
+            <Image source={require('../../../img/location.png')} />
+            <Text style={styles.infoText}>21km</Text>
+            <Image source={require('../../../img/date.png')} />
+            <Text style={styles.infoText}>2 hours ago</Text>
+           
+            <TouchableOpacity><Text style={styles.mapLink}>View on map</Text></TouchableOpacity>
+
+            <TouchableOpacity activeOpacity={0.5} onPress={this.onLogin} >
+                <View style={styles.btnContainer}>
+                  <Text style={styles.btnText}>QUOTE</Text>
+                </View>
+              </TouchableOpacity >
+
+
+
+          </View>
+
+
+
+          <Text note  style={styles.description}>{this.store.advert.description}</Text>
         </View>
         <View style={styles.rowViewContainer} />
         <Comments store={this.store} />
@@ -49,12 +73,50 @@ const styles = {
     paddingRight: 15,
     paddingTop: 2,
     paddingBottom: 2,
-    borderBottomWidth: 0.5,
-    borderColor: '#c9c9c9',
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  rowText: {
+  },  
+  postTitle: {
     marginLeft: 15,
+    marginRight: 15,
+    justifyContent: 'spaceBetween',
+  },
+  postMainTitle: {
+    fontSize: 20,
+    color: '#444444',
+  },
+  name: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginTop: 5,
+    marginBottom: 5,
+  },
+    info: {
+    flexDirection: 'row',
+  },
+  infoText: {
+    marginRight: 5,
+    marginLeft: 5,
+  },
+  mapLink: {
+    fontWeight: 'bold',
+  },
+  btnContainer: {
+    width: 120,
+    height: 40,
+    borderRadius: 25,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#e5e642',
+    justifyContent: 'center',
+  },
+  btnText: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '800',
+  },
+  description: {
+    fontSize: 16,
+    color: '#444444',
   },
 }
