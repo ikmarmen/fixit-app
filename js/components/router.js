@@ -23,6 +23,7 @@ import Notifications from './notifications/';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import NavBar from './navbar/'
+import AdvertsNavBar from './adverts/navbar'
 
 const TabIcon = (props, name) => {
   return <MaterialIcon style={{ color: props.focused ? 'white' : '#a0a0a0' }} size={25} name={name} />
@@ -46,7 +47,7 @@ export default class AppRouter extends React.Component {
       <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: '#264559' }} tabBarPosition="bottom" showIcon={true} showLabel={false}>
           <Scene key="adverts"
             component={Adverts}
-            navBar={NavBar}
+            navBar={AdvertsNavBar}
             icon={(props)=>{return TabIcon(props, 'home')}}
             initial={true}
             title={'FIXIT - Home'}
