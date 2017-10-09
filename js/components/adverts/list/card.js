@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {StyleSheet,  Image, View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { timeSince } from '../../utils/dateHelper';
-import Config from '../../../config.js';
+import { timeSince } from '../../../utils/dateHelper';
+import Config from '../../../../config.js';
 
 @observer
 export default class FixItCard extends Component {
@@ -37,11 +37,11 @@ export default class FixItCard extends Component {
                   </View>
 
                   <View style={styles.cardInfoTop}>
-                    <Image source={require('../../../img/location.png')} />
+                    <Image source={require('../../../../img/location.png')} />
                     <Text style={styles.cardText}>{`${this.store.advert.distance} km`}</Text>
-                    <Image source={require('../../../img/date.png')} />
+                    <Image source={require('../../../../img/date.png')} />
                     <Text style={styles.cardText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
-                    <Image source={require('../../../img/views.png')} />
+                    <Image source={require('../../../../img/views.png')} />
                     <Text style={styles.cardTextRight}>{`5 views`}</Text>
                   </View>
 
@@ -148,13 +148,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: '#aaaaaa',
   },
-
-
-
-
-
-
-
   btnContainer: {
     width: 150,
     height: 40,

@@ -1,48 +1,86 @@
-import { View, Image, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Image, Text, TouchableOpacity, TextInput, Animated, Easing, Dimensions } from 'react-native';
 import React, { Component } from 'react';
-import { Actions, Router, Scene } from 'react-native-router-flux';
+import { Actions, Router, Scene, ActionConst } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import AdvertsListStore from '../store'
+
 export default class AdvertsNavBar extends Component {
+    constructor(props) {
+        super(props);
+
+        let screenWidth = Dimensions.get('window').width;
+        this.state = {
+            expanded: false,
+            animation: new Animated.Value(screenWidth),
+            screenWidth: screenWidth
+        };
+        this.store = AdvertsListStore;
+    }
+
+    _toggleSeacrhBar = () => {
+        let value = this.state.expanded ? this.state.screenWidth : 0;
+
+        if (this.state.expanded) {
+            this.refs.SearchInput.blur();
+        }else{
+            this.refs.SearchInput
+            this.refs.SearchInput.focus();
+        }
+
+        this.setState({
+            expanded: !this.state.expanded
+        });
+
+        Animated.timing(
+            this.state.animation,
+            {
+                duration: 500,
+                toValue: value
+            }
+        ).start();
+    }
+    _clearText=()=>{
+        this.refs.SearchInput.clear();
+        this.store.onSearch();
+    }
+    _search=(e)=>{
+       this.store.onSearch(e.nativeEvent.text);
+    }
+    _filter = () => {
+        let store = this.store;
+        Actions.advertsFilter({ type: ActionConst.POP_TO, store: store });
+    }
+
     render() {
+        let { animation } = this.state;
         return (
             <View style={styles.background}>
                 <View style={styles.labelContainer}>
                     <Text style={styles.label}>{this.props.title}</Text>
                 </View>
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.buttons}>
-                        <Icon name='magnify' color={'white'} size={30}/>
+                    <TouchableOpacity style={styles.buttons} onPress={this._toggleSeacrhBar}>
+                        <Icon name='magnify' color={'white'} size={30} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.buttons}>
-                        <Icon name='filter' color={'white'} size={30}/>
+                        <Icon name='filter' color={'white'} size={30} onPress={this._filter}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.buttons}>
-                        <Icon name='settings' color={'white'} size={30}/>
+                        <Icon name='settings' color={'white'} size={30} />
                     </TouchableOpacity>
                 </View>
-
-
-                <View style={styles.searchArea}>
-                    <TouchableOpacity style={styles.buttons}>
-                        <Icon name='arrow-left' color={'white'} size={30}/>
+                <Animated.View style={[styles.searchArea, { marginLeft: animation }]}>
+                    <TouchableOpacity style={styles.buttons} onPress={this._toggleSeacrhBar}>
+                        <Icon name='arrow-left' color={'white'} size={30} />
                     </TouchableOpacity>
-                    <TextInput  style={styles.search}>
+                    <TextInput style={styles.search} ref='SearchInput' returnKeyType={'search'} onSubmitEditing={this._search}>
                     </TextInput>
-                    <TouchableOpacity style={styles.buttons}>
-                        <Icon name='window-close' color={'white'} size={30}/>
+                    <TouchableOpacity style={styles.buttons} onPress={this._clearText}>
+                        <Icon name='window-close' color={'white'} size={30} />
                     </TouchableOpacity>
-                
-                   
-                </View>
-
-
-
+                </Animated.View>
             </View>
-
-
-
-            
         );
     }
 
@@ -69,18 +107,17 @@ const styles = {
         width: 120
     },
     buttons: {
-        margin:3,
+        margin: 3,
     },
     searchArea: {
+        width: '100%',
         backgroundColor: '#264559',
         position: 'absolute',
-        width: '100%',
         height: 50,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         marginRight: 10,
-
     },
     search: {
         width: '80%',

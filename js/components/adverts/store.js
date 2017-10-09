@@ -46,21 +46,23 @@ class AdvertsListStore {
   @observable isRefreshing = false;
   isLoading = false;
   isInitialized = false;
-  options = null;
   pageCount = null;
   pageNumber = null;
+  searchKeyword = null;
+  distance = null;
+  zip = null;
 
   constructor(pageCount = 10) {
     autorun(() => this.showErrors());
     this.pageCount = pageCount;
     this.pageNumber = 0;
+    this.distance = 0;
   }
 
   @action
   initialize = () => {
     if (!this.isInitialized) {
-      let coords = { longitude: LocationStore.location.longitude, latitude: LocationStore.location.latitude };
-      this.load({ coords: coords }, false);
+      this.load(false);
       this.isInitialized = true;
     }
   }
@@ -72,21 +74,21 @@ class AdvertsListStore {
     }
   }
 
-  load = (options, append = true, isRefrash = false) => {
+  load = (append = true, isRefrash = false) => {
     let that = this;
 
     let request = {
-      maxDistance: options.distance || 100,
+      maxDistance: this.distance || 100,
       skip: this.pageNumber * this.pageCount,
-      take: this.pageCount
+      take: this.pageCount,
+      search: this.searchKeyword
     };
 
-    if (options.coords) {
-      request.longitude = options.coords.longitude;
-      request.latitude = options.coords.latitude;
-    }
-    if (options.zip) {
-      request.zip = options.zip;
+    if (this.zip) {
+      request.zip = this.zip;
+    }else{
+      request.longitude = LocationStore.location.longitude;
+      request.latitude = LocationStore.location.latitude
     }
 
     request = qs.stringify(request);
@@ -123,8 +125,7 @@ class AdvertsListStore {
     this.isRefreshing = true;
     this.pageNumber = 0;
 
-    let coords = { longitude: LocationStore.location.longitude, latitude: LocationStore.location.latitude };
-    this.load({ coords: coords }, false, true);
+    this.load(false, true);
   }
 
   @action
@@ -138,10 +139,18 @@ class AdvertsListStore {
       let page = (currentItemIndex + this.pageCount * 1 / 3) / this.pageCount;
       if (page > this.pageNumber) {
         this.pageNumber++;
-        let coords = { longitude: LocationStore.location.longitude, latitude: LocationStore.location.latitude };
-        this.load({ coords: coords })
+        this.load();
       }
     }
+  }
+
+  @action
+  onSearch = (searckKeyword) => {
+    this.pageNumber = 0;
+    this.searchKeyword = searckKeyword;
+    this.isRefreshing = true;
+
+    this.load(false, true);
   }
 }
 

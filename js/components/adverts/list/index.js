@@ -3,8 +3,8 @@ import { RefreshControl, View } from 'react-native';
 import { Content, Spinner, List } from 'native-base';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import AdvertsListStore from './advertsStore';
-import AdvertCard from './advertCard'
+import AdvertsListStore from '../store';
+import Card from './card'
 
 @observer
 export default class AdvertsList extends Component {
@@ -31,7 +31,7 @@ export default class AdvertsList extends Component {
         {adverts.length > 0
           ? <List dataArray={adverts}
             renderRow={(item) =>
-              <AdvertCard advert={item} />
+              <Card advert={item} />
             }>
           </List>
           : <Spinner />}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {View} from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import AdvertsList from './advertsList'
+import AdvertsList from './list/'
 import FabButton from '../fab/'
 
 @observer
