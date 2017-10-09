@@ -49,7 +49,7 @@ export default class AdvertsNavBar extends Component {
     }
     _filter = () => {
         let store = this.store;
-        Actions.advertsFilter({ type: ActionConst.POP_TO, store: store });
+        Actions.advertsFilter({ type: ActionConst.PUSH, store: store });
     }
 
     render() {

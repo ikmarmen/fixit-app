@@ -38,17 +38,14 @@ export default class AppRouter extends React.Component {
     BackHandler.addEventListener('hardwareBackPress', () => this.backAndroid());
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', () => this.backAndroid());
   }
 
-  backAndroid () {
-    if (Actions.state.index === 1) {
+  backAndroid() {
+    if (Actions.state.index === 0) {
       return false;
     }
-
-    Actions.pop();
-    return true;
   }
 
   render() {
@@ -84,8 +81,8 @@ export default class AppRouter extends React.Component {
         <Scene key="login" component={Login} hideNavBar={true} />
         <Scene key="signup" component={Signup} />
         <Scene key="forgotPassword" component={ForgotPassword} />
-        <Scene key="advert" component={Advert} direction='vertical'/>
-        <Scene key="advertsFilter" component={AdvertsFilter} direction='vertical' gestureResponseDistance="200"/>
+        <Scene key="advert" component={Advert} direction='vertical' />
+        <Scene key="advertsFilter" component={AdvertsFilter} direction='vertical' />
         <Scene key="camera" component={CameraView} direction='vertical' />
         <Scene key="newAdvert" component={NewAdvert} direction='vertical' />
         <Scene key="myAdvert" component={MyAdvert} direction='vertical' />
