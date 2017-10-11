@@ -6,6 +6,7 @@ import Swiper from 'react-native-swiper'
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Config from '../../../../config.js';
 import Comments from './comments';
+import { timeSince } from '../../../utils/dateHelper';
 
 @observer
 export default class Advert extends Component {
@@ -17,8 +18,8 @@ export default class Advert extends Component {
     return (
       <View>
         <View>
-          <View>
-            <Swiper height={250}>
+          <View height={250} width='100%' >
+            <Swiper>
               {this.store.advert.photos.map((photo) => {
                 return <Image key={photo._id} resizeMode='stretch' style={styles.image} source={{ uri: `${Config.BASE_URL}posts/photo/${photo._id}` }} />
               })}
@@ -27,12 +28,12 @@ export default class Advert extends Component {
           <View style={styles.rowViewContainer} />
           <View style={styles.postTitle}>
             <Text style={styles.postMainTitle}>{this.store.advert.title}</Text>
-            <Text style={styles.name}>Serita Collington</Text>
+            <Text style={styles.name}>{this.store.advert.createdBy}</Text>
             <View style={styles.info}>
               <Image source={require('../../../../img/location.png')} />
-              <Text style={styles.infoText}>21km</Text>
+              <Text style={styles.infoText}>{this.store.advert.distance+'km'}</Text>
               <Image source={require('../../../../img/date.png')} />
-              <Text style={styles.infoText}>2 hours ago</Text>
+              <Text style={styles.infoText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
 
               <TouchableOpacity><Text style={styles.mapLink}>View on map</Text></TouchableOpacity>
 
@@ -49,7 +50,7 @@ export default class Advert extends Component {
         </View>
         <TouchableOpacity activeOpacity={0.5} style={{ position: 'absolute' }} onPress={() => Actions.pop()} >
           <View>
-            <Icon name='close' />
+            <Icon name='close' style={{color:'white'}}/>
           </View>
         </TouchableOpacity >
       </View>);
