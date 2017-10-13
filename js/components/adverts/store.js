@@ -79,14 +79,20 @@ class AdvertsListStore {
     let that = this;
 
     let request = {
-      maxDistance: this.distance || 100,
+      maxDistance: FilterStore.maxDistance,
       skip: this.pageNumber * this.pageCount,
       take: this.pageCount,
       search: this.searchKeyword
     };
 
-    if (this.zip) {
-      request.zip = this.zip;
+    var order = FilterStore.selectedOrder.split(':');
+    request.order = {
+      by: order[0],
+      direction: order[1]
+    }
+
+    if (FilterStore.zip && FilterStore.isSearchByZip) {
+      request.zip = FilterStore.zip;
     } else {
       request.longitude = LocationStore.location.longitude;
       request.latitude = LocationStore.location.latitude
