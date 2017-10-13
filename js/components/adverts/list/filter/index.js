@@ -17,7 +17,7 @@ export default class AdvertsFilter extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity activeOpacity={0.5} style={styles.closeBtn} onPress={() => Actions.pop()} >
+          <TouchableOpacity activeOpacity={0.5} style={styles.closeBtn} onPress={() => FilterStore.close()} >
             <Icon name='close' style={{ color: 'black' }} />
           </TouchableOpacity >
         </View>

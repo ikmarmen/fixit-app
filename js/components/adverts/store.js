@@ -3,6 +3,7 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import qs from 'qs';
 import Fetch from '../../utils/fetch-json';
 import LocationStore from '../../stores/locationStore';
+import FilterStore from './list/filter/store';
 
 class AdvertStore {
   @observable advert = null;
@@ -86,7 +87,7 @@ class AdvertsListStore {
 
     if (this.zip) {
       request.zip = this.zip;
-    }else{
+    } else {
       request.longitude = LocationStore.location.longitude;
       request.latitude = LocationStore.location.latitude
     }

@@ -1,7 +1,8 @@
 import { View, Image, Text, TouchableOpacity, TextInput, Animated, Easing, Dimensions } from 'react-native';
 import React, { Component } from 'react';
-import { Actions, Router, Scene, ActionConst } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import FilterStore from '../list/filter/store/'
 
 import AdvertsListStore from '../store'
 
@@ -48,8 +49,7 @@ export default class AdvertsNavBar extends Component {
        this.store.onSearch(e.nativeEvent.text);
     }
     _filter = () => {
-        let store = this.store;
-        Actions.advertsFilter({ type: ActionConst.PUSH, store: store });
+        FilterStore.open();
     }
 
     render() {
