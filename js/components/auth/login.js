@@ -56,7 +56,7 @@ export default class Login extends Component {
         </View>
 
 
-        <TouchableOpacity activeOpacity={0.5} onPress={this.onLogin} >
+        <TouchableOpacity   style={styles.LoginButtoncContainer} activeOpacity={0.5} onPress={this.onLogin} >
           <View style={styles.btnContainer}>
             <Text style={styles.btnText}>LOG IN</Text>
           </View>
@@ -68,7 +68,7 @@ export default class Login extends Component {
         </TouchableOpacity >
 
         <View style={styles.socialLoginsContainer}>
-          <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
+          <TouchableOpacity  style={styles.btnSocContainer} activeOpacity={0.5} onPress={this.onFacebookLogin}>
             <View style={styles.btnContainerTransparent}>
               <Image
                 style={styles.btnIconFb}
@@ -77,7 +77,7 @@ export default class Login extends Component {
               <Text style={styles.socBtnText}>Log in with Facebook</Text>
             </View>
           </TouchableOpacity >
-          <TouchableOpacity activeOpacity={0.5} onPress={this.onGoogleLogin}>
+          <TouchableOpacity   style={styles.btnSocContainer} activeOpacity={0.5} onPress={this.onGoogleLogin}>
             <View style={styles.btnContainerTransparent}>
               <Image
                 style={styles.btnIconGoogle}
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   logoImage: {
     width: 80,
     height: 80,
-    marginTop: 100,
+    marginTop: '20%',
   },
   linkText: {
     color: '#ffffff',
@@ -131,19 +131,23 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 50,
   },
-  inputContainer: {
-    width: 300,
+    inputContainer: {
+    width: '75%',
     height: 140,
-    marginTop: 60,
+    marginTop: '15%',
+  },
+  LoginButtoncContainer: {
+    width: '75%',
+    alignItems: 'center',
+    justifyContent: 'center',  
   },
   btnContainer: {
-    width: 300,
+    width: '100%',
     height: 50,
     borderRadius: 25,
-    flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#e5e642',
-    justifyContent: 'center',
+    justifyContent: 'center',    
   },
   btnIconFb: {
     height: 12,
@@ -157,18 +161,20 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: 18,
-    padding: 20,
     color: 'white',
-    fontWeight: '800'
+    fontWeight: '800',
   },
   socialLoginsContainer: {
-    width: 300,
+    width: '75%',
     flexDirection: 'row',
-    marginTop: 50,
+    marginTop: '10%',
     justifyContent: 'space-between',
   },
+  btnSocContainer: {
+      width: '50%',
+  },
   btnContainerTransparent: {
-    width: 145,
+    width: '95%',
     height: 50,
     borderRadius: 25,
     flexDirection: 'row',
@@ -181,7 +187,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   bottomText: {
-    marginTop: 10,
+    marginTop: '2%',
     flexDirection: 'row',
   },
   linkTextRight: {

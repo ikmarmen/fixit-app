@@ -36,7 +36,7 @@ export default class Login extends Component {
             this.store.logauth();
             Actions.pop();
           }}>
-            <Text>Log Auth</Text>
+            <Text>Log Out</Text>
           </Button>
         </Form>
       </Content>
