@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View, Text, TouchableOpacity } from 'react-native';
+import { Image, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { observer } from 'mobx-react';
 import { Icon } from 'native-base';
 import Swiper from 'react-native-swiper'
@@ -18,7 +18,7 @@ export default class Advert extends Component {
   }
   render() {
     return (
-      <View>
+      <ScrollView>
         <View>
           <View height={250} width='100%' >
             <Swiper>
@@ -59,7 +59,7 @@ export default class Advert extends Component {
             <Icon name='close' style={{color:'white'}}/>
           </View>
         </TouchableOpacity >
-      </View>);
+      </ScrollView>);
   }
 }
 

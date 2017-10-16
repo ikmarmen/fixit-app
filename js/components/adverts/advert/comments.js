@@ -11,7 +11,7 @@ export default class AdvertsComments extends Component {
 
   _renderQuestion = (question) => {
     return (
-      <View key={question._id} style={{ flex: 1, borderWidth: 0.5, margin: 1, borderColor: 'gray' }}>
+      <View key={question._id} style={{ borderWidth: 0.5, margin: 1, borderColor: 'gray' }}>
         <View style={{ marginLeft: 2 }}>
           <Text note style={{ textAlign: 'left' }}>{`Q: ${question.body}`}</Text>
         </View>
