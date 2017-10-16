@@ -4,6 +4,10 @@ import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { timeSince } from '../../../utils/dateHelper';
 import Config from '../../../../config.js';
+import Octicons from 'react-native-vector-icons/Octicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
+
 
 @observer
 export default class FixItCard extends Component {
@@ -37,11 +41,11 @@ export default class FixItCard extends Component {
                   </View>
 
                   <View style={styles.cardInfoTop}>
-                    <Image source={require('../../../../img/location.png')} />
+                  <Octicons name='location' style={styles.icon} />
                     <Text style={styles.cardText}>{`${this.store.advert.distance} km`}</Text>
-                    <Image source={require('../../../../img/date.png')} />
+                    <Ionicons name='md-time' style={styles.icon} />
                     <Text style={styles.cardText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
-                    <Image source={require('../../../../img/views.png')} />
+                    <Feather name='eye' style={styles.icon} />
                     <Text style={styles.cardTextRight}>{`${this.store.advert.viewsCount} views`}</Text>
                   </View>
 
@@ -136,6 +140,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', 
     alignItems: 'center' ,
     width: '50%',
+  },
+  iconLocation: {
+    color: '#46c6e9',
+    fontSize: 27,
+  },
+  icon: {
+    color: '#46c6e9',
+    fontSize: 25,
   },
   cardInfoTextLeft: {
     fontSize: 16,

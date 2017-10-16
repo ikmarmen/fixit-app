@@ -4,6 +4,8 @@ import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { timeSince } from '../../utils/dateHelper';
 import Config from '../../../config.js';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
 
 @observer
 export default class MyCard extends Component {
@@ -40,9 +42,9 @@ export default class MyCard extends Component {
               <Text style={styles.myfixitTitle}>{this.store.advert.title}</Text>
               
               <View style={styles.myfixitQuotes} >
-                <Image source={require('../../../img/date.png')} />
+                <Ionicons name='md-time' style={styles.icon} />
                 <Text  style={styles.cardTextRight}>2 min ago</Text>
-                <Image source={require('../../../img/views.png')} />
+                <Feather name='eye' style={styles.icon} />
                 <Text  style={styles.cardTextRight}> 115 views</Text>
               </View>
               </View>
@@ -90,6 +92,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginRight: 10,
     marginLeft: 10,
+  },
+  icon: {
+    color: '#46c6e9',
+    fontSize: 25,
   },
   myfixitImage: {
     height: 150,

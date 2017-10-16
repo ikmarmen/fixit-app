@@ -121,8 +121,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   logoImage: {
-    width: 80,
-    height: 80,
+    width: 75,
+    height: 75,
     marginTop: '20%',
   },
   linkText: {
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     inputContainer: {
     width: '75%',
     height: 140,
-    marginTop: '15%',
+    marginTop: '12%',
   },
   LoginButtoncContainer: {
     width: '75%',
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   socialLoginsContainer: {
     width: '75%',
     flexDirection: 'row',
-    marginTop: '10%',
+    marginTop: '3%',
     justifyContent: 'space-between',
   },
   btnSocContainer: {
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   btnContainerTransparent: {
     width: '95%',
-    height: 50,
+    height: 40,
     borderRadius: 25,
     flexDirection: 'row',
     alignItems: 'center',

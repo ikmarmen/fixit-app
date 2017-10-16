@@ -72,9 +72,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   logoImage: {
-    width: 80,
-    height: 80,
-    marginTop: 100,
+    width: 75,
+    height: 75,
+    marginTop: '20%',
   },
   linkText: {
     color: '#ffffff',
@@ -83,11 +83,11 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   inputContainer: {
-    width: 270,
+    width: '75%',
     height: 140,
   },
   btnContainer: {
-    width: 270,
+    width: '75%',
     height: 50,
     borderRadius: 25,
     flexDirection: 'row',
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   bottomText: {
     marginTop: 10,
     flexDirection: 'row',
-    marginTop: 220,
+    marginTop: '40%',
   },
   linkTextRight: {
     color: '#ffffff',

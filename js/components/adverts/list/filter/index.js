@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Switch, TextInput, Picker } from 'react-native';
-import { Item, Icon, Input, Label } from 'native-base'
+import { Item, Icon, Input, Label } from 'native-base';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import FilterStore from './store'
+import FilterStore from './store';
 
 @observer
 export default class AdvertsFilter extends Component {
@@ -25,7 +26,7 @@ export default class AdvertsFilter extends Component {
           <View  style={styles.filterInput} >
             <Item floatingLabel>
               <Label >Max Distance km</Label>
-              <Icon name='person' style={{ color: '#46c6e9' }} />
+              <Icon name='md-bus' height={15} width={15}style={{ color: '#46c6e9' }} />
               <Input
                 onChangeText={(text) => this.store.maxDistance = text }
                 value={this.store.maxDistance} />
@@ -42,14 +43,14 @@ export default class AdvertsFilter extends Component {
               
             <Item floatingLabel>
               <Label >ZIP</Label>
-              <Icon name='person' style={{ color: '#46c6e9' }} />
+              <Icon name='md-cafe' style={{ color: '#46c6e9' }} />
               <Input 
                 onChangeText={(text) => this.store.zip= text }
                 value={this.store.zip} 
                 disabled={!this.store.isSearchByZip}/>
             </Item>
           </View>
-          <View>
+          <View style={styles.filterInput} >
             <Picker
               selectedValue={this.store.selectedOrder}
               onValueChange={(itemValue, itemIndex) => this.store.selectedOrder= itemValue }>
@@ -81,10 +82,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
   },
-  closeBtn: {
-   
-  },
-  switchContainer: {
+   switchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 10,
