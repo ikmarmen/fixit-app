@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, View, Image, TouchableWithoutFeedback, Text } from 'react-native';
 import { observer } from 'mobx-react';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 @observer
 export default class FixItCard extends Component {
@@ -18,7 +19,7 @@ export default class FixItCard extends Component {
 
             <View style={styles.alert}>
                 <View style={styles.alertIcon}>
-                    <Image style={styles.alertImage} source={require('../../../img/comment.png')} />
+                <MaterialCommunityIcons name='comment-processing-outline' style={styles.icon} />
                 </View>
                 <View  style={styles.alertText} >
                     <Text style={styles.alertTitle}>Ruth Pasek asked a question</Text>
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eeeeee',
   },
   alert: {
-    flex: 1,
+    width: '95%',
     height: 80,
     flexDirection: 'row',
     alignItems: 'center',
@@ -58,11 +59,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#e5e642',
     marginRight: 10,
     padding: 10,
-    paddingTop: 12,
   },
   alertText: {
-    flex: 0.5,
+    width: '75%',
     height: 60,
+  },
+  icon: {
+    color: '#fff',
+    fontSize: 20,
   },
   alertTitle: {
     fontSize: 20,

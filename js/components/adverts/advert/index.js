@@ -7,6 +7,8 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import Config from '../../../../config.js';
 import Comments from './comments';
 import { timeSince } from '../../../utils/dateHelper';
+import Octicons from 'react-native-vector-icons/Octicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 @observer
 export default class Advert extends Component {
@@ -32,9 +34,10 @@ export default class Advert extends Component {
             <View style={styles.info}>
 
             <View style={styles.infoLeft}>
-              <Image source={require('../../../../img/location.png')} />
+              
+              <Octicons name='location' style={styles.icon} />
               <Text style={styles.infoText}>{this.store.advert.distance+'km'}</Text>
-              <Image source={require('../../../../img/date.png')} />
+              <Ionicons name='md-time' style={styles.icon} />
               <Text style={styles.infoText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
 
               <TouchableOpacity><Text style={styles.mapLink}>View on map</Text></TouchableOpacity>
@@ -92,14 +95,18 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  icon: {
+    color: '#46c6e9',
+    fontSize: 25,
+  },
   infoLeft: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   infoText: {
-    marginRight: 5,
-    marginLeft: 5,
+    marginRight: 7,
+    marginLeft: 2,
   },
   mapLink: {
     fontWeight: 'bold',
