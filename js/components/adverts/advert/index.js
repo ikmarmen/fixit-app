@@ -30,15 +30,18 @@ export default class Advert extends Component {
             <Text style={styles.postMainTitle}>{this.store.advert.title}</Text>
             <Text style={styles.name}>{this.store.advert.createdBy}</Text>
             <View style={styles.info}>
+
+            <View style={styles.infoLeft}>
               <Image source={require('../../../../img/location.png')} />
               <Text style={styles.infoText}>{this.store.advert.distance+'km'}</Text>
               <Image source={require('../../../../img/date.png')} />
               <Text style={styles.infoText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
 
               <TouchableOpacity><Text style={styles.mapLink}>View on map</Text></TouchableOpacity>
+              </View>
 
-              <TouchableOpacity activeOpacity={0.5} onPress={this.onLogin} >
-                <View style={styles.btnContainer}>
+              <TouchableOpacity  style={styles.btnContainer} activeOpacity={0.5} onPress={this.onLogin} >
+                <View>
                   <Text style={styles.btnText}>QUOTE</Text>
                 </View>
               </TouchableOpacity >
@@ -86,6 +89,13 @@ const styles = {
   },
   info: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  infoLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   infoText: {
     marginRight: 5,
@@ -95,7 +105,7 @@ const styles = {
     fontWeight: 'bold',
   },
   btnContainer: {
-    width: 120,
+    width: '25%',
     height: 40,
     borderRadius: 25,
     flexDirection: 'row',

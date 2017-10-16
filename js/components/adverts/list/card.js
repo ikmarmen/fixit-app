@@ -62,8 +62,8 @@ export default class FixItCard extends Component {
 
                     </View>
 
-                    <TouchableOpacity activeOpacity={0.5} onPress={this.onLogin} >
-                      <View style={styles.btnContainer}>
+                    <TouchableOpacity  style={styles.btnContainer} activeOpacity={0.5} onPress={this.onLogin} >
+                      <View>
                         <Text style={styles.btnText}>QUOTE</Text>
                       </View>
                     </TouchableOpacity >
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   cardInfoBottom: {
+    width: '100%',
     flexDirection: 'row', 
     justifyContent: 'space-between', 
     alignItems: 'center' ,    
@@ -134,14 +135,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     justifyContent: 'space-between', 
     alignItems: 'center' ,
-    width: 110,
+    width: '50%',
   },
   cardInfoTextLeft: {
     fontSize: 16,
-    paddingRight: 10,
     color: '#aaaaaa',
-    borderRightWidth: 1,
-    borderRightColor: '#cccccc',
   },
   cardInfoTextRight: {
     fontSize: 16,
@@ -149,7 +147,7 @@ const styles = StyleSheet.create({
     color: '#aaaaaa',
   },
   btnContainer: {
-    width: 150,
+    width: '30%',
     height: 40,
     borderRadius: 25,
     flexDirection: 'row',
