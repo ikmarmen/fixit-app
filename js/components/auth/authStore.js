@@ -68,8 +68,11 @@ class AuthenticationStore {
   fetchUserInfo() {
     Fetch('startup', { method: 'GET' })
       .then(data => {
-        this.user = data.user;
-        this.canStart = true
+        let id = setTimeout(()=>{
+          this.user = data.user;
+          this.canStart = true;
+          clearTimeout(id);
+        }, 1500);
       })
       .catch(error => {
         this.user = null;
@@ -132,13 +135,21 @@ class AuthenticationStore {
 export const AuthStore = new AuthenticationStore();
 
 export class SignupStore {
-  @observable error = null;
   @observable email = null;
   @observable password = null;
-  firstName = null;
-  lastName = null;
+  @observable name = null;
+
+  @observable error = null;
 
   constructor() {
+    reaction(() => this.error, () => this.showErrors());
+  }
+
+  showErrors() {
+    if (this.error != null) {
+      alert(this.error);
+      this.error = null;
+    }
   }
 
   @action
@@ -148,23 +159,27 @@ export class SignupStore {
 
   @computed
   get isValid() {
-    return !!(this.password && this.email);
+    return !!(this.password && this.email && this.name);
   }
 
   @action
   signup = () => {
-    let that = this;
-    let request = qs.stringify({ email: that.email, password: that.password, firstName: that.firstName, lastName: that.lastName });
-
-    Fetch('user', { method: 'POST', body: request })
-      .then(data => {
-        if (data.tokens && data.tokens[0]) {
-          AuthStore.token = data.tokens[0];
-        }
-      })
-      .catch(error => {
-        that.error = error.message;
-      });
+    let request = qs.stringify({ email: this.email, password: this.password, name: this.name });
+    if (this.isValid) {
+      Fetch('user', { method: 'POST', body: request })
+        .then(data => {
+          if (data.tokens && data.tokens[0]) {
+            AuthStore.token = data.tokens[0];
+            AuthStore.fetchUserInfo();
+          }
+        })
+        .catch(error => {
+          this.error = error.message;
+        });
+    }
+    else { 
+      this.error = 'All field can not empty.'
+    }
   }
 }
 
@@ -174,6 +189,14 @@ export class LoginStore {
   @observable error = null;
 
   constructor() {
+    reaction(() => this.error, () => this.showErrors());
+  }
+
+  showErrors() {
+    if (this.error != null) {
+      alert(this.error);
+      this.error = null;
+    }
   }
 
   @action
