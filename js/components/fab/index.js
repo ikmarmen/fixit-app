@@ -55,7 +55,7 @@ export default class FabButton extends Component {
 
   render() {
     return (
-      <Fab position="bottomLeft"
+      <Fab position="bottomRight"
         active={this.store.isFabActive}
         onPress={this.store.toggleFab}
         style={{ backgroundColor: '#264559' }}>

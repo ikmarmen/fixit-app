@@ -4,6 +4,7 @@ import qs from 'qs';
 import Fetch from '../../utils/fetch-json';
 import LocationStore from '../../stores/locationStore';
 import FilterStore from './list/filter/store';
+import QuoteStore from '../quote/store'
 
 class AdvertStore {
   @observable advert = null;
@@ -38,6 +39,10 @@ class AdvertStore {
 
   @action addQuestionText = (text) => {
     this.newQuestion = text;
+  }
+
+  @action openQuote =()=>{
+    QuoteStore.open(this.advert);
   }
 }
 

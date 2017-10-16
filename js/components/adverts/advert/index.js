@@ -40,7 +40,7 @@ export default class Advert extends Component {
               <TouchableOpacity><Text style={styles.mapLink}>View on map</Text></TouchableOpacity>
               </View>
 
-              <TouchableOpacity  style={styles.btnContainer} activeOpacity={0.5} onPress={this.onLogin} >
+              <TouchableOpacity  style={styles.btnContainer} activeOpacity={0.5} onPress={this.store.openQuote} >
                 <View>
                   <Text style={styles.btnText}>QUOTE</Text>
                 </View>

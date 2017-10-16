@@ -62,7 +62,7 @@ export default class FixItCard extends Component {
 
                     </View>
 
-                    <TouchableOpacity  style={styles.btnContainer} activeOpacity={0.5} onPress={this.onLogin} >
+                    <TouchableOpacity  style={styles.btnContainer} activeOpacity={0.5} onPress={this.store.openQuote} >
                       <View>
                         <Text style={styles.btnText}>QUOTE</Text>
                       </View>
