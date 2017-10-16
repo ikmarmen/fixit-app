@@ -42,7 +42,7 @@ export default class FixItCard extends Component {
                     <Image source={require('../../../../img/date.png')} />
                     <Text style={styles.cardText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
                     <Image source={require('../../../../img/views.png')} />
-                    <Text style={styles.cardTextRight}>{`5 views`}</Text>
+                    <Text style={styles.cardTextRight}>{`${this.store.advert.viewsCount} views`}</Text>
                   </View>
 
                   <View style={styles.cardInfoBottom}>
