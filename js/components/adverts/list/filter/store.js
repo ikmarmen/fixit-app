@@ -4,12 +4,12 @@ import AdvertsListStore from '../../store';
 
 class FilterStore {
     orderList = [
-        { label: 'Distanse: nearest first', value: 'distanse:asc' },
-        { label: 'Distanse: faraway first', value: 'distanse:desc' },
-        { label: 'Time: newest first', value: 'createdDate:desc' },
-        { label: 'Time: olds first', value: 'createdDate:asc' }
+        { label: 'Time: newest first', value: 'createdDate:asc' },
+        { label: 'Time: olds first', value: 'createdDate:desc' },
+        { label: 'Distanse: nearest first', value: 'distanse:desc' },
+        { label: 'Distanse: faraway first', value: 'distanse:asc' }    
     ];
-    @observable selectedOrder = 'createdDate:desc';
+    @observable selectedOrder = 'createdDate:asc';
     @observable maxDistance = '10';
     @observable isSearchByZip = false;
     @observable zip = null;
