@@ -28,10 +28,8 @@ export default class ForgotPassword extends Component {
         </View>
 
 
-        <TouchableOpacity  activeOpacity={0.5} onPress={this.onLogin} >
-            <View style={styles.btnContainer}>
+        <TouchableOpacity   style={styles.btnContainer} activeOpacity={0.5} onPress={this.onLogin} >
               <Text style={styles.btnText}>RESET PASSWORD</Text>
-            </View>
           </TouchableOpacity >
         
 
