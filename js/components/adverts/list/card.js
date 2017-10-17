@@ -24,7 +24,7 @@ export default class FixItCard extends Component {
   _renderImage = () => {
     let id = this.store.advert.photos[0]._id;
     return (
-      <Image key={id} resizeMode='stretch' style={{ height: 200, width: null, flex: 1, resizeMode: 'cover' }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
+      <Image key={id} resizeMode='cover' style={{ height: 200, width: null, flex: 1, resizeMode: 'cover' }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
     );
   }
 

@@ -8,6 +8,7 @@
     "devtools": "react-devtools"
   },
   "dependencies": {
+    "@ptomasroos/react-native-multi-slider": "0.0.11",
     "color": "^2.0.0",
     "lodash": "^4.17.4",
     "mobx": "^3.3.1",
