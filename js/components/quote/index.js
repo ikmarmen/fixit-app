@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View, Text, TouchableOpacity, Slider, CheckBox, TextInput, ScrollView } from 'react-native';
+import { Image, View, Text, TouchableOpacity, Slider, CheckBox, TextInput, ScrollView, Modal } from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -11,6 +11,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import SliderMarker from '../../controls/sliderMarker';
+import AddContact from '../addContact/';
+import AddContactStore from '../addContact/store';
 
 @observer
 export default class Quote extends Component {
@@ -27,8 +29,8 @@ export default class Quote extends Component {
     _renderContacts = () => {
         return this.store.contacts.map((item, index) => {
             return (<View style={styles.contact} key={index}>
-                <CheckBox value={item.isSelected}/>
-                <MaterialCommunityIcons name={item.type=='phone' ? 'phone' : 'email-outline'} style={styles.icon} />
+                <CheckBox value={item.isSelected} onValueChange={(value => this.store.onContactSelectionChange(value, index))} />
+                <MaterialCommunityIcons name={item.type == 'phone' ? 'phone' : 'email-outline'} style={styles.icon} />
                 <Text style={styles.infoText}>{item.contact}</Text>
             </View>);
         })
@@ -98,7 +100,7 @@ export default class Quote extends Component {
                         <Text>You can contact me by...</Text>
                     </View>
                     {this._renderContacts()}
-                    <TouchableOpacity style={styles.contactAdd}>
+                    <TouchableOpacity style={styles.contactAdd} onPress={() =>AddContactStore.open()}>
                         <Feather name='plus-circle' style={styles.icon} />
                         <Text style={styles.infoText}>Add new</Text>
                     </TouchableOpacity >
@@ -106,6 +108,7 @@ export default class Quote extends Component {
                         <Text style={styles.btnText}>QUOTE</Text>
                     </TouchableOpacity >
                 </View>
+                <AddContact onAdd={(contact)=>this.store.addContact(contact)}/>
             </View>
             : null
         );
@@ -221,10 +224,4 @@ const styles = {
         color: '#fff',
         fontWeight: '800',
     }
-
-
-
-
-
-
 }

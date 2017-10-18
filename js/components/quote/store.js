@@ -23,40 +23,43 @@ class QuoteStore {
         }
     }
 
-    @action
-    onValueChange = (value, name) => {
+    @action onValueChange = (value, name) => {
         this[name] = value;
     }
+    @action onContactSelectionChange = (value, index) => {
+        this.contacts[index].isSelected = value;
+    }
+    @action onQuote = () => {
+        let contacts = this.contacts.filter(item => item.isSelected);
+        let request = qs.stringify({ amount: this.amount.toJS(), duration: this.duration.toJS(), message: this.message, contacts: contacts });
 
-    @action
-    onQuote = () => {
-        let request = qs.stringify({ amount: this.amount.toJS(), duration: this.duration.toJS(), message: this.message });
-        debugger;
         Fetch(`posts/${this.advert._id}/quote`, { method: 'POST', body: request })
             .then(data => {
-                debugger;
+                this.close();
             })
             .catch(error => {
                 this.error = error.message;
             });
     }
-
-    @action
-    open = (advert) => {
+    @action addContact = (contact) => {
+        this.contacts.push({
+            contact: contact,
+            type: contact.indexOf('@') == -1 ? 'phone' :'email'
+        });
+    }
+    @action open = (advert) => {
         this.advert = advert;
 
         let contacts = []
-        contacts.push({ isSelected: false, contact: AuthStore.user.email, type:'email' });
+        contacts.push({ isSelected: false, contact: AuthStore.user.email, type: 'email' });
         if (AuthStore.user.phone) {
-            contacts.push({ isSelected: false, contact: AuthStore.user.phone, type:'phone' });
+            contacts.push({ isSelected: false, contact: AuthStore.user.phone, type: 'phone' });
         }
         this.contacts = contacts;
 
         Actions.quote({ type: ActionConst.PUSH });
     }
-
-    @action
-    close = () => {
+    @action close = () => {
         this.advert = null;
         Actions.pop();
     }
