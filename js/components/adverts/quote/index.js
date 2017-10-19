@@ -72,6 +72,8 @@ export default class Quote extends Component {
                             onValuesChangeFinish={(values) => this._sliderValuesChange(values, 'amount')}
                             selectedStyle={{ backgroundColor: '#46c6e9' }}
                             containerStyle={{ height: 0 }}
+                            trackStyle={{ backgroundColor: 'red' }}
+                            markerContainerStyle={{ height: 55,width: 55 }}
                             customMarker={SliderMarker} />
                     </View>
                     <View style={styles.quoteValues}>
@@ -188,11 +190,14 @@ const styles = {
         height: 20,
     },
     quoteValues: {
-        width: '95%',
+        width: '90%',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         marginTop: 10,
+        marginRight: 10,
+        paddingTop: 20,
+        paddingRight:40
     },
     slider: {
 
