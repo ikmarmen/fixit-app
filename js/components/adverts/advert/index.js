@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Image, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { observer } from 'mobx-react';
-import { Icon } from 'native-base';
 import Swiper from 'react-native-swiper'
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Config from '../../../../config.js';
@@ -9,6 +8,7 @@ import Comments from './comments';
 import { timeSince } from '../../../utils/dateHelper';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 @observer
 export default class Advert extends Component {
@@ -56,7 +56,7 @@ export default class Advert extends Component {
         </View>
         <TouchableOpacity activeOpacity={0.5} style={{ position: 'absolute' }} onPress={() => Actions.pop()} >
           <View>
-            <Icon name='close' style={{color:'white'}}/>
+            <Icon name='close' color={'white'} size={30}/>
           </View>
         </TouchableOpacity >
       </ScrollView>);
