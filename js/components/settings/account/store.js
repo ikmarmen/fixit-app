@@ -37,22 +37,23 @@ class QuoteStore {
     @action close = () => {
         this.isModalVisible = false;
     }
-    @computed get Validate () {
-        if(!this.oldPassword || !this.newPassword || !this.confirmNewPassword)
+    @computed get Validate() {
+        if (!this.oldPassword || !this.newPassword || !this.confirmNewPassword)
             return "Please fill all inputs";
-        if(this.newPassword !== this.confirmNewPassword)
+        if (this.newPassword !== this.confirmNewPassword)
             return "Passwords do not match";
-      return null;
+        return null;
     }
-    @action changePassword = ()=>{
-        let request = qs.stringify({ oldPassword: this.oldPassword, newPassword: this.newPassword  });
-        Fetch('user/changePassword', { method: 'POST', body: request })
-          .then(data => {
-              this.close();
-          })
-          .catch(error => {
-            this.error = error.message;
-          });
+    @action changePassword = () => {
+        let request = qs.stringify({ oldPassword: this.oldPassword, newPassword: this.newPassword });
+
+        this.authStore.changePassword(request)
+            .then(data => {
+                this.close();
+            })
+            .catch(error => {
+                this.error = error.message;
+            });
     }
     //End account actions
 }

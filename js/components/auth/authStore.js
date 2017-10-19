@@ -68,7 +68,7 @@ class AuthenticationStore {
   fetchUserInfo() {
     Fetch('startup', { method: 'GET' })
       .then(data => {
-        let id = setTimeout(()=>{
+        let id = setTimeout(() => {
           this.user = data.user;
           this.canStart = true;
           clearTimeout(id);
@@ -131,6 +131,10 @@ class AuthenticationStore {
       this.user = null;
     }
   }
+
+  @action changePassword = (request) => {
+    return Fetch('user/changePassword', { method: 'POST', body: request })
+  }
 }
 export const AuthStore = new AuthenticationStore();
 
@@ -178,7 +182,7 @@ export class SignupStore {
           this.error = error.message;
         });
     }
-    else { 
+    else {
       this.error = 'All field can not empty.'
     }
   }
