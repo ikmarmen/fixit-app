@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AuthStore } from '../auth/authStore';
+
 //import SettingsStore from './store';
 
 @observer
@@ -10,6 +12,10 @@ export default class SettingsMain extends Component {
     constructor(props) {
         super(props);
         //this.store = SettingsStore;
+    }
+    logout=()=>{
+        AuthStore.logout(); 
+        //Actions.pop();
     }
     render() {
         return (<View style={styles.container}>
@@ -42,6 +48,12 @@ export default class SettingsMain extends Component {
                     <MaterialCommunityIcons name='help-box' size={35} style={{ color: 'black' }} />
                     <TouchableOpacity activeOpacity={0.5} onPress={()=>Actions.help({ type: ActionConst.PUSH })}>
                         <Text>Help</Text>
+                    </TouchableOpacity >
+                </View>
+                <View>
+                    <MaterialCommunityIcons name='logout' size={35} style={{ color: 'black' }} />
+                    <TouchableOpacity activeOpacity={0.5} onPress={()=>this.logout()}>
+                        <Text>Logout</Text>
                     </TouchableOpacity >
                 </View>
             </View>

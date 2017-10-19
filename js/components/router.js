@@ -11,7 +11,7 @@ import Login from './auth/login';
 import Signup from './auth/signup';
 import ForgotPassword from './auth/forgotPassword';
 import Advert from './adverts/advert/';
-import Quote from './quote/';
+import Quote from './adverts/quote/';
 import AdvertsFilter from './adverts/list/filter/';
 import CameraView from './camera/';
 import NewAdvert from './newAdvert/newAdvert';

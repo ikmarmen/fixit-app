@@ -4,6 +4,7 @@ import { Item, Input, Label, Icon } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { AuthStore } from '../auth/authStore';
+import FixitModal from '../../controls/modal';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 @observer
@@ -11,13 +12,16 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.store = AuthStore;
+    this.state = {
+      isModalVisible: false
+    }
   }
 
   render() {
     return (<View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Settings</Text>
-        <TouchableOpacity activeOpacity={0.5} onPress={Actions.pop} onPress={Actions.pop}>
+        <TouchableOpacity activeOpacity={0.5} onPress={Actions.pop}>
           <MaterialCommunityIcons name='close' size={25} style={{ color: '#fff' }} />
         </TouchableOpacity >
       </View>
@@ -41,11 +45,17 @@ export default class Login extends Component {
           <TouchableOpacity activeOpacity={0.5} onPress={this.store.update}>
             <Text>Save</Text>
           </TouchableOpacity >
-          <TouchableOpacity activeOpacity={0.5} onPress={() => { this.store.logauth(); Actions.pop(); }}>
-            <Text>Log Out</Text>
+          <TouchableOpacity activeOpacity={0.5} onPress={() => { this.setState({ isModalVisible: true }) }}>
+            <Text>Change Password</Text>
           </TouchableOpacity >
         </View>
       </View>
+      <FixitModal isVisible={this.state.isModalVisible}>
+        <TextInput value={this.store.newContact} onChangeText={this.store.onNewContactValueChange} />
+        <TouchableOpacity activeOpacity={0.5} onPress={() => { this.setState({ isModalVisible: false }) }}>
+          <Text>close</Text>
+        </TouchableOpacity >
+      </FixitModal>
     </View>
     );
   }

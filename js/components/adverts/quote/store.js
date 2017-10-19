@@ -1,8 +1,8 @@
 import { observable, computed, action, autorun } from 'mobx';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import qs from 'qs';
-import Fetch from '../../utils/fetch-json';
-import { AuthStore } from '../auth/authStore';
+import Fetch from '../../../utils/fetch-json';
+import { AuthStore } from '../../auth/authStore';
 
 class QuoteStore {
     @observable advert = null;
@@ -11,6 +11,9 @@ class QuoteStore {
     @observable duration = [1, 10];
     @observable contacts;
     @observable message;
+
+    @observable isModalVisible = false;
+    @observable newContact = null;
 
     constructor() {
         autorun(() => this.showErrors());
@@ -23,6 +26,7 @@ class QuoteStore {
         }
     }
 
+    //Begin quote actions
     @action onValueChange = (value, name) => {
         this[name] = value;
     }
@@ -41,12 +45,6 @@ class QuoteStore {
                 this.error = error.message;
             });
     }
-    @action addContact = (contact) => {
-        this.contacts.push({
-            contact: contact,
-            type: contact.indexOf('@') == -1 ? 'phone' :'email'
-        });
-    }
     @action open = (advert) => {
         this.advert = advert;
 
@@ -63,6 +61,27 @@ class QuoteStore {
         this.advert = null;
         Actions.pop();
     }
+    //End quote actions
+
+    //Begin add new contact modal actions
+    @action openAddContact = () => {
+        this.isModalVisible = true;
+        this.newContact = null;
+    }
+    @action closeAddContact = () => {
+        this.isModalVisible = false;
+    }
+    @action onNewContactValueChange = (value)=>{
+        this.newContact = value;
+    }
+    @action addContact = (contact) => {
+        this.contacts.push({
+            contact:  this.newContact,
+            type: this.newContact.indexOf('@') == -1 ? 'phone' :'email'
+        });
+        this.closeAddContact();
+    }
+    //End add new contact modal actions
 }
 
 const quoteStore = new QuoteStore()

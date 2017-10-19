@@ -3,16 +3,16 @@ import { Image, View, Text, TouchableOpacity, Slider, CheckBox, TextInput, Scrol
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import QuoteStore from './store';
-import Config from '../../../config.js';
-import { timeSince } from '../../utils/dateHelper';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import SliderMarker from '../../controls/sliderMarker';
-import AddContact from '../addContact/';
-import AddContactStore from '../addContact/store';
+import SliderMarker from '../../../controls/sliderMarker';
+import FixitModal from '../../../controls/modal';
+import QuoteStore from './store';
+import Config from '../../../../config.js';
+import { timeSince } from '../../../utils/dateHelper';
 
 @observer
 export default class Quote extends Component {
@@ -100,7 +100,7 @@ export default class Quote extends Component {
                         <Text>You can contact me by...</Text>
                     </View>
                     {this._renderContacts()}
-                    <TouchableOpacity style={styles.contactAdd} onPress={() =>AddContactStore.open()}>
+                    <TouchableOpacity style={styles.contactAdd} onPress={() => this.store.openAddContact()}>
                         <Feather name='plus-circle' style={styles.icon} />
                         <Text style={styles.infoText}>Add new</Text>
                     </TouchableOpacity >
@@ -108,7 +108,15 @@ export default class Quote extends Component {
                         <Text style={styles.btnText}>QUOTE</Text>
                     </TouchableOpacity >
                 </View>
-                <AddContact onAdd={(contact)=>this.store.addContact(contact)}/>
+                <FixitModal isVisible={this.store.isModalVisible}>
+                    <TextInput value={this.store.newContact} onChangeText={this.store.onNewContactValueChange} />
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => this.store.addContact()}>
+                        <Text>Add</Text>
+                    </TouchableOpacity >
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => this.store.closeAddContact()}>
+                        <Text>Close</Text>
+                    </TouchableOpacity >
+                </FixitModal>
             </View>
             : null
         );

@@ -115,11 +115,11 @@ class AuthenticationStore {
   }
 
   @action
-  logauth = () => {
+  logout = () => {
     let that = this;
     if (this.token) {
       let request = qs.stringify({ token: this.token });
-      Fetch('user/logauth', { method: 'POST', body: request })
+      Fetch('user/logout', { method: 'POST', body: request })
         .then(data => {
           this.token = null;
           this.user = null;
