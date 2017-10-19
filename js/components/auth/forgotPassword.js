@@ -24,10 +24,8 @@ export default class ForgotPassword extends Component {
             <Input onChangeText={(text) => this.store.setProp(text, 'email')} style={StyleSheet.flatten(styles.inputText)} />
           </Item>
         </View>
-        <TouchableOpacity activeOpacity={0.5} onPress={this.onLogin} >
-          <View style={styles.btnContainer}>
+        <TouchableOpacity  style={styles.btnContainer} activeOpacity={0.5} onPress={this.onLogin} >
             <Text style={styles.btnText}>RESET PASSWORD</Text>
-          </View>
         </TouchableOpacity >
         <View style={styles.bottomText} >
           <Text style={styles.linkText}>Remembered?</Text>
