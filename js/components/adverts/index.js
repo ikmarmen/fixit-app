@@ -6,7 +6,7 @@ import AdvertsList from './list/'
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-crop-picker';
-import NewAdvertStore from '../newAdvert/newAdvertStore'
+import NewAdvertStore from './new/store'
 
 
 @observer

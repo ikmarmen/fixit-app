@@ -3,7 +3,7 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import qs from 'qs';
 import Fetch from '../../utils/fetch-json';
 
-class AdvertStore {
+export class AdvertStore {
   @observable advert = null;
   @observable error = null;
 

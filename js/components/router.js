@@ -14,7 +14,7 @@ import Advert from './adverts/advert/';
 import Quote from './adverts/quote/';
 import AdvertsFilter from './adverts/list/filter/';
 import CameraView from './camera/';
-import NewAdvert from './newAdvert/newAdvert';
+import NewAdvert from './adverts/new/';
 import MyAdvert from './myAdverts/myAdvert';
 
 import SettingsMain from './settings/';

@@ -1,8 +1,9 @@
 import { observable, computed, action, autorun } from 'mobx';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import qs from 'qs';
-import Fetch from '../../utils/fetch-json';
-import LocationStore from '../../stores/locationStore';
+import Fetch from '../../../utils/fetch-json';
+import LocationStore from '../../../stores/locationStore';
+import {AdvertStore} from '../../myAdverts/myAdvertsStore'
 
 export default class NewAdvertStore {
   @observable photos = [];
@@ -45,7 +46,8 @@ export default class NewAdvertStore {
 
     Fetch('posts/', { method: 'POST', body: request, headers: { 'Content-Type': 'multipart/form-data' } })
       .then(data => {
-        Actions.myAdvert({ type: ActionConst.RESET })
+        let store = new AdvertStore(data);
+        Actions.myAdvert({ type: ActionConst.REPLACE, store:store })
       })
       .catch(error => {
         this.error = error.message;
