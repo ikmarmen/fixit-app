@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Item, Input, Label, Icon } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity,TextInput } from 'react-native';
 import { AuthStore } from '../auth/authStore';
 import FixitModal from '../../controls/modal';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
