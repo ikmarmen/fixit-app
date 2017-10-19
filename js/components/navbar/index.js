@@ -1,6 +1,6 @@
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
-import { Actions, Router, Scene } from 'react-native-router-flux';
+import { Actions, Router, Scene, ActionConst } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default class NavBar extends Component {
@@ -18,7 +18,7 @@ export default class NavBar extends Component {
                         <Icon name='filter' color={'white'} size={30}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.buttons}>
-                        <Icon name='settings' color={'white'} size={30}/>
+                        <Icon name='settings' color={'white'} size={30} onPress={()=>Actions.settingsMain({ type: ActionConst.PUSH })}/>
                     </TouchableOpacity>
                 </View>
             </View>

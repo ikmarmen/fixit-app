@@ -138,6 +138,7 @@ export class SignupStore {
   @observable email = null;
   @observable password = null;
   @observable name = null;
+  @observable phone = null;
 
   @observable error = null;
 

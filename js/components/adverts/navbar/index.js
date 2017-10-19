@@ -67,7 +67,7 @@ export default class AdvertsNavBar extends Component {
                         <Icon name='filter' color={'white'} size={30} onPress={this._filter}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.buttons}>
-                        <Icon name='settings' color={'white'} size={30} />
+                        <Icon name='settings' color={'white'} size={30} onPress={()=>Actions.settingsMain({ type: ActionConst.PUSH })}/>
                     </TouchableOpacity>
                 </View>
                 <Animated.View style={[styles.searchArea, { marginLeft: animation }]}>
