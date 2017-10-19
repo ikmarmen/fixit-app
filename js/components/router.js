@@ -21,7 +21,7 @@ import SettingsMain from './settings/';
 import About from './settings/about';
 import Help from './settings/help';
 import Settings from './settings/settings';
-import Account from './settings/account';
+import Account from './settings/account/';
 
 import MyAdverts from './myAdverts/';
 import Adverts from './adverts/';
