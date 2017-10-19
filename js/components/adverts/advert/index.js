@@ -49,7 +49,7 @@ export default class Advert extends Component {
                 </View>
               </TouchableOpacity >
             </View>
-            <Text note style={styles.description}>{this.store.advert.description}</Text>
+            <Text note style={styles.description}>{this.store.advert.description}my dishwasher drains under my sink and water flows all over my floor. do i need... my dishwasher drains under my sink and water flows all over my floor. do i need...</Text>
           </View>
           <View style={styles.rowViewContainer} />
           <Comments store={this.store} />
