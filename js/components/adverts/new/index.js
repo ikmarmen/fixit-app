@@ -14,7 +14,7 @@ export default class MyAdvertsExplore extends Component {
     this.store = props.store;
   }
   render() {
-    return (<ScrollView>
+    return (<ScrollView style={styles.scroll}>
       <View>
         <View height={250} width='100%' >
           <Swiper>
@@ -33,16 +33,19 @@ export default class MyAdvertsExplore extends Component {
             numberOfLines={3}
             value={this.store.description}
             onChangeTextValue={(text) => this.store.setProp(text, 'description')} />
-          <TouchableOpacity activeOpacity={0.5} onPress={this.store.postAdvert} disabled={(!this.store.isValid)}>
-            <Text>Post</Text>
+
+            <View style={styles.bottomButtonsContainer}>
+          <TouchableOpacity  style={styles.btnContainer} activeOpacity={0.5} onPress={this.store.postAdvert} disabled={(!this.store.isValid)}>
+            <Text  style={styles.btnText}>Post</Text>
           </TouchableOpacity >
           <TouchableOpacity activeOpacity={0.5} onPress={Actions.pop}>
-            <Text>Cancel </Text>
+            <Text>Cancel</Text>
           </TouchableOpacity >
+          </View>
         </View>
       </View>
-      <FixitModal isVisible={this.store.isUploading} bodyStyle={{ width: 150, height: 150, backgroundColor:'transparent' }}>
-        <ActivityIndicator size='large'/>
+      <FixitModal isVisible={this.store.isUploading} bodyStyle={{ width: 150, height: 150, backgroundColor:'transparent', alignItems: 'center' }}>
+        <ActivityIndicator size='large' color='#fff'/>
         <Text style={{backgroundColor:'transparent', color:'white', alignItems: 'center'}}>Posting...</Text>
       </FixitModal>
     </ScrollView>);
@@ -50,10 +53,12 @@ export default class MyAdvertsExplore extends Component {
 }
 
 const styles = {
+  scroll: {
+    backgroundColor: '#fff',
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
   },
   header: {
     flexDirection: 'row',
@@ -73,9 +78,35 @@ const styles = {
   rowViewContainer: {
     flex: 1,
     paddingRight: 15,
-    paddingTop: 2,
+    paddingTop: 0,
     paddingBottom: 2,
     flexDirection: 'row',
     alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  viewContainer: {
+    padding: 10,
+    backgroundColor: '#fff',
+  },
+bottomButtonsContainer: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,  
+  },
+btnContainer: {
+    width: '60%',
+    height: 40,
+    borderRadius: 25,
+    alignItems: 'center',
+    backgroundColor: '#e5e642',
+    justifyContent: 'center',
+    marginBottom: 10,    
+  },
+  btnText: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '800',
   },
 }
