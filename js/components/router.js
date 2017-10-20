@@ -28,6 +28,8 @@ import Adverts from './adverts/';
 import Interested from './interested/';
 import Notifications from './notifications/';
 
+import My from './my/';
+
 import NavBar from './navbar/'
 import AdvertsNavBar from './adverts/navbar'
 
@@ -68,9 +70,8 @@ export default class AppRouter extends React.Component {
             title={'Home'}
           />
           <Scene key="myAdverts"
-            component={MyAdverts}
-            navBar={NavBar}
-            title={'My Fixit'}
+            component={My}
+            hideNavBar={true}
             icon={props => { return TabIcon(props, 'dashboard') }}
           />
           <Scene key="interested"
