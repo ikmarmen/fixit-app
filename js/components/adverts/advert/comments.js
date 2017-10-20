@@ -31,11 +31,6 @@ export default class AdvertsComments extends Component {
   render() {
     return <View style={styles.container}>
       <Text  style={styles.commentTitle} >QUESTIONS</Text>
-      <View >
-        {this.store.advert.questions.map((question) => {
-          return this._renderQuestion(question)
-        })}
-      </View>
 
       <View>
         <TextInput style={styles.textInput}
@@ -51,6 +46,16 @@ export default class AdvertsComments extends Component {
         </View>
       </View>
 
+
+
+
+      <View >
+        {this.store.advert.questions.map((question) => {
+          return this._renderQuestion(question)
+        })}
+      </View>
+
+  
     </View>
   }
 }

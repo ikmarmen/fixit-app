@@ -26,36 +26,31 @@ export default class SettingsMain extends Component {
                 </TouchableOpacity >
             </View>
             <View style={styles.viewContainer}>
-                <View>
-                    <MaterialCommunityIcons name='account' size={35} style={{ color: 'black' }} />
-                    <TouchableOpacity activeOpacity={0.5} onPress={()=>Actions.account({ type: ActionConst.PUSH })}>
-                        <Text>Account Information</Text>
-                    </TouchableOpacity >
-                </View>
-                <View>
-                    <MaterialCommunityIcons name='settings' size={35} style={{ color: 'black' }} />
-                    <TouchableOpacity activeOpacity={0.5} onPress={()=>Actions.settings({ type: ActionConst.PUSH })}>
-                        <Text>Settings</Text>
-                    </TouchableOpacity >
-                </View>
-                <View>
-                    <MaterialCommunityIcons name='information' size={35} style={{ color: 'black' }} />
-                    <TouchableOpacity activeOpacity={0.5} onPress={()=>Actions.about({ type: ActionConst.PUSH })}>
-                        <Text>About</Text>
-                    </TouchableOpacity >
-                </View>
-                <View>
-                    <MaterialCommunityIcons name='help-box' size={35} style={{ color: 'black' }} />
-                    <TouchableOpacity activeOpacity={0.5} onPress={()=>Actions.help({ type: ActionConst.PUSH })}>
-                        <Text>Help</Text>
-                    </TouchableOpacity >
-                </View>
-                <View>
-                    <MaterialCommunityIcons name='logout' size={35} style={{ color: 'black' }} />
-                    <TouchableOpacity activeOpacity={0.5} onPress={()=>this.logout()}>
-                        <Text>Logout</Text>
-                    </TouchableOpacity >
-                </View>
+
+                <TouchableOpacity activeOpacity={0.5} onPress={()=>Actions.account({ type: ActionConst.PUSH })}  style={styles.listContainer}>
+                    <MaterialCommunityIcons name='account' size={35} style={styles.icon} />
+                    <Text>Account Information</Text>
+                </TouchableOpacity >
+                <TouchableOpacity activeOpacity={0.5} onPress={()=>Actions.settings({ type: ActionConst.PUSH })} style={styles.listContainer}>
+                    <MaterialCommunityIcons name='settings' size={35} style={styles.icon} />
+                    <Text>Settings</Text>
+                </TouchableOpacity >
+
+                <TouchableOpacity activeOpacity={0.5} onPress={()=>Actions.about({ type: ActionConst.PUSH })} style={styles.listContainer}>
+                    <MaterialCommunityIcons name='information' size={35} style={styles.icon} />
+                    <Text>About</Text>
+                </TouchableOpacity >
+
+                <TouchableOpacity activeOpacity={0.5} onPress={()=>Actions.help({ type: ActionConst.PUSH })} style={styles.listContainer}>
+                    <MaterialCommunityIcons name='help-box' size={35} style={styles.icon} />
+                    <Text>Help</Text>
+                </TouchableOpacity >
+
+                <TouchableOpacity  style={styles.listContainer} activeOpacity={0.5} onPress={()=>this.logout()}  >
+                    <MaterialCommunityIcons name='logout' size={35} style={styles.icon} />
+                    <Text>Logout</Text>
+                </TouchableOpacity >
+
             </View>
         </View>
         );
@@ -84,5 +79,18 @@ const styles = {
         alignItems: 'center',
         width: '100%',
         height: '100%',
+        padding: 10,
     },
+   listContainer: {
+       flexDirection: 'row',
+       width: '100%',
+       padding: 5,
+       alignItems: 'center',
+       borderBottomWidth: 1,
+       borderBottomColor: '#eee',
+   },
+   icon: {
+        color: '#46c6e9', 
+        marginRight: 10,
+   },
 }
