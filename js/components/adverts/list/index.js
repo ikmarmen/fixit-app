@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { RefreshControl, View } from 'react-native';
-import { Content, Spinner, List } from 'native-base';
+import { RefreshControl, View, ListView, Text } from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import AdvertsListStore from '../store';
@@ -18,24 +17,23 @@ export default class AdvertsList extends Component {
   }
 
   render() {
-    const adverts = this.store.adverts.toJS();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    const adverts = ds.cloneWithRows(this.store.adverts.toJS());
 
-    return <View style={{ flex: 1 }}>
-      <Content scrollEventThrottle={300}
+    return (this.store.adverts.length>0 ? <View style={{ flex: 1 }}>
+      <ListView
         refreshControl={
-          <RefreshControl onRefresh={this.store.onRefresh}
-            refreshing={this.store.isRefreshing} />
+          <RefreshControl
+            refreshing={this.store.isRefreshing}
+            onRefresh={this.store.onRefresh}
+          />
         }
-        removeClippedSubviews={true}
-        onScroll={this.store.onScrolePositionChange}>
-        {adverts.length > 0
-          ? <List dataArray={adverts}
-            renderRow={(item) =>
-              <Card advert={item} />
-            }>
-          </List>
-          : <Spinner />}
-      </Content>
-    </View>;
+        onEndReachedThreshold={300}
+        onEndReached={this.store.onScrolePositionChange}
+        dataSource={adverts}
+        renderRow={(rowData) => <Card advert={rowData} /> }
+      />
+    </View>
+    : <Text>No data</Text>);
   }
 }
