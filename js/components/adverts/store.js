@@ -58,7 +58,7 @@ class AdvertsListStore {
   distance = null;
   zip = null;
 
-  constructor(pageCount = 10) {
+  constructor(pageCount = 5) {
     autorun(() => this.showErrors());
     this.pageCount = pageCount;
     this.pageNumber = 0;

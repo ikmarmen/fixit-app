@@ -10,6 +10,7 @@ export default class NewAdvertStore {
   @observable error = null;
   @observable title = null;
   @observable description = null;
+  @observable isUploading = false;
 
   constructor(type) {
     autorun(() => this.showErrors());
@@ -35,6 +36,8 @@ export default class NewAdvertStore {
 
   @action
   postAdvert = () => {
+    this.isUploading = true;
+
     let request = new FormData();
     this.photos.forEach((item) => {
       request.append('photos', { uri: item.path, name: 'photo', type: item.mime });
@@ -46,12 +49,14 @@ export default class NewAdvertStore {
 
     Fetch('posts/', { method: 'POST', body: request, headers: { 'Content-Type': 'multipart/form-data' } })
       .then(data => {
+        this.isUploading = false;
         let store = new AdvertStore(data);
         Actions.myAdvert({ type: ActionConst.REPLACE, store:store })
       })
       .catch(error => {
+        this.isUploading = false;
         this.error = error.message;
-      });
+      })
   }
 
   @computed
