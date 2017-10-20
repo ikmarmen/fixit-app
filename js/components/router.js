@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx';
 import { Router, Scene, Actions, Switch } from 'react-native-router-flux';
 import AuthStore from './auth/authStore'
-import { NativeModules, processColor, BackHandler } from 'react-native';
+import { NativeModules, processColor, BackHandler, Platform } from 'react-native';
 const { StatusBarManager } = NativeModules;
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
@@ -40,7 +40,9 @@ export default class AppRouter extends React.Component {
     super(props);
   }
   componentDidMount() {
-    StatusBarManager.setColor(processColor('#264559'), false);
+    if(Platform.OS != 'ios'){
+      StatusBarManager.setColor(processColor('#264559'), false);
+    }
     BackHandler.addEventListener('hardwareBackPress', () => this.backAndroid());
   }
 
