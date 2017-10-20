@@ -47,69 +47,71 @@ export default class Quote extends Component {
                         <MaterialCommunityIcons name='close' size={25} style={{ color: '#fff' }} />
                     </TouchableOpacity >
                 </View>
-                <View style={styles.viewContainer}>
-                    <View style={styles.top}>
-                        <View style={styles.image}>
-                            {this._renderImage()}
-                        </View>
-                        <View style={styles.topRight}>
-                            <Text style={styles.title}>{this.store.advert.title}</Text>
-                            <Text style={styles.name}>{this.store.advert.createdBy}</Text>
-                            <View style={styles.info}>
-                                <Octicons name='location' style={styles.icon} />
-                                <Text style={styles.infoText}>{this.store.advert.distance + 'km'}</Text>
-                                <Ionicons name='md-time' style={styles.icon} />
-                                <Text style={styles.infoText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
+                <ScrollView>
+                    <View style={styles.viewContainer}>
+                        <View style={styles.top}>
+                            <View style={styles.image}>
+                                {this._renderImage()}
+                            </View>
+                            <View style={styles.topRight}>
+                                <Text style={styles.title}>{this.store.advert.title}</Text>
+                                <Text style={styles.name}>{this.store.advert.createdBy}</Text>
+                                <View style={styles.info}>
+                                    <Octicons name='location' style={styles.icon} />
+                                    <Text style={styles.infoText}>{this.store.advert.distance + 'km'}</Text>
+                                    <Ionicons name='md-time' style={styles.icon} />
+                                    <Text style={styles.infoText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
+                                </View>
                             </View>
                         </View>
+                        <View style={styles.quoteValues}>
+                            <Text style={{ width: '30%' }}>Amount($):</Text>
+                            <MultiSlider
+                                style={styles.slider}
+                                min={10} max={1000}
+                                values={this.store.amount.toJS()}
+                                onValuesChangeFinish={(values) => this._sliderValuesChange(values, 'amount')}
+                                selectedStyle={{ backgroundColor: '#46c6e9' }}
+                                containerStyle={{ height: 0 }}
+                                trackStyle={{ backgroundColor: 'red' }}
+                                markerContainerStyle={{ height: 55, width: 55 }}
+                                customMarker={SliderMarker} />
+                        </View>
+                        <View style={styles.quoteValues}>
+                            <Text style={{ width: '30%' }}>Duration(day):</Text>
+                            <MultiSlider
+                                style={styles.slider}
+                                min={1} max={30}
+                                values={this.store.duration.toJS()}
+                                onValuesChangeFinish={(values) => this._sliderValuesChange(values, 'duration')}
+                                selectedStyle={{ backgroundColor: '#46c6e9' }}
+                                containerStyle={{ height: 0 }}
+                                customMarker={SliderMarker} />
+                        </View>
+                        <View style={styles.quoteValues}>
+                            <Text>Your Message:</Text>
+                        </View>
+                        <TextInput
+                            style={styles.TextInput}
+                            multiline={true}
+                            onChangeText={(text) => this._sliderValuesChange(text, 'message')}
+                            numberOfLines={2}
+                            underlineColorAndroid='#46c6e9'
+                            selectionColor="#46c6e9" />
+                        <Text style={styles.helperText}>You can write about the method of fixing, materials needed, etc.</Text>
+                        <View style={styles.quoteValues}>
+                            <Text>You can contact me by...</Text>
+                        </View>
+                        {this._renderContacts()}
+                        <TouchableOpacity style={styles.contactAdd} onPress={() => this.store.openAddContact()}>
+                            <Feather name='plus-circle' style={styles.icon} />
+                            <Text style={styles.infoText}>Add new</Text>
+                        </TouchableOpacity >
+                        <TouchableOpacity style={styles.btnContainer} activeOpacity={0.5} onPress={() => this.store.onQuote()}>
+                            <Text style={styles.btnText}>QUOTE</Text>
+                        </TouchableOpacity >
                     </View>
-                    <View style={styles.quoteValues}>
-                        <Text style={{ width: '30%' }}>Amount($):</Text>
-                        <MultiSlider
-                            style={styles.slider}
-                            min={10} max={1000}
-                            values={this.store.amount.toJS()}
-                            onValuesChangeFinish={(values) => this._sliderValuesChange(values, 'amount')}
-                            selectedStyle={{ backgroundColor: '#46c6e9' }}
-                            containerStyle={{ height: 0 }}
-                            trackStyle={{ backgroundColor: 'red' }}
-                            markerContainerStyle={{ height: 55,width: 55 }}
-                            customMarker={SliderMarker} />
-                    </View>
-                    <View style={styles.quoteValues}>
-                        <Text style={{ width: '30%' }}>Duration(day):</Text>
-                        <MultiSlider
-                            style={styles.slider}
-                            min={1} max={30}
-                            values={this.store.duration.toJS()}
-                            onValuesChangeFinish={(values) => this._sliderValuesChange(values, 'duration')}
-                            selectedStyle={{ backgroundColor: '#46c6e9' }}
-                            containerStyle={{ height: 0 }}
-                            customMarker={SliderMarker} />
-                    </View>
-                    <View style={styles.quoteValues}>
-                        <Text>Your Message:</Text>
-                    </View>
-                    <TextInput
-                        style={styles.TextInput}
-                        multiline={true}
-                        onChangeText={(text) => this._sliderValuesChange(text, 'message')}
-                        numberOfLines={2}
-                        underlineColorAndroid='#46c6e9'
-                        selectionColor="#46c6e9" />
-                    <Text style={styles.helperText}>You can write about the method of fixing, materials needed, etc.</Text>
-                    <View style={styles.quoteValues}>
-                        <Text>You can contact me by...</Text>
-                    </View>
-                    {this._renderContacts()}
-                    <TouchableOpacity style={styles.contactAdd} onPress={() => this.store.openAddContact()}>
-                        <Feather name='plus-circle' style={styles.icon} />
-                        <Text style={styles.infoText}>Add new</Text>
-                    </TouchableOpacity >
-                    <TouchableOpacity style={styles.btnContainer} activeOpacity={0.5} onPress={() => this.store.onQuote()}>
-                        <Text style={styles.btnText}>QUOTE</Text>
-                    </TouchableOpacity >
-                </View>
+                </ScrollView>
                 <FixitModal isVisible={this.store.isModalVisible}>
                     <TextInput value={this.store.newContact} onChangeText={this.store.onNewContactValueChange} />
                     <TouchableOpacity activeOpacity={0.5} onPress={() => this.store.addContact()}>
@@ -197,7 +199,7 @@ const styles = {
         marginTop: 10,
         marginRight: 10,
         paddingTop: 20,
-        paddingRight:40
+        paddingRight: 40
     },
     slider: {
 
@@ -227,6 +229,7 @@ const styles = {
         width: '75%',
         height: 50,
         marginTop: 7,
+        marginBottom: 7,
         borderRadius: 25,
         alignItems: 'center',
         backgroundColor: '#e5e642',
