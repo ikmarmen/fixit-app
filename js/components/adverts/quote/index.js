@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, View, Text, TouchableOpacity, Slider, CheckBox, TextInput, ScrollView, Modal } from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
+import FloatLabelTextInput from 'react-native-floating-label-text-input';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -73,7 +74,7 @@ export default class Quote extends Component {
                                 onValuesChangeFinish={(values) => this._sliderValuesChange(values, 'amount')}
                                 selectedStyle={{ backgroundColor: '#46c6e9' }}
                                 containerStyle={{ height: 0 }}
-                                trackStyle={{ backgroundColor: 'red' }}
+                                trackStyle={{height: 3 }}
                                 markerContainerStyle={{ height: 55, width: 55 }}
                                 customMarker={SliderMarker} />
                         </View>
@@ -86,6 +87,7 @@ export default class Quote extends Component {
                                 onValuesChangeFinish={(values) => this._sliderValuesChange(values, 'duration')}
                                 selectedStyle={{ backgroundColor: '#46c6e9' }}
                                 containerStyle={{ height: 0 }}
+                                trackStyle={{height: 3 }}
                                 customMarker={SliderMarker} />
                         </View>
                         <View style={styles.quoteValues}>
@@ -112,14 +114,23 @@ export default class Quote extends Component {
                         </TouchableOpacity >
                     </View>
                 </ScrollView>
+
                 <FixitModal isVisible={this.store.isModalVisible}>
-                    <TextInput value={this.store.newContact} onChangeText={this.store.onNewContactValueChange} />
-                    <TouchableOpacity activeOpacity={0.5} onPress={() => this.store.addContact()}>
+                    
+                <View style={styles.addContactInput} >
+                    <FloatLabelTextInput  placeholder={"New Contact"}/>
+                </View>
+
+                <View style={styles.modalButtons}>
+                    <TouchableOpacity  style={styles.modalButtonAdd} activeOpacity={0.5} onPress={() => this.store.addContact()}>
                         <Text>Add</Text>
                     </TouchableOpacity >
-                    <TouchableOpacity activeOpacity={0.5} onPress={() => this.store.closeAddContact()}>
+                    <TouchableOpacity   style={styles.modalButtonClose}  activeOpacity={0.5} onPress={() => this.store.closeAddContact()}>
                         <Text>Close</Text>
                     </TouchableOpacity >
+                </View>
+
+
                 </FixitModal>
             </View>
             : null
@@ -147,12 +158,10 @@ const styles = {
     },
     viewContainer: {
         alignItems: 'center',
-        width: '100%',
-        height: '100%',
     },
     top: {
         width: '100%',
-        height: '25%',
+        height: 180,
         backgroundColor: '#eeeeee',
         padding: 10,
         flexDirection: 'row',
@@ -201,9 +210,6 @@ const styles = {
         paddingTop: 20,
         paddingRight: 40
     },
-    slider: {
-
-    },
     TextInput: {
         marginTop: 5,
         width: '95%',
@@ -239,5 +245,30 @@ const styles = {
         fontSize: 18,
         color: '#fff',
         fontWeight: '800',
+    },
+    addContactInput: {
+        height: 80,
+        padding: 10,
+    },
+    modalButtons: {
+        width: '100%',
+        flexDirection: 'row',
+        height: 50,
+        borderTopWidth: 1,
+        borderTopColor: '#ccc',
+    },
+    modalButtonAdd: {
+        width: '50%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRightWidth: 1,
+        borderRightColor: '#ccc',
+    },
+    modalButtonClose: {
+        width: '50%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 }

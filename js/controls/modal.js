@@ -26,7 +26,8 @@ const styles = {
     },
     modalBody: {
         backgroundColor: 'white',
-        width: 300,
-        height: 300
+        width: 280,
+        height: 150,
+        justifyContent: 'space-between',
     }
 };

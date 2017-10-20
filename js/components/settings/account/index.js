@@ -35,16 +35,20 @@ export default class Login extends Component {
                             value={this.store.authStore.user.phone}
                             onChangeTextValue={(text) => this.store.authStore.setProp(text, 'phone')} />
                     </View>
-                    <TouchableOpacity activeOpacity={0.5} onPress={this.store.authStore.update}>
-                        <Text>Save</Text>
-                    </TouchableOpacity >
-                    <TouchableOpacity activeOpacity={0.5} onPress={this.store.open}>
-                        <Text>Change Password</Text>
-                    </TouchableOpacity >
+                    <View style={styles.LoginButtoncContainer}>
+                        <TouchableOpacity  style={styles.btnContainer}  activeOpacity={0.5} onPress={this.store.authStore.update}>
+                            <Text style={styles.btnText}>Save</Text>
+                        </TouchableOpacity >
+                        <TouchableOpacity activeOpacity={0.5} onPress={this.store.open}>
+                            <Text>Change Password</Text>
+                        </TouchableOpacity >
+                    </View>
                 </View>
             </View>
-            <FixitModal isVisible={this.store.isModalVisible} bodyStyle={{ width: 250, height: 250 }}>
-                <View style={{ height: 140 }}>
+
+
+            <FixitModal isVisible={this.store.isModalVisible} bodyStyle={{ width: 280, height: 250 }}>
+                <View style={styles.modalInputContainer}>
                     <FloatLabelTextInput placeholder={"Old Password"}
                         secureTextEntry={true}
                         value={this.store.oldPassword}
@@ -58,13 +62,18 @@ export default class Login extends Component {
                         value={this.store.confirmNewPassword}
                         onChangeTextValue={(value) => this.store.onValueChange(value, 'confirmNewPassword')} />
                 </View>
-                <Text style={{ color: 'red' }}>{this.store.Validate}</Text>
-                <TouchableOpacity activeOpacity={0.5} onPress={this.store.changePassword} disabled={!!this.store.Validate}>
-                    <Text>Change</Text>
-                </TouchableOpacity >
-                <TouchableOpacity activeOpacity={0.5} onPress={this.store.close}>
-                    <Text>Close</Text>
-                </TouchableOpacity >
+                <Text style={styles.validation}>{this.store.Validate}</Text>
+
+
+
+                <View style={styles.modalButtons}>
+                    <TouchableOpacity   style={styles.modalButtonAdd} activeOpacity={0.5} onPress={this.store.changePassword} disabled={!!this.store.Validate}>
+                        <Text >Change</Text>
+                    </TouchableOpacity >
+                    <TouchableOpacity   style={styles.modalButtonAdd}  activeOpacity={0.5} onPress={this.store.close}>
+                        <Text>Close</Text>
+                    </TouchableOpacity >
+                </View>
             </FixitModal>
         </View>
         );
@@ -105,8 +114,56 @@ const styles = {
         fontSize: 18,
     },
     inputContainer: {
-        width: '75%',
-        height: 140,
-        marginTop: '12%',
+        width: '100%',
+        padding: 10,
+    },
+    LoginButtoncContainer: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,  
+      },
+    btnContainer: {
+        width: '60%',
+        height: 40,
+        borderRadius: 25,
+        alignItems: 'center',
+        backgroundColor: '#e5e642',
+        justifyContent: 'center',
+        marginBottom: 10,    
+      },
+      btnText: {
+        fontSize: 18,
+        color: 'white',
+        fontWeight: '800',
+      },
+      modalInputContainer: {
+          height: 170,
+          padding: 10,
+      },
+      validation: {
+          color: 'red',
+          marginLeft: 10,
+      },
+      modalButtons: {
+        width: '100%',
+        flexDirection: 'row',
+        height: 50,
+        borderTopWidth: 1,
+        borderTopColor: '#ccc',
+    },
+    modalButtonAdd: {
+        width: '50%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRightWidth: 1,
+        borderRightColor: '#ccc',
+    },
+    modalButtonClose: {
+        width: '50%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 }
