@@ -197,9 +197,6 @@ const styles = {
         marginRight: 7,
         marginLeft: 8,
     },
-    description: {
-        height: 20,
-    },
     quoteValues: {
         width: '90%',
         flexDirection: 'row',
