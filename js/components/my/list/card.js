@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Image, View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { timeSince } from '../../utils/dateHelper';
-import Config from '../../../config.js';
+import { timeSince } from '../../../utils/dateHelper';
+import Config from '../../../../config.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 

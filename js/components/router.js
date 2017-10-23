@@ -6,32 +6,40 @@ import { NativeModules, processColor, BackHandler, Platform } from 'react-native
 const { StatusBarManager } = NativeModules;
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
+//Signin Signup
 import Loading from './loading';
 import Login from './auth/login';
 import Signup from './auth/signup';
 import ForgotPassword from './auth/forgotPassword';
+
+//My adverts
+import MyAdvert from './my/advert/';
+
+//New Advert pages
+import CameraView from './camera/';
+import NewAdvert from './adverts/new/';
+
+//Adverts pages
 import Advert from './adverts/advert/';
 import Quote from './adverts/quote/';
 import AdvertsFilter from './adverts/list/filter/';
-import CameraView from './camera/';
-import NewAdvert from './adverts/new/';
-import MyAdvert from './myAdverts/myAdvert';
+import AdvertsNavBar from './adverts/navbar'
 
+//Tabs content
+import My from './my/';
+import Adverts from './adverts/';
+import Interested from './interested/';
+import Notifications from './notifications/';
+
+//Settings tab pages
 import SettingsMain from './settings/';
 import About from './settings/about';
 import Help from './settings/help';
 import Settings from './settings/settings';
 import Account from './settings/account/';
 
-import MyAdverts from './myAdverts/';
-import Adverts from './adverts/';
-import Interested from './interested/';
-import Notifications from './notifications/';
-
-import My from './my/';
 
 import NavBar from './navbar/'
-import AdvertsNavBar from './adverts/navbar'
 
 const TabIcon = (props, name) => {
   return <MaterialIcon style={{ color: props.focused ? 'white' : '#a0a0a0' }} size={25} name={name} />

@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { observer } from 'mobx-react';
+import MyListStore from './store';
 import List from './list/';
 import Navbar from '../../controls/navBar';
 
+@observer
 export default class My extends Component {
   constructor(props) {
     super(props);
+    this.store = MyListStore;
+  }
+  componentWillMount() {
+    MyListStore.initialize();
   }
 
   render() {
@@ -15,7 +22,7 @@ export default class My extends Component {
           onClearText={() => null}
           onSearch={() => null}
           onOpenFilter={() => null} />
-          <List/>
+          <List store={this.store}/>
       </View>
     );
   }
