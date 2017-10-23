@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     fontWeight: '800',
+    backgroundColor: 'transparent',
   },
   socialLoginsContainer: {
     width: '75%',

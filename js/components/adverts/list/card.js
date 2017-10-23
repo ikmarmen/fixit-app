@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { timeSince } from '../../../utils/dateHelper';
 import Config from '../../../../config.js';
-import Octicons from 'react-native-vector-icons/Octicons';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -41,7 +41,7 @@ export default class FixItCard extends Component {
                   </View>
 
                   <View style={styles.cardInfoTop}>
-                  <Octicons name='location' style={styles.icon} />
+                  <SimpleLineIcons name='location-pin' style={styles.icon} />
                     <Text style={styles.cardText}>{`${this.store.advert.distance} km`}</Text>
                     <Ionicons name='md-time' style={styles.icon} />
                     <Text style={styles.cardText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>

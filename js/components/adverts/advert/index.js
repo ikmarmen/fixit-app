@@ -6,7 +6,7 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import Config from '../../../../config.js';
 import Comments from './comments';
 import { timeSince } from '../../../utils/dateHelper';
-import Octicons from 'react-native-vector-icons/Octicons';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -35,7 +35,7 @@ export default class Advert extends Component {
 
             <View style={styles.infoLeft}>
               
-              <Octicons name='location' style={styles.icon} />
+              <SimpleLineIcons name='location-pin' style={styles.icon} />
               <Text style={styles.infoText}>{this.store.advert.distance+'km'}</Text>
               <Ionicons name='md-time' style={styles.icon} />
               <Text style={styles.infoText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>

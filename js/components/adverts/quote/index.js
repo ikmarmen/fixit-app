@@ -4,9 +4,9 @@ import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import FloatLabelTextInput from 'react-native-floating-label-text-input';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import SliderMarker from '../../../controls/sliderMarker';
@@ -58,7 +58,7 @@ export default class Quote extends Component {
                                 <Text style={styles.title}>{this.store.advert.title}</Text>
                                 <Text style={styles.name}>{this.store.advert.createdBy}</Text>
                                 <View style={styles.info}>
-                                    <Octicons name='location' style={styles.icon} />
+                                    <SimpleLineIcons name='location-pin' style={styles.icon} />
                                     <Text style={styles.infoText}>{this.store.advert.distance + 'km'}</Text>
                                     <Ionicons name='md-time' style={styles.icon} />
                                     <Text style={styles.infoText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
