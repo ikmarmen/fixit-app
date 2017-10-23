@@ -17,10 +17,10 @@ export default class AdvertsList extends Component {
   }
 
   render() {
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     const adverts = ds.cloneWithRows(this.store.adverts.toJS());
 
-    return (this.store.adverts.length>0 ? <View style={{ flex: 1 }}>
+    return <View style={{ flex: 1 }}>
       <ListView
         refreshControl={
           <RefreshControl
@@ -28,12 +28,12 @@ export default class AdvertsList extends Component {
             onRefresh={this.store.onRefresh}
           />
         }
+        enableEmptySections={true}
         onEndReachedThreshold={300}
         onEndReached={this.store.onScrolePositionChange}
         dataSource={adverts}
-        renderRow={(rowData) => <Card advert={rowData} /> }
+        renderRow={(rowData) => <Card advert={rowData} />}
       />
-    </View>
-    : <Text>No data</Text>);
+    </View>;
   }
 }

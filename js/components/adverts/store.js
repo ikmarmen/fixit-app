@@ -142,7 +142,7 @@ class AdvertsListStore {
 
   @action
   onScrolePositionChange = (event) => {
-    if (!this.isLoading) {
+    if (!this.isLoading && event) {
       //Load next page logic hear
       let itemHeight = 280;
       let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);

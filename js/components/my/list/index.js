@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Card from './card'
 import Tab from '../../../controls/tab'
+import MyAdvertFilterConst from '../../../constants/myAdvertFilterConst';
 
 @observer
 export default class My extends Component {
@@ -11,23 +12,13 @@ export default class My extends Component {
         super(props);
         this.store = props.store;
     }
-    get Tabs() {
-        return [{ key: 'new', title: 'NEW(5)', selected: true }, { key: 'inprogress', title: 'IN PROGRESS(3)' }, { key: 'completed', title: 'COMPLETED(1)' }];
-    }
-
-    onRefrash = () => {
-        this.setState({ refreshing: !this.state.refreshing });
-    }
-    onEndReached = () => {
-    }
-
     render() {
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        const adverts = ds.cloneWithRows(this.store.adverts.toJS());
+        const adverts = ds.cloneWithRows(this.store.visibleAdverts);
         return (
             <View style={{ flex: 1 }}>
-                <Tab tabs={this.Tabs} />
-                {this.store.adverts.length > 0 ? <View style={{ flex: 1 }}>
+                <Tab tabs={this.store.tabs} onSelect={(tabKey) => { this.store.selectTab(tabKey) }} />
+                <View style={{ flex: 1 }}>
                     <ListView
                         refreshControl={
                             <RefreshControl
@@ -35,13 +26,13 @@ export default class My extends Component {
                                 onRefresh={this.store.onRefresh}
                             />
                         }
+                        enableEmptySections={true}
                         onEndReachedThreshold={300}
                         onEndReached={this.store.onScrolePositionChange}
                         dataSource={adverts}
                         renderRow={(rowData) => <Card advert={rowData} />}
                     />
                 </View>
-                    : <Text>No data</Text>}
             </View>
         );
     }
