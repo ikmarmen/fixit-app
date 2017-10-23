@@ -7,8 +7,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
-import Config from '../../../config.js';
-import { timeSince } from '../../utils/dateHelper';
+import Config from '../../../../config.js';
+import { timeSince } from '../../../utils/dateHelper';
 
 
 @observer
@@ -30,7 +30,7 @@ export default class MyAdvert extends Component {
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>MY QUOTE</Text>
-          <TouchableOpacity activeOpacity={0.5} style={styles.closeBtn} onPress={this.store.close} >
+          <TouchableOpacity activeOpacity={0.5} style={styles.closeBtn} onPress={Actions.pop} >
             <MaterialCommunityIcons name='close' size={25} style={{ color: '#fff' }} />
           </TouchableOpacity >
         </View>

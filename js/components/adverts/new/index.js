@@ -8,7 +8,7 @@ import FloatLabelTextInput from 'react-native-floating-label-text-input';
 import FixitModal from '../../../controls/modal';
 
 @observer
-export default class MyAdvertsExplore extends Component {
+export default class NewAdvert extends Component {
   constructor(props) {
     super(props);
     this.store = props.store;

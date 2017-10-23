@@ -3,7 +3,7 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import qs from 'qs';
 import Fetch from '../../../utils/fetch-json';
 import LocationStore from '../../../stores/locationStore';
-import {AdvertStore} from '../../myAdverts/myAdvertsStore'
+import {AdvertStore} from '../../my/store'
 
 export default class NewAdvertStore {
   @observable photos = [];
