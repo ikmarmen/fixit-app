@@ -30,7 +30,7 @@ import AdvertsNavBar from './adverts/navbar'
 import My from './my/';
 import Adverts from './adverts/';
 import Interested from './interested/';
-import Notifications from './notifications/';
+import Alerts from './alerts/';
 
 //Settings tab pages
 import SettingsMain from './settings/';
@@ -85,13 +85,14 @@ export default class AppRouter extends React.Component {
           />
           <Scene key="interested"
             component={Interested}
-            navBar={NavBar}
+            hideNavBar={true}
             title={'Interested'}
             icon={props => { return TabIcon(props, 'star-border') }}
           />
-          <Scene key="notifications"
-            component={Notifications}
+          <Scene key="alerts"
+            component={Alerts}
             hideNavBar={true}
+            title={'Alerts'}
             icon={props => { return TabIcon(props, 'notifications') }}
           />
         </Scene>

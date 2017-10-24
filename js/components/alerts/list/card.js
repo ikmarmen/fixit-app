@@ -4,16 +4,16 @@ import { observer } from 'mobx-react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 @observer
-export default class FixItCard extends Component {
+export default class AlertCard extends Component {
   constructor(props) {
     super(props);
+    this.store = props.alert;
   }
 
   _onClicked = () => {
   }
   render() {
     return (
-        
       <TouchableWithoutFeedback onPress={this._onClicked}>
        <View style={styles.container}>
 
@@ -22,7 +22,7 @@ export default class FixItCard extends Component {
                 <MaterialCommunityIcons name='comment-processing-outline' style={styles.icon} />
                 </View>
                 <View  style={styles.alertText} >
-                    <Text style={styles.alertTitle}>Ruth Pasek asked a question</Text>
+                    <Text style={styles.alertTitle}>{this.store.title}</Text>
                     <Text>Is the battery inserted properly?Is the battery inserted properly?</Text>
                 </View>
             </View>
