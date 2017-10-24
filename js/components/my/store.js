@@ -21,11 +21,46 @@ export class AdvertStore {
   }
 }
 
+class FilterStore {
+  orderList = [
+    { label: 'Time: newest first', value: 'createdDate:asc' },
+    { label: 'Time: olds first', value: 'createdDate:desc' }
+  ];
+  @observable selectedOrder = 'createdDate:asc';
+  oldValues = null;
+  listStore = null;
+
+  constructor(listStore) {
+    this.listStore = listStore;
+    this.selectedOrder = 'createdDate:asc';
+  }
+
+  @action open = () => {
+    this.oldValues = {
+      selectedOrder: this.selectedOrder,
+    }
+    Actions.myAdvertsFilter({ type: ActionConst.PUSH, store: this });
+  }
+
+  @action close = (callback) => {
+    if(this.hasChanges()){
+      this.listStore.onRefresh();
+    }
+    this.oldValues = null;
+    Actions.pop();
+  }
+
+  hasChanges = () => {
+    return this.oldValues.selectedOrder != this.selectedOrder;
+  }
+}
+
 class MyAdvertsListStore {
   @observable error = null;
   @observable isRefreshing = false;
   @observable tabs = [];
   @observable adverts = [];
+  @observable filterStore = null;
   isLoading = false;
   isInitialized = false;
   pageCount = null;
@@ -54,6 +89,7 @@ class MyAdvertsListStore {
         selected: false
       }
     ];
+    this.filterStore = new FilterStore(this);
   }
 
   @action initialize = () => {
@@ -96,11 +132,11 @@ class MyAdvertsListStore {
       search: this.searchKeyword
     };
 
-    /* var order = FilterStore.selectedOrder.split(':');
+    var order = this.filterStore.selectedOrder.split(':');
     request.order = {
       by: order[0],
       direction: order[1]
-    } */
+    }
 
     request = qs.stringify(request);
     this.isLoading = true;
@@ -129,6 +165,10 @@ class MyAdvertsListStore {
         }
         that.error = error.message;
       });
+  }
+
+  @action openFilters = () => {
+    this.filterStore.open();
   }
 
   @action onRefresh = () => {

@@ -30,47 +30,35 @@ export default class MyCard extends Component {
     return (
       <View style={styles.container}>
         <TouchableWithoutFeedback onPress={this._onClicked}>
-
-          <View  style={styles.myfixit}>
-            
+          <View  style={styles.myfixit}>     
             <View style={styles.myfixitImage}>
               {this._renderImage()}
             </View>
-
             <View style={styles.myfixitText}>
             <View>
-              <Text style={styles.myfixitTitle}>{this.store.advert.title}</Text>
-              
+              <Text style={styles.myfixitTitle}>{this.store.advert.title}</Text>       
               <View style={styles.myfixitQuotes} >
                 <Ionicons name='md-time' style={styles.icon} />
-                <Text  style={styles.cardTextRight}>2 min ago</Text>
+                <Text  style={styles.cardTextRight}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
                 <Feather name='eye' style={styles.icon} />
-                <Text  style={styles.cardTextRight}> 115 views</Text>
+                <Text  style={styles.cardTextRight}>{`${this.store.advert.viewsCount} views`}</Text>
               </View>
               </View>
-
-
                     <View style={styles.cardInfo}>
-
                       <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
                         <View style={styles.myfixitQuotes} >
                           <Text style={styles.cardInfoTextLeft}>{`${this.store.advert.bids.length} BIDS`}</Text>
                           <Text style={styles.cardInfonew}>(8new)</Text>
                         </View>
                       </TouchableOpacity >
-
                       <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
                         <View style={styles.myfixitQuotes}>
                           <Text style={styles.cardInfoTextRight}>{`${this.store.advert.questions.length} QUESTIONS`}</Text>
                           <Text style={styles.cardInfonew}>(3new)</Text>
                         </View>
                       </TouchableOpacity >
-
-                    </View>
-
-              
-            </View>
-          
+                    </View>         
+            </View>  
           </View>
         </TouchableWithoutFeedback>
       </View>

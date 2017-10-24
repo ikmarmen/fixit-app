@@ -14,6 +14,7 @@ import ForgotPassword from './auth/forgotPassword';
 
 //My adverts
 import MyAdvert from './my/advert/';
+import MyAdvertsFilter from './my/filter/index'
 
 //New Advert pages
 import CameraView from './camera/';
@@ -104,6 +105,7 @@ export default class AppRouter extends React.Component {
         <Scene key="camera" component={CameraView} direction='vertical' />
         <Scene key="newAdvert" component={NewAdvert} direction='vertical' />
         <Scene key="myAdvert" component={MyAdvert} direction='vertical' />
+        <Scene key="myAdvertsFilter" component={MyAdvertsFilter} direction='vertical' />
 
         <Scene key="settingsMain" component={SettingsMain} direction='vertical'/>
         <Scene key="account" component={Account} direction='vertical'/>

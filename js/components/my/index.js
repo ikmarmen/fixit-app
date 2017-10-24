@@ -19,9 +19,9 @@ export default class My extends Component {
     return (
       <View style={{ flex: 1 }}>
         <Navbar title='My Fixit'
-          onClearText={() => null}
-          onSearch={() => null}
-          onOpenFilter={() => null} />
+          onClearText={() => this.store.onSearch()}
+          onSearch={(text) => this.store.onSearch(text)}
+          onOpenFilter={() => this.store.openFilters()} />
           <List store={this.store}/>
       </View>
     );

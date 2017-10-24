@@ -55,25 +55,21 @@ export default class MyAdvert extends Component {
                 </View>
               </View>
             </View>
-
 {/* Tab menu */}
-
           <View style={styles.tabMenu}>
             <TouchableOpacity style={styles.tabMenuItemSelected}>
-              <Text style={styles.tabText}>15 QUOTES</Text>
-              <Text style={styles.tabNewText}>(4 NEW)</Text>
+              <Text style={styles.tabText}>9 QUOTES</Text>
+              <Text style={styles.tabNewText}>(2 NEW)</Text>
             </TouchableOpacity> 
             <TouchableOpacity style={styles.tabMenuItem}>
-              <Text style={styles.tabText}>15 QUOTES</Text>
-              <Text style={styles.tabNewText}>(4 NEW)</Text>
+              <Text style={styles.tabText}>15 QUESTIONS</Text>
+              <Text style={styles.tabNewText}>(6 NEW)</Text>
             </TouchableOpacity> 
           </View>
 
 {/* Questions Tab */}
 
           <View style={styles.questions}>
-
-
             <View style={styles.questionsList}>
               <View style={styles.questionsListLeft}>
                   <Text style={styles.question}>Are you including the 1 and the area code when texting?</Text>
@@ -85,10 +81,7 @@ export default class MyAdvert extends Component {
               <TouchableOpacity style={styles.btnContainer}>
                 <Text style={styles.btnText}>ANSWER</Text>
               </TouchableOpacity>
-            </View>
-
-
-            
+            </View>        
             <View style={styles.questionsList}>
               <View style={styles.questionsListLeft}>
                   <Text style={styles.question}>Is call forwarding activated?</Text>
@@ -101,22 +94,8 @@ export default class MyAdvert extends Component {
                 <Text style={styles.btnText}>ANSWER</Text>
               </TouchableOpacity>
             </View>
-
-
-
-
           </View>
-
-
-
-
-
-
-
-
           {/* <View style={styles.quotes}>
-
-
             <View style={styles.quotesList}>
               <View style={styles.quotesListTitle}>
                 <View style={styles.quoteName}>
@@ -147,9 +126,6 @@ export default class MyAdvert extends Component {
                   </TouchableOpacity> 
               </View>           
             </View>
-
-
-
                 <View style={styles.quotesList}>
                 <View style={styles.quotesListTitle}>
                   <View style={styles.quoteName}>
@@ -180,8 +156,6 @@ export default class MyAdvert extends Component {
                     </TouchableOpacity> 
                 </View>           
               </View>
-
-
           </View> */}
 
           </View>
