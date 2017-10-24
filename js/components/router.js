@@ -38,9 +38,6 @@ import Help from './settings/help';
 import Settings from './settings/settings';
 import Account from './settings/account/';
 
-
-import NavBar from './navbar/'
-
 const TabIcon = (props, name) => {
   return <MaterialIcon style={{ color: props.focused ? 'white' : '#a0a0a0' }} size={25} name={name} />
 };
