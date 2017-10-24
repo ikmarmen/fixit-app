@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Switch, TextInput, Picker } from 'react-native';
 import FloatLabelTextInput from 'react-native-floating-label-text-input';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import FilterStore from './store';
@@ -19,7 +20,7 @@ export default class AdvertsFilter extends Component {
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity activeOpacity={0.5} style={styles.closeBtn} onPress={() => FilterStore.close()} >
-            <EntypoIcon name='close' style={{ color: '#777777' }} />
+            <MaterialCommunityIcons name='close' size={25} style={{ color: '#777777' }} />
           </TouchableOpacity >
         </View>
         <View style={styles.filterInputContainer}>
