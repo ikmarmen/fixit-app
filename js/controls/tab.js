@@ -13,7 +13,7 @@ export default class Tab extends Component {
                     {
                         this.props.tabs.map((tab, index) => {
                             return (<TouchableOpacity key={tab.key} activeOpacity={0.5} style={styles.buttonContainer} onPress={() => this.props.onSelect(tab.key)} >
-                                <Text>{tab.title}</Text>
+                                <Text style={styles.tabText}>{tab.title}</Text>
                                 {renderIf(tab.selected)(<View style={styles.selectedUnderline}></View>)}
                             </TouchableOpacity>);
                         })
@@ -26,21 +26,27 @@ export default class Tab extends Component {
 const styles = {
     tabBarContainer: {
         flexDirection: 'row',
-        backgroundColor: '#f6f7ed',
         justifyContent: 'space-around',
-        height: 30
+        height: 50,
     },
     buttonContainer: {
         flex: 1,
-        margin: 2,
-        backgroundColor: '#e2e2d9',
-        height: '100%',
+        paddingTop: 10,
+        height: 50,
         width: '100%',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        flexDirection: 'column',
+    },
+    tabText: {
+        marginTop: 5,
+        fontSize: 14,
+        fontWeight: 'bold',
     },
     selectedUnderline: {
         height: 5,
+        marginTop: 10,
         width: '100%',
-        backgroundColor: '#292c30'
+        backgroundColor: '#46c6e9'
     }
 };
