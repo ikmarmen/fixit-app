@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity  } from 'react-native';
-import {Item, Icon, Input, Label } from 'native-base';
+import FloatLabelTextInput from 'react-native-floating-label-text-input';
 import { SignupStore } from './authStore';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
@@ -22,30 +22,25 @@ export default class Signup extends Component {
 
 
         <View style={styles.inputContainer}>
-          <Item style={StyleSheet.flatten(styles.input)} floatingLabel>
-            <Label style={StyleSheet.flatten(styles.inputLabel)}>Name</Label>
-            <Icon name='person' style={{ color: 'white' }} />
-            <Input onChangeText={(text) => this.store.setProp(text, 'name')} style={StyleSheet.flatten(styles.inputText)} />
-          </Item>
-          <Item style={StyleSheet.flatten(styles.input)} floatingLabel>
-            <Label style={StyleSheet.flatten(styles.inputLabel)}>Email</Label>
-            <Icon name='person' style={{ color: 'white' }} />
-            <Input onChangeText={(text) => this.store.setProp(text, 'email')} style={StyleSheet.flatten(styles.inputText)} />
-          </Item>
-          <Item style={StyleSheet.flatten(styles.input)} floatingLabel>
-            <Label style={StyleSheet.flatten(styles.inputLabel)}>Password</Label>
-            <Icon name='lock' style={{ color: 'white' }} />
-            <Input onChangeText={(text) => this.store.setProp(text, 'password')} style={StyleSheet.flatten(styles.inputText)} secureTextEntry={true}/>
-          </Item>
+          <FloatLabelTextInput style={StyleSheet.flatten(styles.input)}
+            placeholder={"Name"}
+            value={this.store.name}
+            onChangeTextValue={(text) => this.store.setProp(text, 'name')} />
+          <FloatLabelTextInput style={StyleSheet.flatten(styles.input)}
+            placeholder={"Email"}
+            value={this.store.email}
+            onChangeTextValue={(text) => this.store.setProp(text, 'email')} />
+          <FloatLabelTextInput style={StyleSheet.flatten(styles.inputText)}
+            placeholder={"Password"}
+            value={this.store.email}
+            secureTextEntry={true}
+            onChangeTextValue={(text) => this.store.setProp(text, 'password')} />
         </View>
-
-
         <TouchableOpacity activeOpacity={0.5} onPress={this.store.signup} >
           <View style={styles.btnContainer}>
             <Text style={styles.btnText}>SIGN UP</Text>
           </View>
         </TouchableOpacity >
-
         <View  style={styles.bottomText} >
           <Text style={styles.linkText}>Already a member?</Text>
           <TouchableOpacity   activeOpacity={0.5} onPress={Actions.pop} >
@@ -54,8 +49,6 @@ export default class Signup extends Component {
             </View>
           </TouchableOpacity >
         </View>
-        
-
       </View>
     );
   }

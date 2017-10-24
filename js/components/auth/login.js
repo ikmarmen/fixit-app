@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
-import { Item, Icon, Input, Label } from 'native-base'
 import { LoginStore, AuthStore } from './authStore';
 import { Actions, ActionConst } from 'react-native-router-flux';
+import FloatLabelTextInput from 'react-native-floating-label-text-input';
 
 @observer
 export default class Login extends Component {
@@ -26,11 +26,9 @@ export default class Login extends Component {
   }
 
   onGoogleLogin = () => {
-
   }
 
   onFacebookLogin = () => {
-
   }
 
   render() {
@@ -43,20 +41,19 @@ export default class Login extends Component {
 
 
         <View style={styles.inputContainer}>
-          <Item style={StyleSheet.flatten(styles.input)} floatingLabel>
-            <Label style={StyleSheet.flatten(styles.inputLabel)}>Email</Label>
-            <Icon name='person' style={{ color: 'white' }} />
-            <Input onChangeText={(text) => this.store.setProp(text, 'email')} style={StyleSheet.flatten(styles.inputText)} />
-          </Item>
-          <Item style={StyleSheet.flatten(styles.input)} floatingLabel>
-            <Label style={StyleSheet.flatten(styles.inputLabel)}>Password</Label>
-            <Icon name='lock' style={{ color: 'white' }} />
-            <Input onChangeText={(text) => this.store.setProp(text, 'password')} style={StyleSheet.flatten(styles.inputText)} secureTextEntry={true}/>
-          </Item>
+          <FloatLabelTextInput style={StyleSheet.flatten(styles.input)}
+            placeholder={"Email"}
+            value={this.store.email}
+            onChangeTextValue={(text) => this.store.setProp(text, 'email')} />
+          <FloatLabelTextInput style={StyleSheet.flatten(styles.inputText)}
+            placeholder={"Password"}
+            value={this.store.email}
+            secureTextEntry={true}
+            onChangeTextValue={(text) => this.store.setProp(text, 'password')} />
         </View>
 
 
-        <TouchableOpacity   style={styles.LoginButtoncContainer} activeOpacity={0.5} onPress={this.onLogin} >
+        <TouchableOpacity style={styles.LoginButtoncContainer} activeOpacity={0.5} onPress={this.onLogin} >
           <View style={styles.btnContainer}>
             <Text style={styles.btnText}>LOG IN</Text>
           </View>
@@ -68,7 +65,7 @@ export default class Login extends Component {
         </TouchableOpacity >
 
         <View style={styles.socialLoginsContainer}>
-          <TouchableOpacity  style={styles.btnSocContainer} activeOpacity={0.5} onPress={this.onFacebookLogin}>
+          <TouchableOpacity style={styles.btnSocContainer} activeOpacity={0.5} onPress={this.onFacebookLogin}>
             <View style={styles.btnContainerTransparent}>
               <Image
                 style={styles.btnIconFb}
@@ -77,7 +74,7 @@ export default class Login extends Component {
               <Text style={styles.socBtnText}>Log in with Facebook</Text>
             </View>
           </TouchableOpacity >
-          <TouchableOpacity   style={styles.btnSocContainer} activeOpacity={0.5} onPress={this.onGoogleLogin}>
+          <TouchableOpacity style={styles.btnSocContainer} activeOpacity={0.5} onPress={this.onGoogleLogin}>
             <View style={styles.btnContainerTransparent}>
               <Image
                 style={styles.btnIconGoogle}
@@ -131,7 +128,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 50,
   },
-    inputContainer: {
+  inputContainer: {
     width: '75%',
     height: 140,
     marginTop: '12%',
@@ -139,7 +136,7 @@ const styles = StyleSheet.create({
   LoginButtoncContainer: {
     width: '75%',
     alignItems: 'center',
-    justifyContent: 'center',  
+    justifyContent: 'center',
   },
   btnContainer: {
     width: '100%',
@@ -147,7 +144,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     alignItems: 'center',
     backgroundColor: '#e5e642',
-    justifyContent: 'center',    
+    justifyContent: 'center',
   },
   btnIconFb: {
     height: 12,
@@ -172,7 +169,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   btnSocContainer: {
-      width: '50%',
+    width: '50%',
   },
   btnContainerTransparent: {
     width: '95%',

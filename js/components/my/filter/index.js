@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Switch, TextInput, Picker } from 'react-native';
-import { Item, Icon, Input, Label } from 'native-base';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';

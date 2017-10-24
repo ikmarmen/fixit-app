@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
-import { Item, Icon, Input, Label } from 'native-base';
+import FloatLabelTextInput from 'react-native-floating-label-text-input';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
 @observer
@@ -18,14 +18,12 @@ export default class ForgotPassword extends Component {
           source={require('../../../img/logo.png')}
         />
         <View style={styles.inputContainer}>
-          <Item style={StyleSheet.flatten(styles.input)} floatingLabel>
-            <Label style={StyleSheet.flatten(styles.inputLabel)}>Email</Label>
-            <Icon name='person' style={{ color: 'white' }} />
-            <Input onChangeText={(text) => this.store.setProp(text, 'email')} style={StyleSheet.flatten(styles.inputText)} />
-          </Item>
+          <FloatLabelTextInput style={StyleSheet.flatten(styles.input)}
+            placeholder={"Email"}
+            onChangeTextValue={(text) => this.store.setProp(text, 'email')} />
         </View>
-        <TouchableOpacity  style={styles.btnContainer} activeOpacity={0.5} onPress={this.onLogin} >
-            <Text style={styles.btnText}>RESET PASSWORD</Text>
+        <TouchableOpacity style={styles.btnContainer} activeOpacity={0.5} onPress={this.onLogin} >
+          <Text style={styles.btnText}>RESET PASSWORD</Text>
         </TouchableOpacity >
         <View style={styles.bottomText} >
           <Text style={styles.linkText}>Remembered?</Text>

@@ -17,7 +17,6 @@ import MyAdvert from './my/advert/';
 import MyAdvertsFilter from './my/filter/index'
 
 //New Advert pages
-import CameraView from './camera/';
 import NewAdvert from './adverts/new/';
 
 //Adverts pages
@@ -103,7 +102,6 @@ export default class AppRouter extends React.Component {
         <Scene key="advert" component={Advert} direction='vertical' />
         <Scene key="advertsFilter" component={AdvertsFilter} direction='vertical' />
         <Scene key="quote" component={Quote} direction='vertical'/>
-        <Scene key="camera" component={CameraView} direction='vertical' />
         <Scene key="newAdvert" component={NewAdvert} direction='vertical' />
         <Scene key="myAdvert" component={MyAdvert} direction='vertical' />
         <Scene key="myAdvertsFilter" component={MyAdvertsFilter} direction='vertical' />
