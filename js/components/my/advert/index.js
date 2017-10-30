@@ -16,6 +16,9 @@ export default class MyAdvert extends Component {
   constructor(props) {
     super(props);
     this.store = this.props.store;
+    this.state = {
+      selectedTab: 'QUOTES'
+    }
   }
 
   _renderImage = () => {
@@ -55,109 +58,71 @@ export default class MyAdvert extends Component {
                 </View>
               </View>
             </View>
-{/* Tab menu */}
-          <View style={styles.tabMenu}>
-            <TouchableOpacity style={styles.tabMenuItemSelected}>
-              <Text style={styles.tabText}>9 QUOTES</Text>
-              <Text style={styles.tabNewText}>(2 NEW)</Text>
-            </TouchableOpacity> 
-            <TouchableOpacity style={styles.tabMenuItem}>
-              <Text style={styles.tabText}>15 QUESTIONS</Text>
-              <Text style={styles.tabNewText}>(6 NEW)</Text>
-            </TouchableOpacity> 
-          </View>
-
-{/* Questions Tab */}
-
-          <View style={styles.questions}>
-            <View style={styles.questionsList}>
-              <View style={styles.questionsListLeft}>
-                  <Text style={styles.question}>Are you including the 1 and the area code when texting?</Text>
-                  <View style={styles.infoItem}>
-                    <Ionicons name='md-time' style={styles.icon} />
-                    <Text style={styles.infoText}>45 minutes ago</Text>
-                  </View>
-              </View>
-              <TouchableOpacity style={styles.btnContainer}>
-                <Text style={styles.btnText}>ANSWER</Text>
+            {/* Tab menu */}
+            <View style={styles.tabMenu}>
+              <TouchableOpacity
+                style={this.state.selectedTab == 'QUOTES' ? styles.tabMenuItemSelected : styles.tabMenuItem}
+                onPress={() => this.setState({ selectedTab: 'QUOTES' })}>
+                <Text style={styles.tabText}>{`${this.store.advert.bids.length} QUOTES`}</Text>
+                <Text style={styles.tabNewText}>(2 NEW)</Text>
               </TouchableOpacity>
-            </View>        
-            <View style={styles.questionsList}>
-              <View style={styles.questionsListLeft}>
-                  <Text style={styles.question}>Is call forwarding activated?</Text>
-                  <View style={styles.infoItem}>
-                    <Ionicons name='md-time' style={styles.icon} />
-                    <Text style={styles.infoText}>3 hours ago</Text>
-                  </View>
-              </View>
-              <TouchableOpacity style={styles.btnContainer}>
-                <Text style={styles.btnText}>ANSWER</Text>
+              <TouchableOpacity
+                style={this.state.selectedTab == 'QUESTIONS' ? styles.tabMenuItemSelected : styles.tabMenuItem}
+                onPress={() => this.setState({ selectedTab: 'QUESTIONS' })}>
+                <Text style={styles.tabText}>{`${this.store.advert.questions.length} QUESTIONS`}</Text>
+                <Text style={styles.tabNewText}>(6 NEW)</Text>
               </TouchableOpacity>
             </View>
-          </View>
-          {/* <View style={styles.quotes}>
-            <View style={styles.quotesList}>
-              <View style={styles.quotesListTitle}>
-                <View style={styles.quoteName}>
-                  <Text style={styles.qouteAuthtor}>Archie Tempel</Text> 
-                  <View style={styles.rating}>
-                    <MaterialCommunityIcons name='star' style={styles.rate} />
-                    <MaterialCommunityIcons name='star' style={styles.rate} />
-                    <MaterialCommunityIcons name='star' style={styles.rate} />
-                    <MaterialCommunityIcons name='star-outline' style={styles.rate} />
-                    <MaterialCommunityIcons name='star-outline' style={styles.rate} />
-                  </View>
-                </View>
-                <Text>2 hours ago</Text> 
-              </View> 
-              <View style={styles.quotesListContact}>
-                  <Feather name='phone' style={styles.contactIcon} />
-                  <Text style={styles.contactInfo}>(226) 906-2721</Text> 
-                  <SimpleLineIcons name='location-pin' style={styles.contactIcon} />
-                  <Text style={styles.contactInfo}>123 6th St. Melbourne, FL 32904</Text> 
-              </View> 
-              <View style={styles.quotesListTitle}>
-                  <View style={styles.quotesMessage}>
-                    <Text>$60 for fixing the problem</Text> 
-                    <Text>$60, 2-3 days</Text> 
-                  </View>
-                  <TouchableOpacity style={styles.btnContainer}>
-                    <Text style={styles.btnText}>ACCEPT</Text>
-                  </TouchableOpacity> 
-              </View>           
-            </View>
-                <View style={styles.quotesList}>
-                <View style={styles.quotesListTitle}>
-                  <View style={styles.quoteName}>
-                    <Text style={styles.qouteAuthtor}>Archie Tempel</Text> 
-                    <View style={styles.rating}>
-                      <MaterialCommunityIcons name='star' style={styles.rate} />
-                      <MaterialCommunityIcons name='star' style={styles.rate} />
-                      <MaterialCommunityIcons name='star' style={styles.rate} />
-                      <MaterialCommunityIcons name='star-outline' style={styles.rate} />
-                      <MaterialCommunityIcons name='star-outline' style={styles.rate} />
-                    </View>
-                  </View>
-                  <Text>2 hours ago</Text> 
-                </View> 
-                <View style={styles.quotesListContact}>
-                    <Feather name='phone' style={styles.contactIcon} />
-                    <Text style={styles.contactInfo}>(226) 906-2721</Text> 
-                    <SimpleLineIcons name='location-pin' style={styles.contactIcon} />
-                    <Text style={styles.contactInfo}>123 6th St. Melbourne, FL 32904</Text> 
-                </View> 
-                <View style={styles.quotesListTitle}>
-                    <View style={styles.quotesMessage}>
-                      <Text>I need to see the phone to  understand the problem.</Text> 
-                      <Text>$50, 7-10 days</Text> 
+
+            {/* Questions Tab */}
+            {this.state.selectedTab == 'QUESTIONS'
+              ? <View style={styles.questions}>
+                {this.store.advert.questions.map((question, index) => {
+                  return <View style={styles.questionsList}>
+                    <View style={styles.questionsListLeft}>
+                      <Text style={styles.question}>{question.body}</Text>
+                      <View style={styles.infoItem}>
+                        <Ionicons name='md-time' style={styles.icon} />
+                        <Text style={styles.infoText}>{`${timeSince(question.createdAt)} ago`}</Text>
+                      </View>
                     </View>
                     <TouchableOpacity style={styles.btnContainer}>
-                      <Text style={styles.btnText}>ACCEPT</Text>
-                    </TouchableOpacity> 
-                </View>           
+                      <Text style={styles.btnText}>ANSWER</Text>
+                    </TouchableOpacity>
+                  </View>
+                })
+                }
               </View>
-          </View> */}
-
+              : <View style={styles.quotes}>
+                {this.store.advert.bids.map((quote, index) => {
+                  return <View style={styles.quotesList}>
+                    <View style={styles.quotesListTitle}>
+                      <View style={styles.quoteName}>
+                        <Text style={styles.qouteAuthtor}>Archie Tempel</Text>
+                        <View style={styles.rating}>
+                          <MaterialCommunityIcons name='star' style={styles.rate} />
+                          <MaterialCommunityIcons name='star' style={styles.rate} />
+                          <MaterialCommunityIcons name='star' style={styles.rate} />
+                          <MaterialCommunityIcons name='star-outline' style={styles.rate} />
+                          <MaterialCommunityIcons name='star-outline' style={styles.rate} />
+                        </View>
+                      </View>
+                      <Text>2{`${timeSince(quote.createdAt)} ago`}</Text>
+                    </View>
+                    <View style={styles.quotesListTitle}>
+                      <View style={styles.quotesMessage}>
+                        <Text>{quote.message}</Text>
+                        <Text>{`$${quote.amount[0]}-${quote.amount[1]}, ${quote.duration[0]}-${quote.duration[1]} days`}</Text>
+                      </View>
+                      <TouchableOpacity style={styles.btnContainer}>
+                        <Text style={styles.btnText}>ACCEPT</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                })
+                }
+              </View>
+            }
           </View>
         </ScrollView>
       </View>
@@ -240,12 +205,12 @@ const styles = {
   quotesList: {
     width: '95%',
     borderBottomColor: '#ccc',
-    borderBottomWidth: 2, 
+    borderBottomWidth: 2,
     paddingTop: 10,
     paddingBottom: 10,
   },
   quoteName: {
-    flexDirection: 'row',    
+    flexDirection: 'row',
     alignItems: 'center',
   },
   qouteAuthtor: {
@@ -253,7 +218,7 @@ const styles = {
     fontWeight: 'bold',
   },
   rating: {
-    flexDirection: 'row',    
+    flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 10,
   },
@@ -343,7 +308,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomColor: '#ccc',
-    borderBottomWidth: 2, 
+    borderBottomWidth: 2,
     paddingTop: 10,
     paddingBottom: 10,
   },

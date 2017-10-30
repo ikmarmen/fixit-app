@@ -58,7 +58,7 @@ export default class FixItCard extends Component {
 
                       <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
                         <View >
-                          <Text style={styles.cardInfoTextLeft}>{`${this.store.advert.bids.length} BIDS`}</Text>
+                          <Text style={styles.cardInfoTextLeft}>{`${this.store.advert.bids.length} QUOTES`}</Text>
                         </View>
                       </TouchableOpacity >
 
