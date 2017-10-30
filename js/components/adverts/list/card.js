@@ -16,6 +16,10 @@ export default class FixItCard extends Component {
     this.store = this.props.advert;
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    this.store = nextProps.advert;
+  }
+
   _onClicked = () => {
     let store = this.store;
     Actions.advert({ type: ActionConst.PUSH, store: store });

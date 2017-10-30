@@ -47,7 +47,7 @@ export default class Login extends Component {
             onChangeTextValue={(text) => this.store.setProp(text, 'email')} />
           <FloatLabelTextInput style={StyleSheet.flatten(styles.inputText)}
             placeholder={"Password"}
-            value={this.store.email}
+            value={this.store.password}
             secureTextEntry={true}
             onChangeTextValue={(text) => this.store.setProp(text, 'password')} />
         </View>

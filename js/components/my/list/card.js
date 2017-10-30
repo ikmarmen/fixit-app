@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { StyleSheet, Image, View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { timeSince } from '../../../utils/dateHelper';
 import Config from '../../../../config.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 
-@observer
 export default class MyCard extends Component {
   constructor(props) {
     super(props);
     this.store = this.props.advert;
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    this.store = nextProps.advert;
   }
 
   _onClicked = () => {
@@ -22,7 +24,7 @@ export default class MyCard extends Component {
   _renderImage = () => {
     let id = this.store.advert.photos[0]._id;
     return (
-      <Image resizeMode='stretch' style={{ flex: 1, height:200, width:200 }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
+      <Image resizeMode='stretch' style={{ flex: 1, height: 200, width: 200 }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
     );
   }
 
@@ -30,35 +32,41 @@ export default class MyCard extends Component {
     return (
       <View style={styles.container}>
         <TouchableWithoutFeedback onPress={this._onClicked}>
-          <View  style={styles.myfixit}>     
+          <View style={styles.myfixit}>
             <View style={styles.myfixitImage}>
               {this._renderImage()}
             </View>
             <View style={styles.myfixitText}>
-            <View>
-              <Text style={styles.myfixitTitle}>{this.store.advert.title}</Text>       
-              <View style={styles.myfixitQuotes} >
-                <Ionicons name='md-time' style={styles.icon} />
-                <Text  style={styles.cardTextRight}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
-                <Feather name='eye' style={styles.icon} />
-                <Text  style={styles.cardTextRight}>{`${this.store.advert.viewsCount} views`}</Text>
+              <View>
+                <Text style={styles.myfixitTitle}>{this.store.advert.title}</Text>
+                <View style={styles.myfixitQuotes} >
+                  <Ionicons name='md-time' style={styles.icon} />
+                  <Text style={styles.cardTextRight}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
+                  <Feather name='eye' style={styles.icon} />
+                  <Text style={styles.cardTextRight}>{`${this.store.advert.viewsCount} views`}</Text>
+                </View>
               </View>
+              <View style={styles.cardInfo}>
+                <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
+                  <View style={styles.myfixitQuotes} >
+                    <Text style={styles.cardInfoTextLeft}>{`${this.store.advert.bids.length} BIDS`}</Text>
+                    <Text style={styles.cardInfonew}>(8new)</Text>
+                  </View>
+                </TouchableOpacity >
+                <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
+                  <View style={styles.myfixitQuotes}>
+                    <Text style={styles.cardInfoTextRight}>{`${this.store.advert.questions.length} QUESTIONS`}</Text>
+                    <Text style={styles.cardInfonew}>(3new)</Text>
+                  </View>
+                </TouchableOpacity >
               </View>
-                    <View style={styles.cardInfo}>
-                      <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
-                        <View style={styles.myfixitQuotes} >
-                          <Text style={styles.cardInfoTextLeft}>{`${this.store.advert.bids.length} BIDS`}</Text>
-                          <Text style={styles.cardInfonew}>(8new)</Text>
-                        </View>
-                      </TouchableOpacity >
-                      <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
-                        <View style={styles.myfixitQuotes}>
-                          <Text style={styles.cardInfoTextRight}>{`${this.store.advert.questions.length} QUESTIONS`}</Text>
-                          <Text style={styles.cardInfonew}>(3new)</Text>
-                        </View>
-                      </TouchableOpacity >
-                    </View>         
-            </View>  
+              {this.store.advert.status == 'inprogress'
+                ? <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
+                  <Text style={styles.cardInfonew}>CLOSE & RATE</Text>
+                </TouchableOpacity >
+                : null
+              }
+            </View>
           </View>
         </TouchableWithoutFeedback>
       </View>
@@ -110,9 +118,9 @@ const styles = StyleSheet.create({
     color: '#bbbbbb'
   },
   cardInfo: {
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'center' ,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     width: 110,
   },
   myfixitQuotes: {
@@ -123,7 +131,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingRight: 2,
     color: '#aaaaaa',
-    
+
   },
   cardInfoTextRight: {
     fontSize: 14,
@@ -141,5 +149,5 @@ const styles = StyleSheet.create({
   },
 
 
-  
+
 });
