@@ -98,8 +98,8 @@ android {
     }
     defaultConfig {
         applicationId "com.fixit"
-        minSdkVersion 16
-        targetSdkVersion 22
+        minSdkVersion 19
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         ndk {
