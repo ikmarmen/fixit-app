@@ -8,14 +8,20 @@ class LocationStore {
 
   constructor() {
     autorun(() => this.showErrors());
-    debugger;
-    this.checkPermission().then((hasPermission) => {
-      if (hasPermission) {
-        this.startLocationTracking();
-      } else {
-        BackAndroid.exitApp();
-      }
+    let that = this;
+    BackgroundGeolocation.isLocationEnabled(function (enabled) {
+      if (enabled) {
+        that.checkPermission().then((hasPermission) => {
+          if (hasPermission) {
+            that.startLocationTracking();
+          } else {
+            BackAndroid.exitApp();
+          }
 
+        });
+      } else {
+        BackgroundGeolocation.showLocationSettings();
+      }
     });
   }
 
