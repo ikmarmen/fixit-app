@@ -61,8 +61,8 @@ export default class MyCard extends Component {
                 </TouchableOpacity >
               </View>
               {this.store.advert.status == 'inprogress'
-                ? <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
-                  <Text style={styles.cardInfonew}>CLOSE & RATE</Text>
+                ? <TouchableOpacity  style={styles.btnContainer} activeOpacity={0.5} onPress={this.onFacebookLogin}>
+                  <Text style={styles.btnText}>CLOSE & RATE</Text>
                 </TouchableOpacity >
                 : null
               }
@@ -146,6 +146,20 @@ const styles = StyleSheet.create({
     marginRight: 5,
     color: '#46c6e9',
     fontWeight: '800',
+  },
+  btnContainer: {
+    width: '100%',
+    height: 30,
+    marginTop: 7,
+    borderRadius: 15,
+    alignItems: 'center',
+    backgroundColor: '#e5e642',
+    justifyContent: 'center',
+  },
+  btnText: {
+      fontSize: 15,
+      color: '#fff',
+      fontWeight: '800',
   },
 
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image, View, Text, TouchableOpacity, Slider, CheckBox, TextInput, ScrollView, Modal } from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import FloatingLabelInput from '../../../controls/floatingLabelInput';
+import FloatLabelTextInput from 'react-native-floating-label-text-input';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -176,16 +176,29 @@ const Quote = (props) => {
 
 const AnswerModal = (props)=>{
   return (
-    <FixitModal isVisible={props.isVisible} bodyStyle={{ width: 280, height: 320 }}>
+    <FixitModal isVisible={props.isVisible} bodyStyle={{ width: 280, height: 280 }}>
         <View style={modalStyles.header}>
             <Text style={modalStyles.headerTitle}>ANSWER</Text>
         </View>
-        <Text>{props.question ? props.question.body: null}</Text>
-        <View style={modalStyles.addContactInput} >
-            <FloatingLabelInput label={"Your Message"} />
+        <View style={modalStyles.container}>
+          <Text>Can you fix this in a week?</Text>
+          <View style={modalStyles.addContactInput} >
+          <View>
+              <Text>Your Message:</Text>
+          </View>
+          <TextInput
+              style={modalStyles.TextInput}
+              multiline={true}
+              onChangeText={Text}
+              numberOfLines={2}
+              underlineColorAndroid='#46c6e9'
+              selectionColor="#46c6e9" />
+          </View>
+          <View style={modalStyles.publicCheck}>
+          <Text>Is public</Text>
+          <CheckBox/>
+          </View>
         </View>
-        <Text>Is public</Text>
-        <CheckBox/>
 
 
         <View style={modalStyles.modalButtons}>
@@ -202,7 +215,7 @@ const AnswerModal = (props)=>{
 const AcceptModel = (props)=>{
   const id = props.advertDate.photos[0]._id;
   return (
-      <FixitModal isVisible={props.isVisible} bodyStyle={{ width: 280, height: 320 }}>
+      <FixitModal isVisible={props.isVisible} bodyStyle={{ width: 320, height: 460 }}>
           <View style={modalStyles.header}>
               <Text style={modalStyles.headerTitle}>ACCEPTING QUOTE</Text>
           </View>
@@ -221,9 +234,38 @@ const AcceptModel = (props)=>{
                   </View>
               </View>
           </View>
-          <View style={modalStyles.addContactInput} >
-              <FloatingLabelInput label={"Your Message"} />
-          </View>
+         
+
+
+
+
+          <View style={modalStyles.acceptQuote}>
+
+                        <View style={modalStyles.quoteValues}>
+                            <Text>Your Message:</Text>
+                        </View>
+                        <TextInput
+                            style={modalStyles.TextInput}
+                            multiline={true}
+                            numberOfLines={2}
+                            underlineColorAndroid='#46c6e9'
+                            selectionColor="#46c6e9" />
+                        <View style={modalStyles.quoteValues}>
+                            <Text>You can contact me by...</Text>
+                        </View>
+                        <View style={modalStyles.contact}>
+                            <CheckBox  />
+                            <MaterialCommunityIcons name='phone' style={styles.icon} />
+                            <Text style={modalStyles.infoText}>stephan.henkel@gmail.com</Text>
+                        </View>
+                        <TouchableOpacity style={modalStyles.contactAdd}>
+                            <Feather name='plus-circle' style={styles.icon} />
+                            <Text style={modalStyles.infoText}>Add new</Text>
+                        </TouchableOpacity >
+
+                        </View>
+
+
 
           <View style={modalStyles.modalButtons}>
               <TouchableOpacity style={modalStyles.modalButtonAdd} activeOpacity={0.5} onPress={() => props.onAccepted({})}>
@@ -436,6 +478,9 @@ const modalStyles = {
       justifyContent: 'space-between',
       padding: 10,
   },
+  container: {
+      padding: 10,
+  },
   headerTitle: {
       color: '#fff',
       fontWeight: '800',
@@ -458,7 +503,7 @@ const modalStyles = {
   },
   title: {
       fontSize: 16,
-      height: '55%',
+      height: '40%',
   },
   name: {
       fontWeight: 'bold',
@@ -485,7 +530,8 @@ const modalStyles = {
   },
   addContactInput: {
       height: 80,
-      padding: 10,
+      paddingTop: 10,
+      paddingBottom: 10,
   },
   modalButtons: {
       width: '100%',
@@ -507,5 +553,45 @@ const modalStyles = {
       height: 50,
       justifyContent: 'center',
       alignItems: 'center'
-  }
+  },
+  acceptQuote: {
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  quoteValues: {
+    width: '90%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginRight: 10,
+    paddingTop: 20,
+    paddingRight: 40
+},
+TextInput: {
+    marginTop: 5,
+    width: '95%',
+    borderColor: '#cccccc',
+    borderWidth: 1
+},
+helperText: {
+    paddingLeft: 10,
+    color: '#cccccc',
+    fontStyle: 'italic',
+},
+contact: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+},
+contactAdd: {
+    width: '85%',
+    flexDirection: 'row',
+    alignItems: 'center',
+},
+publicCheck: {
+  width: '90%',
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingTop: 20,
+},
 }
