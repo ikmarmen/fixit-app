@@ -94,7 +94,8 @@ export default class Quote extends Component {
                             <Text>Your Message:</Text>
                         </View>
                         <TextInput
-                            style={styles.TextInput}
+                      
+                        style={styles.TextInput}
                             multiline={true}
                             onChangeText={(text) => this._sliderValuesChange(text, 'message')}
                             numberOfLines={2}
