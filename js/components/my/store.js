@@ -19,6 +19,10 @@ export class AdvertStore {
       this.error = null;
     }
   }
+
+  @action acceptQuote = (data) => {
+
+  }
 }
 
 class FilterStore {
@@ -43,7 +47,7 @@ class FilterStore {
   }
 
   @action close = (callback) => {
-    if(this.hasChanges()){
+    if (this.hasChanges()) {
       this.listStore.onRefresh();
     }
     this.oldValues = null;

@@ -9,6 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import Config from '../../../../config.js';
 import { timeSince } from '../../../utils/dateHelper';
+import AcceptModal from './accept';
 
 
 @observer
@@ -17,7 +18,8 @@ export default class MyAdvert extends Component {
     super(props);
     this.store = this.props.store;
     this.state = {
-      selectedTab: 'QUOTES'
+      selectedTab: 'QUOTES',
+      isVisible: false
     }
   }
 
@@ -26,6 +28,12 @@ export default class MyAdvert extends Component {
     return (
       <Image resizeMode='cover' style={{ height: '100%', width: '100%' }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
     );
+  }
+
+  _onAccepted = (data) => {
+    debugger;
+    this.store.acceptQuote(data);
+    this.setState({ isVisible: false, userData: null })
   }
 
   render() {
@@ -77,58 +85,96 @@ export default class MyAdvert extends Component {
             {/* Questions Tab */}
             {this.state.selectedTab == 'QUESTIONS'
               ? <View style={styles.questions}>
-                {this.store.advert.questions.map((question, index) => {
-                  return <View style={styles.questionsList}>
-                    <View style={styles.questionsListLeft}>
-                      <Text style={styles.question}>{question.body}</Text>
-                      <View style={styles.infoItem}>
-                        <Ionicons name='md-time' style={styles.icon} />
-                        <Text style={styles.infoText}>{`${timeSince(question.createdAt)} ago`}</Text>
-                      </View>
-                    </View>
-                    <TouchableOpacity style={styles.btnContainer}>
-                      <Text style={styles.btnText}>ANSWER</Text>
-                    </TouchableOpacity>
-                  </View>
-                })
-                }
+                <Faq questions={this.store.advert.questions} />
               </View>
               : <View style={styles.quotes}>
-                {this.store.advert.bids.map((quote, index) => {
-                  return <View style={styles.quotesList}>
-                    <View style={styles.quotesListTitle}>
-                      <View style={styles.quoteName}>
-                        <Text style={styles.qouteAuthtor}>Archie Tempel</Text>
-                        <View style={styles.rating}>
-                          <MaterialCommunityIcons name='star' style={styles.rate} />
-                          <MaterialCommunityIcons name='star' style={styles.rate} />
-                          <MaterialCommunityIcons name='star' style={styles.rate} />
-                          <MaterialCommunityIcons name='star-outline' style={styles.rate} />
-                          <MaterialCommunityIcons name='star-outline' style={styles.rate} />
-                        </View>
-                      </View>
-                      <Text>2{`${timeSince(quote.createdAt)} ago`}</Text>
-                    </View>
-                    <View style={styles.quotesListTitle}>
-                      <View style={styles.quotesMessage}>
-                        <Text>{quote.message}</Text>
-                        <Text>{`$${quote.amount[0]}-${quote.amount[1]}, ${quote.duration[0]}-${quote.duration[1]} days`}</Text>
-                      </View>
-                      <TouchableOpacity style={styles.btnContainer}>
-                        <Text style={styles.btnText}>ACCEPT</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                })
-                }
+                <Quote quotes={this.store.advert.bids} onAccepted={(quote) => this.setState({ isVisible: true, userData: quote })} />
               </View>
             }
           </View>
         </ScrollView>
+        <AcceptModal isVisible={this.state.isVisible}
+          advertDate={this.store.advert}
+          userData={this.state.userData}
+          onClose={() => this.setState({ isVisible: false, userData: null })}
+          onAccepted={(data) => this._onAccepted(data)}
+        />
       </View>
     );
 
   }
+}
+
+const Faq = (props) => {
+  const renderQuestion = (question) => {
+    return (
+      <View style={styles.questionsList} key={question._id}>
+        <View style={styles.questionsListLeft}>
+          <Text style={styles.question}>{`Q: ${question.body}`}</Text>
+          {
+            question.answer != null
+              ? <Text style={styles.question}>{`A: ${question.answer.body}`}</Text>
+              : null
+          }
+          <View style={styles.infoItem}>
+            <Ionicons name='md-time' style={styles.icon} />
+            <Text style={styles.infoText}>{`${timeSince(question.createdAt)} ago`}</Text>
+          </View>
+        </View>
+        {
+          question.answer == null
+            ? <TouchableOpacity style={styles.btnContainer} onPress={() => props.onAnswered(question)}>
+              <Text style={styles.btnText}>ANSWER</Text>
+            </TouchableOpacity>
+            : null
+        }
+      </View>
+    );
+  }
+
+  return (
+    props.questions.map((question) => renderQuestion(question))
+  );
+}
+
+const Quote = (props) => {
+  const renderQuote = (quote) => {
+    return (
+      <View style={styles.quotesList} key={quote._id}>
+        <View style={styles.quotesListTitle}>
+          <View style={styles.quoteName}>
+            <Text style={styles.qouteAuthtor}>Archie Tempel</Text>
+            <View style={styles.rating}>
+              <MaterialCommunityIcons name='star' style={styles.rate} />
+              <MaterialCommunityIcons name='star' style={styles.rate} />
+              <MaterialCommunityIcons name='star' style={styles.rate} />
+              <MaterialCommunityIcons name='star-outline' style={styles.rate} />
+              <MaterialCommunityIcons name='star-outline' style={styles.rate} />
+            </View>
+          </View>
+          <Text>2{`${timeSince(quote.createdAt)} ago`}</Text>
+        </View>
+        <View style={styles.quotesListTitle}>
+          <View style={styles.quotesMessage}>
+            <Text>{quote.message}</Text>
+            <Text>{`$${quote.amount[0]}-${quote.amount[1]}, ${quote.duration[0]}-${quote.duration[1]} days`}</Text>
+          </View>
+          <TouchableOpacity style={styles.btnContainer}
+            onPress={() => props.onAccepted(quote)}>
+            <Text style={styles.btnText}>ACCEPT</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+
+  return (
+    props.quotes.map((quote) => renderQuote(quote))
+  );
+}
+
+const AnswerModal = ()=>{
+  return();
 }
 const styles = {
   container: {
