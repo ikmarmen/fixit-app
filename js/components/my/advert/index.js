@@ -9,7 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import Config from '../../../../config.js';
 import { timeSince } from '../../../utils/dateHelper';
-import AcceptModal from './accept';
+import FixitModal from '../../../controls/modal';
 
 
 @observer
@@ -19,24 +19,22 @@ export default class MyAdvert extends Component {
     this.store = this.props.store;
     this.state = {
       selectedTab: 'QUOTES',
-      isVisible: false
+      acceptModalIsVisible: false,
+      answerModalIsVisible: false,
+
     }
   }
 
-  _renderImage = () => {
-    let id = this.store.advert.photos[0]._id;
-    return (
-      <Image resizeMode='cover' style={{ height: '100%', width: '100%' }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
-    );
-  }
-
   _onAccepted = (data) => {
-    debugger;
     this.store.acceptQuote(data);
-    this.setState({ isVisible: false, userData: null })
+    this.setState({ acceptModalIsVisible: false, userData: null })
+  }
+  _onAnswerd = (data) => {
+    this.setState({ answerModalIsVisible: false, question:null})
   }
 
   render() {
+    const id = this.store.advert.photos[0]._id;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -49,7 +47,7 @@ export default class MyAdvert extends Component {
           <View style={styles.viewContainer}>
             <View style={styles.top}>
               <View style={styles.image}>
-                {this._renderImage()}
+                <Image resizeMode='cover' style={{ height: '100%', width: '100%' }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
               </View>
               <View style={styles.topRight}>
                 <Text style={styles.title}>{this.store.advert.title}</Text>
@@ -81,23 +79,26 @@ export default class MyAdvert extends Component {
                 <Text style={styles.tabNewText}>(6 NEW)</Text>
               </TouchableOpacity>
             </View>
-
-            {/* Questions Tab */}
             {this.state.selectedTab == 'QUESTIONS'
               ? <View style={styles.questions}>
-                <Faq questions={this.store.advert.questions} />
+                <Faq questions={this.store.advert.questions} onAnswered={(question) => this.setState({ answerModalIsVisible: true, question:question })} />
               </View>
               : <View style={styles.quotes}>
-                <Quote quotes={this.store.advert.bids} onAccepted={(quote) => this.setState({ isVisible: true, userData: quote })} />
+                <Quote quotes={this.store.advert.bids} onAccepted={(quote) => this.setState({ acceptModalIsVisible: true, userData: quote })} />
               </View>
             }
           </View>
         </ScrollView>
-        <AcceptModal isVisible={this.state.isVisible}
+        <AcceptModel isVisible={this.state.acceptModalIsVisible}
           advertDate={this.store.advert}
           userData={this.state.userData}
-          onClose={() => this.setState({ isVisible: false, userData: null })}
+          onClose={() => this.setState({ acceptModalIsVisible: false, userData: null })}
           onAccepted={(data) => this._onAccepted(data)}
+        />
+        <AnswerModal isVisible={this.state.answerModalIsVisible}
+          question={this.state.question}
+          onClose={() => this.setState({ answerModalIsVisible: false, question: null })}
+          onAccepted={(data) => this._onAnswerd(data)}
         />
       </View>
     );
@@ -173,9 +174,69 @@ const Quote = (props) => {
   );
 }
 
-const AnswerModal = ()=>{
-  return();
+const AnswerModal = (props)=>{
+  return (
+    <FixitModal isVisible={props.isVisible} bodyStyle={{ width: 280, height: 320 }}>
+        <View style={modalStyles.header}>
+            <Text style={modalStyles.headerTitle}>ANSWER</Text>
+        </View>
+        <Text>{props.question ? props.question.body: null}</Text>
+        <View style={modalStyles.addContactInput} >
+            <FloatLabelTextInput placeholder={"Your Message"} />
+        </View>
+        <Text>Is public</Text>
+        <CheckBox/>
+
+
+        <View style={modalStyles.modalButtons}>
+            <TouchableOpacity style={modalStyles.modalButtonAdd} activeOpacity={0.5} onPress={() => props.onAnswered({})}>
+                <Text>Answer</Text>
+            </TouchableOpacity >
+            <TouchableOpacity style={modalStyles.modalButtonClose} activeOpacity={0.5} onPress={() => props.onClose()}>
+                <Text>Close</Text>
+            </TouchableOpacity >
+        </View>
+    </FixitModal>);
 }
+
+const AcceptModel = (props)=>{
+  const id = props.advertDate.photos[0]._id;
+  return (
+      <FixitModal isVisible={props.isVisible} bodyStyle={{ width: 280, height: 320 }}>
+          <View style={modalStyles.header}>
+              <Text style={modalStyles.headerTitle}>ACCEPTING QUOTE</Text>
+          </View>
+          <View style={modalStyles.top}>
+              <View style={modalStyles.image}>
+                  <Image resizeMode='cover' style={{ height: '100%', width: '100%' }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
+              </View>
+              <View style={modalStyles.topRight}>
+                  <Text style={modalStyles.title}>{props.advertDate.title}</Text>
+                  <Text style={modalStyles.name}>{props.advertDate.createdBy}</Text>
+                  <View style={modalStyles.info}>
+                      <View style={modalStyles.infoItem}>
+                          <Ionicons name='md-time' style={modalStyles.icon} />
+                          <Text style={modalStyles.infoText}>{`${timeSince(props.advertDate.createdAt)} ago`}</Text>
+                      </View>
+                  </View>
+              </View>
+          </View>
+          <View style={modalStyles.addContactInput} >
+              <FloatLabelTextInput placeholder={"Your Message"} />
+          </View>
+
+          <View style={modalStyles.modalButtons}>
+              <TouchableOpacity style={modalStyles.modalButtonAdd} activeOpacity={0.5} onPress={() => props.onAccepted({})}>
+                  <Text>Send</Text>
+              </TouchableOpacity >
+              <TouchableOpacity style={modalStyles.modalButtonClose} activeOpacity={0.5} onPress={() => props.onClose()}>
+                  <Text>Close</Text>
+              </TouchableOpacity >
+          </View>
+      </FixitModal>
+  );
+}
+
 const styles = {
   container: {
     flex: 1,
@@ -364,4 +425,87 @@ const styles = {
   question: {
     fontSize: 17,
   },
+}
+
+const modalStyles = {
+  header: {
+      flexDirection: 'row',
+      backgroundColor: '#264559',
+      height: 46,
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: 10,
+  },
+  headerTitle: {
+      color: '#fff',
+      fontWeight: '800',
+  },
+  top: {
+      width: '100%',
+      height: 130,
+      backgroundColor: '#eeeeee',
+      padding: 10,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+  },
+  image: {
+      width: '48%',
+      height: '100%',
+  },
+  topRight: {
+      width: '50%',
+      justifyContent: 'space-between',
+  },
+  title: {
+      fontSize: 16,
+      height: '55%',
+  },
+  name: {
+      fontWeight: 'bold',
+      fontSize: 20,
+      marginTop: 5,
+      marginBottom: 5,
+  },
+  info: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+  },
+  infoItem: {
+      flexDirection: 'row',
+      alignItems: 'center',
+  },
+  icon: {
+      color: '#46c6e9',
+      fontSize: 25,
+  },
+  infoText: {
+      marginRight: 7,
+      marginLeft: 8,
+  },
+  addContactInput: {
+      height: 80,
+      padding: 10,
+  },
+  modalButtons: {
+      width: '100%',
+      flexDirection: 'row',
+      height: 50,
+      borderTopWidth: 1,
+      borderTopColor: '#ccc',
+  },
+  modalButtonAdd: {
+      width: '50%',
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRightWidth: 1,
+      borderRightColor: '#ccc',
+  },
+  modalButtonClose: {
+      width: '50%',
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center'
+  }
 }
