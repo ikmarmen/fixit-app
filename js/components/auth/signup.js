@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity  } from 'react-native';
-import FloatLabelTextInput from 'react-native-floating-label-text-input';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
+import FloatingLabelInput from '../../controls/floatingLabelInput';
 import { SignupStore } from './authStore';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
@@ -22,28 +22,28 @@ export default class Signup extends Component {
 
 
         <View style={styles.inputContainer}>
-          <FloatLabelTextInput style={StyleSheet.flatten(styles.input)}
-            placeholder={"Name"}
+          <FloatingLabelInput inputStyle={StyleSheet.flatten(styles.input)}
+            label={"Name"}
             value={this.store.name}
-            onChangeTextValue={(text) => this.store.setProp(text, 'name')} />
-          <FloatLabelTextInput style={StyleSheet.flatten(styles.input)}
-            placeholder={"Email"}
+            onChangeText={(text) => this.store.setProp(text, 'name')} />
+          <FloatingLabelInput inputStyle={StyleSheet.flatten(styles.input)}
+            label={"Email"}
             value={this.store.email}
-            onChangeTextValue={(text) => this.store.setProp(text, 'email')} />
-          <FloatLabelTextInput style={StyleSheet.flatten(styles.inputText)}
-            placeholder={"Password"}
+            onChangeText={(text) => this.store.setProp(text, 'email')} />
+          <FloatingLabelInput inputStyle={StyleSheet.flatten(styles.input)}
+            label={"Password"}
             value={this.store.email}
-            secureTextEntry={true}
-            onChangeTextValue={(text) => this.store.setProp(text, 'password')} />
+            password={true}
+            onChangeText={(text) => this.store.setProp(text, 'password')} />
         </View>
         <TouchableOpacity activeOpacity={0.5} onPress={this.store.signup} >
           <View style={styles.btnContainer}>
             <Text style={styles.btnText}>SIGN UP</Text>
           </View>
         </TouchableOpacity >
-        <View  style={styles.bottomText} >
+        <View style={styles.bottomText} >
           <Text style={styles.linkText}>Already a member?</Text>
-          <TouchableOpacity   activeOpacity={0.5} onPress={Actions.pop} >
+          <TouchableOpacity activeOpacity={0.5} onPress={Actions.pop} >
             <View>
               <Text style={styles.linkTextRight}>LOGIN</Text>
             </View>
@@ -72,17 +72,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    height: 50,
-    marginBottom: 10,
+    color: 'white'
   },
-  inputLabel: {
-    color: 'white',
-    fontSize: 12,
-  },
-  inputText: {
-    color: 'white',
-    fontSize: 18,
-  }, 
   btnContainer: {
     width: 300,
     height: 50,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Switch, TextInput, Picker } from 'react-native';
-import FloatLabelTextInput from 'react-native-floating-label-text-input';
+import FloatingLabelInput from '../../../../controls/floatingLabelInput';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { observer } from 'mobx-react';
@@ -25,10 +25,11 @@ export default class AdvertsFilter extends Component {
         </View>
         <View style={styles.filterInputContainer}>
           <View style={styles.filterInput} >
-            <FloatLabelTextInput style={StyleSheet.flatten(styles.inputText)}
-              placeholder={"Max Distance km"}
+            <FloatingLabelInput
+              style={StyleSheet.flatten(styles.inputText)}
+              label={"Max Distance km"}
               value={this.store.maxDistance}
-              onChangeTextValue={(text) => this.store.maxDistance = text} />
+              onChangeText={(text) => this.store.maxDistance = text} />
           </View>
 
           <View style={styles.filterInput} >
@@ -38,11 +39,12 @@ export default class AdvertsFilter extends Component {
                 value={this.store.isSearchByZip}
                 onValueChange={() => this.store.isSearchByZip = !this.store.isSearchByZip} />
             </View>
-            <FloatLabelTextInput style={StyleSheet.flatten(styles.inputText)}
-              placeholder={"Zip code"}
+            <FloatingLabelInput
+              style={StyleSheet.flatten(styles.inputText)}
+              label={"Zip code"}
               value={this.store.zip}
               disabled={!this.store.isSearchByZip}
-              onChangeTextValue={(text) => this.store.zip = text} />
+              onChangeText={(text) => this.store.zip = text} />
           </View>
           <View style={styles.filterInput} >
             <Picker

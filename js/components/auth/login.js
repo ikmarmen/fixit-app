@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import { LoginStore, AuthStore } from './authStore';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import FloatLabelTextInput from 'react-native-floating-label-text-input';
+import FloatingLabelInput from '../../controls/floatingLabelInput';
 
 @observer
 export default class Login extends Component {
@@ -38,19 +38,19 @@ export default class Login extends Component {
           style={styles.logoImage}
           source={require('../../../img/logo.png')}
         />
-
-
-        <View style={styles.inputContainer}>
-          <FloatLabelTextInput style={StyleSheet.flatten(styles.input)}
-            placeholder={"Email"}
+        <KeyboardAvoidingView style={styles.inputContainer} behavior={'position'} keyboardVerticalOffset={5}>
+          <FloatingLabelInput
+            inputStyle={StyleSheet.flatten(styles.input)}
+            label={"Email"}
             value={this.store.email}
-            onChangeTextValue={(text) => this.store.setProp(text, 'email')} />
-          <FloatLabelTextInput style={StyleSheet.flatten(styles.inputText)}
-            placeholder={"Password"}
+            onChangeText={(text) => this.store.setProp(text, 'email')} />
+          <FloatingLabelInput
+            inputStyle={StyleSheet.flatten(styles.input)}
+            label={"Password"}
+            password
             value={this.store.password}
-            secureTextEntry={true}
-            onChangeTextValue={(text) => this.store.setProp(text, 'password')} />
-        </View>
+            onChangeText={(text) => this.store.setProp(text, 'password')} />
+        </KeyboardAvoidingView>
 
 
         <TouchableOpacity style={styles.LoginButtoncContainer} activeOpacity={0.5} onPress={this.onLogin} >
@@ -106,8 +106,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#264559',
   },
   input: {
-    height: 50,
-    marginBottom: 10,
+    color: 'white'
   },
   inputLabel: {
     color: 'white',
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: '75%',
     height: 140,
-    marginTop: '12%',
+    marginTop: '14%',
   },
   LoginButtoncContainer: {
     width: '75%',

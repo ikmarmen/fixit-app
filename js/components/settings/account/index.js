@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { View, Text, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FloatLabelTextInput from 'react-native-floating-label-text-input';
+import FloatingLabelInput from '../../../controls/floatingLabelInput';
 import AccountStore from './store';
 import FixitModal from '../../../controls/modal';
 
@@ -24,19 +24,22 @@ export default class Login extends Component {
             </View>
             <View style={styles.viewContainer}>
                 <View style={styles.inputContainer}>
-                    <View style={{ height: 140 }}>
-                        <FloatLabelTextInput placeholder={"Name"}
+                    <View style={{ height: 180 }}>
+                        <FloatingLabelInput
+                            label={"Name"}
                             value={this.store.authStore.user.name}
-                            onChangeTextValue={(text) => this.store.authStore.setProp(text, 'name')} />
-                        <FloatLabelTextInput placeholder={"Email"}
+                            onChangeText={(text) => this.store.authStore.setProp(text, 'name')} />
+                        <FloatingLabelInput
+                            label={"Email"}
                             value={this.store.authStore.user.email}
-                            onChangeTextValue={(text) => this.store.authStore.setProp(text, 'email')} />
-                        <FloatLabelTextInput placeholder={"Phone"}
+                            onChangeText={(text) => this.store.authStore.setProp(text, 'email')} />
+                        <FloatingLabelInput
+                            label={"Phone"}
                             value={this.store.authStore.user.phone}
-                            onChangeTextValue={(text) => this.store.authStore.setProp(text, 'phone')} />
+                            onChangeText={(text) => this.store.authStore.setProp(text, 'phone')} />
                     </View>
                     <View style={styles.LoginButtoncContainer}>
-                        <TouchableOpacity  style={styles.btnContainer}  activeOpacity={0.5} onPress={this.store.authStore.update}>
+                        <TouchableOpacity style={styles.btnContainer} activeOpacity={0.5} onPress={this.store.authStore.update}>
                             <Text style={styles.btnText}>Save</Text>
                         </TouchableOpacity >
                         <TouchableOpacity activeOpacity={0.5} onPress={this.store.open}>
@@ -49,28 +52,31 @@ export default class Login extends Component {
 
             <FixitModal isVisible={this.store.isModalVisible} bodyStyle={{ width: 280, height: 250 }}>
                 <View style={styles.modalInputContainer}>
-                    <FloatLabelTextInput placeholder={"Old Password"}
-                        secureTextEntry={true}
+                    <FloatingLabelInput
+                        label={"Old Password"}
+                        password={true}
                         value={this.store.oldPassword}
-                        onChangeTextValue={(value) => this.store.onValueChange(value, 'oldPassword')} />
-                    <FloatLabelTextInput placeholder={"New Password"}
-                        secureTextEntry={true}
+                        onChangeText={(text) => this.store.onValueChange(text, 'oldPassword')} />
+                    <FloatingLabelInput
+                        label={"New Password"}
+                        password={true}
                         value={this.store.newPassword}
-                        onChangeTextValue={(value) => this.store.onValueChange(value, 'newPassword')} />
-                    <FloatLabelTextInput placeholder={"Confirm New Password"}
-                        secureTextEntry={true}
+                        onChangeText={(text) => this.store.onValueChange(text, 'newPassword')} />
+                    <FloatingLabelInput
+                        label={"Confirm New Password"}
+                        password={true}
                         value={this.store.confirmNewPassword}
-                        onChangeTextValue={(value) => this.store.onValueChange(value, 'confirmNewPassword')} />
+                        onChangeText={(text) => this.store.onValueChange(text, 'confirmNewPassword')} />
                 </View>
                 <Text style={styles.validation}>{this.store.Validate}</Text>
 
 
 
                 <View style={styles.modalButtons}>
-                    <TouchableOpacity   style={styles.modalButtonAdd} activeOpacity={0.5} onPress={this.store.changePassword} disabled={!!this.store.Validate}>
+                    <TouchableOpacity style={styles.modalButtonAdd} activeOpacity={0.5} onPress={this.store.changePassword} disabled={!!this.store.Validate}>
                         <Text >Change</Text>
                     </TouchableOpacity >
-                    <TouchableOpacity   style={styles.modalButtonAdd}  activeOpacity={0.5} onPress={this.store.close}>
+                    <TouchableOpacity style={styles.modalButtonAdd} activeOpacity={0.5} onPress={this.store.close}>
                         <Text>Close</Text>
                     </TouchableOpacity >
                 </View>
@@ -121,8 +127,8 @@ const styles = {
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 20,  
-      },
+        marginTop: 20,
+    },
     btnContainer: {
         width: '60%',
         height: 40,
@@ -130,22 +136,22 @@ const styles = {
         alignItems: 'center',
         backgroundColor: '#e5e642',
         justifyContent: 'center',
-        marginBottom: 10,    
-      },
-      btnText: {
+        marginBottom: 10,
+    },
+    btnText: {
         fontSize: 18,
         color: 'white',
         fontWeight: '800',
-      },
-      modalInputContainer: {
-          height: 170,
-          padding: 10,
-      },
-      validation: {
-          color: 'red',
-          marginLeft: 10,
-      },
-      modalButtons: {
+    },
+    modalInputContainer: {
+        height: 170,
+        padding: 10,
+    },
+    validation: {
+        color: 'red',
+        marginLeft: 10,
+    },
+    modalButtons: {
         width: '100%',
         flexDirection: 'row',
         height: 50,

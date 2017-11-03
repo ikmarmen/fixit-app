@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
-import FloatLabelTextInput from 'react-native-floating-label-text-input';
+import FloatingLabelInput from '../../controls/floatingLabelInput';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
 @observer
@@ -18,9 +18,10 @@ export default class ForgotPassword extends Component {
           source={require('../../../img/logo.png')}
         />
         <View style={styles.inputContainer}>
-          <FloatLabelTextInput style={StyleSheet.flatten(styles.input)}
-            placeholder={"Email"}
-            onChangeTextValue={(text) => this.store.setProp(text, 'email')} />
+          <FloatingLabelInput
+            style={StyleSheet.flatten(styles.input)}
+            label={"Email"}
+            onChangeText={(text) => this.store.setProp(text, 'email')} />
         </View>
         <TouchableOpacity style={styles.btnContainer} activeOpacity={0.5} onPress={this.onLogin} >
           <Text style={styles.btnText}>RESET PASSWORD</Text>
@@ -47,9 +48,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#264559',
   },
   input: {
-    height: 50,
-    marginBottom: 10,
-    marginTop: 70,
+    color: 'white'
   },
   inputLabel: {
     color: 'white',

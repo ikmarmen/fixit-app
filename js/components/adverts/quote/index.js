@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image, View, Text, TouchableOpacity, Slider, CheckBox, TextInput, ScrollView, Modal } from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import FloatLabelTextInput from 'react-native-floating-label-text-input';
+import FloatingLabelInput from '../../../controls/floatingLabelInput';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -74,7 +74,7 @@ export default class Quote extends Component {
                                 onValuesChangeFinish={(values) => this._sliderValuesChange(values, 'amount')}
                                 selectedStyle={{ backgroundColor: '#46c6e9' }}
                                 containerStyle={{ height: 0 }}
-                                trackStyle={{height: 3 }}
+                                trackStyle={{ height: 3 }}
                                 markerContainerStyle={{ height: 55, width: 55 }}
                                 customMarker={SliderMarker} />
                         </View>
@@ -87,7 +87,7 @@ export default class Quote extends Component {
                                 onValuesChangeFinish={(values) => this._sliderValuesChange(values, 'duration')}
                                 selectedStyle={{ backgroundColor: '#46c6e9' }}
                                 containerStyle={{ height: 0 }}
-                                trackStyle={{height: 3 }}
+                                trackStyle={{ height: 3 }}
                                 customMarker={SliderMarker} />
                         </View>
                         <View style={styles.quoteValues}>
@@ -116,19 +116,22 @@ export default class Quote extends Component {
                 </ScrollView>
 
                 <FixitModal isVisible={this.store.isModalVisible}>
-                    
-                <View style={styles.addContactInput} >
-                    <FloatLabelTextInput  placeholder={"New Contact"}/>
-                </View>
 
-                <View style={styles.modalButtons}>
-                    <TouchableOpacity  style={styles.modalButtonAdd} activeOpacity={0.5} onPress={() => this.store.addContact()}>
-                        <Text>Add</Text>
-                    </TouchableOpacity >
-                    <TouchableOpacity   style={styles.modalButtonClose}  activeOpacity={0.5} onPress={() => this.store.closeAddContact()}>
-                        <Text>Close</Text>
-                    </TouchableOpacity >
-                </View>
+                    <View style={styles.addContactInput} >
+                        <FloatingLabelInput
+                            label={"New Contact"}
+                            value={this.store.newContact}
+                            onChangeText={this.store.onNewContactValueChange} />
+                    </View>
+
+                    <View style={styles.modalButtons}>
+                        <TouchableOpacity style={styles.modalButtonAdd} activeOpacity={0.5} onPress={() => this.store.addContact()}>
+                            <Text>Add</Text>
+                        </TouchableOpacity >
+                        <TouchableOpacity style={styles.modalButtonClose} activeOpacity={0.5} onPress={() => this.store.closeAddContact()}>
+                            <Text>Close</Text>
+                        </TouchableOpacity >
+                    </View>
 
 
                 </FixitModal>

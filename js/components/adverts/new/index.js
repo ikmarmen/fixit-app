@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { TextInput, ScrollView, View, TouchableOpacity, Text, Image, ActivityIndicator  } from 'react-native';
+import { TextInput, ScrollView, View, TouchableOpacity, Text, Image, ActivityIndicator } from 'react-native';
 import { observer } from 'mobx-react';
 import Swiper from 'react-native-swiper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FloatLabelTextInput from 'react-native-floating-label-text-input';
+import FloatingLabelInput from '../../../controls/floatingLabelInput';
 import FixitModal from '../../../controls/modal';
 
 @observer
@@ -25,28 +25,31 @@ export default class NewAdvert extends Component {
         </View>
         <View style={styles.rowViewContainer} />
         <View style={styles.viewContainer}>
-          <FloatLabelTextInput placeholder={"Title"}
+          <FloatingLabelInput
+            label={"Title"}
             value={this.store.title}
-            onChangeTextValue={(text) => this.store.setProp(text, 'title')} />
-          <FloatLabelTextInput placeholder={"Description"}
+            onChangeText={(text) => this.store.setProp(text, 'title')} />
+
+          <FloatingLabelInput
             multiline={true}
             numberOfLines={3}
+            label={"Description"}
             value={this.store.description}
-            onChangeTextValue={(text) => this.store.setProp(text, 'description')} />
+            onChangeText={(text) => this.store.setProp(text, 'description')} />
 
-            <View style={styles.bottomButtonsContainer}>
-          <TouchableOpacity  style={styles.btnContainer} activeOpacity={0.5} onPress={this.store.postAdvert} disabled={(!this.store.isValid)}>
-            <Text  style={styles.btnText}>Post</Text>
-          </TouchableOpacity >
-          <TouchableOpacity activeOpacity={0.5} onPress={Actions.pop}>
-            <Text>Cancel</Text>
-          </TouchableOpacity >
+          <View style={styles.bottomButtonsContainer}>
+            <TouchableOpacity style={styles.btnContainer} activeOpacity={0.5} onPress={this.store.postAdvert} disabled={(!this.store.isValid)}>
+              <Text style={styles.btnText}>Post</Text>
+            </TouchableOpacity >
+            <TouchableOpacity activeOpacity={0.5} onPress={Actions.pop}>
+              <Text>Cancel</Text>
+            </TouchableOpacity >
           </View>
         </View>
       </View>
-      <FixitModal isVisible={this.store.isUploading} bodyStyle={{ width: 150, height: 150, backgroundColor:'transparent', alignItems: 'center' }}>
-        <ActivityIndicator size='large' color='#fff'/>
-        <Text style={{backgroundColor:'transparent', color:'white', alignItems: 'center'}}>Posting...</Text>
+      <FixitModal isVisible={this.store.isUploading} bodyStyle={{ width: 150, height: 150, backgroundColor: 'transparent', alignItems: 'center' }}>
+        <ActivityIndicator size='large' color='#fff' />
+        <Text style={{ backgroundColor: 'transparent', color: 'white', alignItems: 'center' }}>Posting...</Text>
       </FixitModal>
     </ScrollView>);
   }
@@ -89,20 +92,20 @@ const styles = {
     padding: 10,
     backgroundColor: '#fff',
   },
-bottomButtonsContainer: {
+  bottomButtonsContainer: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,  
+    marginTop: 20,
   },
-btnContainer: {
+  btnContainer: {
     width: '60%',
     height: 40,
     borderRadius: 25,
     alignItems: 'center',
     backgroundColor: '#e5e642',
     justifyContent: 'center',
-    marginBottom: 10,    
+    marginBottom: 10,
   },
   btnText: {
     fontSize: 18,
