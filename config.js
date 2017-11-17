@@ -6,7 +6,7 @@ var _config = {
 
 function getConfig() {
   //Todo: Make mechanism to recognize envirment
-  return _config['dev']
+  return _config['staging']
 }
 var Config = getConfig();
 export default Config
