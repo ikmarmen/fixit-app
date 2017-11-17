@@ -4,6 +4,7 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import Fetch from '../../utils/fetch-json';
 import qs from 'qs';
 import LocationStore from '../../stores/locationStore';
+import { Answers, Crashlytics }  from 'react-native-fabric';
 
 class AuthenticationStore {
   @observable user = null;
@@ -29,6 +30,7 @@ class AuthenticationStore {
 
   showErrors() {
     if (this.error != null) {
+      Crashlytics.logException(this.error);
       alert(this.error);
       this.error = null;
     }
@@ -69,6 +71,7 @@ class AuthenticationStore {
     Fetch('startup', { method: 'GET' })
       .then(data => {
         let id = setTimeout(() => {
+          Answers.logLogin('Internal', true, data.user);
           this.user = data.user;
           this.canStart = true;
           clearTimeout(id);

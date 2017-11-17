@@ -32,7 +32,7 @@ export default class Signup extends Component {
             onChangeText={(text) => this.store.setProp(text, 'email')} />
           <FloatingLabelInput inputStyle={StyleSheet.flatten(styles.input)}
             label={"Password"}
-            value={this.store.email}
+            value={this.store.password}
             password={true}
             onChangeText={(text) => this.store.setProp(text, 'password')} />
         </View>
