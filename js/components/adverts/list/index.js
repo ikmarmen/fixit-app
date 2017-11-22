@@ -2,18 +2,13 @@ import React, { Component } from 'react';
 import { RefreshControl, View, ListView, Text } from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import AdvertsListStore from '../store';
 import Card from './card'
 
 @observer
 export default class AdvertsList extends Component {
   constructor(props) {
     super(props);
-    this.store = AdvertsListStore;
-  }
-
-  componentWillMount() {
-    AdvertsListStore.initialize();
+    this.store = props.store;
   }
 
   render() {

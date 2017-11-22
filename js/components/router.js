@@ -22,8 +22,7 @@ import NewAdvert from './adverts/new/';
 //Adverts pages
 import Advert from './adverts/advert/';
 import Quote from './adverts/quote/';
-import AdvertsFilter from './adverts/list/filter/';
-import AdvertsNavBar from './adverts/navbar'
+import AdvertsFilter from './adverts/filter/';
 
 //Tabs content
 import My from './my/';
@@ -69,10 +68,9 @@ export default class AppRouter extends React.Component {
         <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: '#264559' }} tabBarPosition="bottom" showIcon={true} showLabel={false}>
           <Scene key="adverts"
             component={Adverts}
-            navBar={AdvertsNavBar}
+            hideNavBar={true}
             icon={(props) => { return TabIcon(props, 'home') }}
             initial={true}
-            title={'Home'}
           />
           <Scene key="myAdverts"
             component={My}

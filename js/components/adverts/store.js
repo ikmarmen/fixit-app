@@ -3,7 +3,6 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import qs from 'qs';
 import Fetch from '../../utils/fetch-json';
 import LocationStore from '../../stores/locationStore';
-import FilterStore from './list/filter/store';
 import QuoteStore from './quote/store'
 
 class AdvertStore {
@@ -41,8 +40,54 @@ class AdvertStore {
     this.newQuestion = text;
   }
 
-  @action openQuote =()=>{
+  @action openQuote = () => {
     QuoteStore.open(this.advert);
+  }
+}
+
+class FilterStore {
+  orderList = [
+    { label: 'Time: newest first', value: 'createdDate:asc' },
+    { label: 'Time: olds first', value: 'createdDate:desc' },
+    { label: 'Distanse: nearest first', value: 'distanse:desc' },
+    { label: 'Distanse: faraway first', value: 'distanse:asc' }
+  ];
+  @observable selectedOrder = 'createdDate:asc';
+  @observable maxDistance = '10';
+  @observable isSearchByZip = false;
+  @observable zip = null;
+  oldValues = null
+  listStore = null;
+
+  constructor(listStore) {
+    this.listStore = listStore;
+  }
+
+  @action
+  open = () => {
+    this.oldValues = {
+      selectedOrder: this.selectedOrder,
+      maxDistance: this.maxDistance,
+      isSearchByZip: this.isSearchByZip,
+      zip: this.zip,
+    }
+    Actions.advertsFilter({ type: ActionConst.PUSH, store: this });
+  }
+
+  @action
+  close = () => {
+    if (this.hasChanges()) {
+      this.listStore.onRefresh();
+    }
+    this.oldValues = null;
+    Actions.pop();
+  }
+
+  hasChanges = () => {
+    return this.oldValues.selectedOrder != this.selectedOrder ||
+      this.oldValues.maxDistance != this.maxDistance ||
+      this.oldValues.isSearchByZip != this.isSearchByZip ||
+      this.oldValues.zip != this.zip;
   }
 }
 
@@ -50,6 +95,7 @@ class AdvertsListStore {
   @observable adverts = [];
   @observable error = null;
   @observable isRefreshing = false;
+  @observable filterStore = null;
   isLoading = false;
   isInitialized = false;
   pageCount = null;
@@ -63,6 +109,7 @@ class AdvertsListStore {
     this.pageCount = pageCount;
     this.pageNumber = 0;
     this.distance = 0;
+    this.filterStore = new FilterStore(this);
   }
 
   @action
@@ -84,20 +131,20 @@ class AdvertsListStore {
     let that = this;
 
     let request = {
-      maxDistance: FilterStore.maxDistance,
+      maxDistance: this.filterStore.maxDistance,
       skip: this.pageNumber * this.pageCount,
       take: this.pageCount,
       search: this.searchKeyword
     };
 
-    var order = FilterStore.selectedOrder.split(':');
+    var order = this.filterStore.selectedOrder.split(':');
     request.order = {
       by: order[0],
       direction: order[1]
     }
 
-    if (FilterStore.zip && FilterStore.isSearchByZip) {
-      request.zip = FilterStore.zip;
+    if (this.filterStore.zip && this.filterStore.isSearchByZip) {
+      request.zip = this.filterStore.zip;
     } else {
       request.longitude = LocationStore.location.longitude;
       request.latitude = LocationStore.location.latitude
@@ -163,6 +210,11 @@ class AdvertsListStore {
     this.isRefreshing = true;
 
     this.load(false, true);
+  }
+
+  @action
+  openFilters = ()=>{
+    this.filterStore.open();
   }
 }
 

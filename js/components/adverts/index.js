@@ -2,17 +2,23 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import AdvertsList from './list/'
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-crop-picker';
 import NewAdvertStore from './new/store'
+import ListStore from './store';
+import List from './list/';
+import Navbar from '../../controls/navBar';
 
 
 @observer
 export default class AdvertsExplore extends Component {
   constructor(props) {
     super(props);
+    this.store = ListStore;
+  }
+  componentWillMount() {
+    ListStore.initialize();
   }
 
   addAdvert = (photos) => {
@@ -58,17 +64,23 @@ export default class AdvertsExplore extends Component {
   render() {
     const btnColor = "rgba(38,69,89,0.65)";
 
-    return <View style={{ flex: 1 }}>
-      <AdvertsList />
-      <ActionButton buttonColor={btnColor}>
-        <ActionButton.Item buttonColor="rgba(38,69,89,0.9)" onPress={this.onCamera}>
-          <Icon name="camera" style={styles.actionButtonIcon} />
-        </ActionButton.Item>
-        <ActionButton.Item buttonColor="rgba(38,69,89,0.9)" onPress={this.onSelectPhoto}>
-          <Icon name="image-album" style={styles.actionButtonIcon} />
-        </ActionButton.Item>
-      </ActionButton>
-    </View>;
+    return (
+      <View style={{ flex: 1 }}>
+        <Navbar title='Home'
+          onClearText={() => this.store.onSearch()}
+          onSearch={(text) => this.store.onSearch(text)}
+          onOpenFilter={() => this.store.openFilters()} />
+        <List store={this.store} />
+
+        <ActionButton buttonColor={btnColor}>
+          <ActionButton.Item buttonColor="rgba(38,69,89,0.9)" onPress={this.onCamera}>
+            <Icon name="camera" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor="rgba(38,69,89,0.9)" onPress={this.onSelectPhoto}>
+            <Icon name="image-album" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+        </ActionButton>
+      </View>);
   }
 }
 
