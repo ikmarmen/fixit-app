@@ -215,6 +215,11 @@ class MyAdvertsListStore {
     let selectedTab = this.tabs.filter((tab) => tab.selected === true)[0];
     return this.adverts.filter((item) => item.advert.status === selectedTab.key);
   }
+
+  @action addNew = (advert)=>{
+    debugger;
+    this.adverts.unshift(advert);
+  }
 }
 
 const myAdvertsListStore = new MyAdvertsListStore()

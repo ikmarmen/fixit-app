@@ -5,7 +5,7 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-crop-picker';
-import NewAdvertStore from './new/store'
+import {NewAdvertStore} from './store'
 import ListStore from './store';
 import List from './list/';
 import Navbar from '../../controls/navBar';

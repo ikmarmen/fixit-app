@@ -3,47 +3,8 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import qs from 'qs';
 import Fetch from '../../utils/fetch-json';
 import LocationStore from '../../stores/locationStore';
-import QuoteStore from './quote/store'
-
-class AdvertStore {
-  @observable advert = null;
-  @observable error = null;
-  @observable newQuestion = null;
-
-  constructor(advert) {
-    autorun(() => this.showErrors());
-    this.advert = advert;
-  }
-
-  showErrors() {
-    if (this.error != null) {
-      alert(this.error);
-      this.error = null;
-    }
-  }
-
-  @action addQuestion = () => {
-    var that = this;
-
-    let request = qs.stringify({ body: this.newQuestion });
-    Fetch(`posts/${this.advert._id}/questions`, { method: 'POST', body: request })
-      .then(data => {
-        that.advert.questions = data;
-        that.newQuestion = null;
-      })
-      .catch(error => {
-        that.error = error.message;
-      });
-  }
-
-  @action addQuestionText = (text) => {
-    this.newQuestion = text;
-  }
-
-  @action openQuote = () => {
-    QuoteStore.open(this.advert);
-  }
-}
+import MyadvertsListStore from '../my/store';
+import QuoteStore from './quote/store';
 
 class FilterStore {
   orderList = [
@@ -112,8 +73,7 @@ class AdvertsListStore {
     this.filterStore = new FilterStore(this);
   }
 
-  @action
-  initialize = () => {
+  @action initialize = () => {
     if (!this.isInitialized) {
       this.load(false);
       this.isInitialized = true;
@@ -179,16 +139,14 @@ class AdvertsListStore {
       });
   }
 
-  @action
-  onRefresh = () => {
+  @action onRefresh = () => {
     this.isRefreshing = true;
     this.pageNumber = 0;
 
     this.load(false, true);
   }
 
-  @action
-  onScrolePositionChange = (event) => {
+  @action onScrolePositionChange = (event) => {
     if (!this.isLoading && event) {
       //Load next page logic hear
       let itemHeight = 280;
@@ -203,8 +161,7 @@ class AdvertsListStore {
     }
   }
 
-  @action
-  onSearch = (searckKeyword) => {
+  @action onSearch = (searckKeyword) => {
     this.pageNumber = 0;
     this.searchKeyword = searckKeyword;
     this.isRefreshing = true;
@@ -212,11 +169,113 @@ class AdvertsListStore {
     this.load(false, true);
   }
 
-  @action
-  openFilters = ()=>{
+  @action openFilters = ()=>{
     this.filterStore.open();
+  }
+
+  @action addNew = (advert)=>{
+    debugger;
+    this.adverts.unshift(advert);
+  }
+}
+const advertsListStore = new AdvertsListStore()
+export default advertsListStore
+
+export class AdvertStore {
+  @observable advert = null;
+  @observable error = null;
+  @observable newQuestion = null;
+
+  constructor(advert) {
+    autorun(() => this.showErrors());
+    this.advert = advert;
+  }
+
+  showErrors() {
+    if (this.error != null) {
+      alert(this.error);
+      this.error = null;
+    }
+  }
+
+  @action addQuestion = () => {
+    var that = this;
+
+    let request = qs.stringify({ body: this.newQuestion });
+    Fetch(`posts/${this.advert._id}/questions`, { method: 'POST', body: request })
+      .then(data => {
+        that.advert.questions = data;
+        that.newQuestion = null;
+      })
+      .catch(error => {
+        that.error = error.message;
+      });
+  }
+
+  @action addQuestionText = (text) => {
+    this.newQuestion = text;
+  }
+
+  @action openQuote = () => {
+    QuoteStore.open(this.advert);
   }
 }
 
-const advertsListStore = new AdvertsListStore()
-export default advertsListStore
+export class NewAdvertStore {
+  @observable photos = [];
+  @observable error = null;
+  @observable title = null;
+  @observable description = null;
+  @observable isUploading = false;
+
+  constructor(type) {
+    autorun(() => this.showErrors());
+  }
+
+  showErrors() {
+    if (this.error != null) {
+      alert(this.error);
+      this.error = null;
+    }
+  }
+
+  @action addPhotos = (photos) => {
+    this.photos= photos;
+    Actions.newAdvert({ type: ActionConst.PUSH, store: this })
+  }
+
+  @action setProp = (value, name) => {
+    this[name] = value;
+  }
+
+  @action postAdvert = () => {
+    this.isUploading = true;
+
+    let request = new FormData();
+    this.photos.forEach((item) => {
+      request.append('photos', { uri: item.path, name: 'photo', type: item.mime });
+    })
+    request.append('title', this.title);
+    request.append('description', this.description);
+    request.append('loc', LocationStore.location.longitude);
+    request.append('loc', LocationStore.location.latitude);
+
+    Fetch('posts/', { method: 'POST', body: request, headers: { 'Content-Type': 'multipart/form-data' } })
+      .then(data => {
+        this.isUploading = false;
+        let store = new AdvertStore(data);
+        debugger;
+        advertsListStore.addNew(store);
+        MyadvertsListStore.addNew(store);
+        Actions.myAdvert({ type: ActionConst.REPLACE, store:store });
+      })
+      .catch(error => {
+        this.isUploading = false;
+        this.error = error.message;
+      })
+  }
+
+  @computed get isValid() {
+    return !!this.title;
+  }
+}
