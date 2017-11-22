@@ -5,7 +5,6 @@ export function timeSince(date) {
 
   var seconds = Math.floor((new Date() - date) / 1000);
   var intervalType;
-
   var interval = Math.floor(seconds / 31536000);
   if (interval >= 1) {
     intervalType = 'year';

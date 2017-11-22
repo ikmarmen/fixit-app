@@ -30,7 +30,8 @@ export default class MyAdvert extends Component {
     this.setState({ acceptModalIsVisible: false, userData: null })
   }
   _onAnswerd = (data) => {
-    this.setState({ answerModalIsVisible: false, question:null})
+    this.store.answer(data);
+    this.setState({ answerModalIsVisible: false, question: null })
   }
 
   render() {
@@ -81,7 +82,7 @@ export default class MyAdvert extends Component {
             </View>
             {this.state.selectedTab == 'QUESTIONS'
               ? <View style={styles.questions}>
-                <Faq questions={this.store.advert.questions} onAnswered={(question) => this.setState({ answerModalIsVisible: true, question:question })} />
+                <Faq questions={this.store.advert.questions} onAnswered={(question) => this.setState({ answerModalIsVisible: true, question: question })} />
               </View>
               : <View style={styles.quotes}>
                 <Quote quotes={this.store.advert.bids} onAccepted={(quote) => this.setState({ acceptModalIsVisible: true, userData: quote })} />
@@ -98,7 +99,7 @@ export default class MyAdvert extends Component {
         <AnswerModal isVisible={this.state.answerModalIsVisible}
           question={this.state.question}
           onClose={() => this.setState({ answerModalIsVisible: false, question: null })}
-          onAccepted={(data) => this._onAnswerd(data)}
+          onAnswerd={(data) => this._onAnswerd(data)}
         />
       </View>
     );
@@ -134,7 +135,9 @@ const Faq = (props) => {
   }
 
   return (
-    props.questions.map((question) => renderQuestion(question))
+    <View>
+      {props.questions.map((question) => renderQuestion(question))}
+    </View>
   );
 }
 
@@ -170,112 +173,132 @@ const Quote = (props) => {
   }
 
   return (
-    props.quotes.map((quote) => renderQuote(quote))
+    <View>
+      {props.quotes.map((quote) => renderQuote(quote))}
+    </View>
   );
 }
 
-const AnswerModal = (props)=>{
-  return (
-    <FixitModal isVisible={props.isVisible} bodyStyle={{ width: 280, height: 280 }}>
+class AnswerModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      answer: null,
+      isPublic: false
+    }
+  }
+
+  _onAnswer = () => {
+    this.props.onAnswerd(this.state);
+  }
+
+  _onChange = (value, name) => {
+    let state = Object.assign({}, this.state);
+    state[name] = value
+    this.setState(state);
+  }
+
+  render() {
+    return (
+      <FixitModal isVisible={this.props.isVisible} bodyStyle={{ width: 280, height: 280 }}>
         <View style={modalStyles.header}>
-            <Text style={modalStyles.headerTitle}>ANSWER</Text>
+          <Text style={modalStyles.headerTitle}>ANSWER</Text>
         </View>
         <View style={modalStyles.container}>
           <Text>Can you fix this in a week?</Text>
           <View style={modalStyles.addContactInput} >
-          <View>
+            <View>
               <Text>Your Message:</Text>
-          </View>
-          <TextInput
+            </View>
+            <TextInput
+              onChangeText={(text) => this._onChange(text, 'answer')}
               style={modalStyles.TextInput}
               multiline={true}
-              onChangeText={Text}
               numberOfLines={2}
               underlineColorAndroid='#46c6e9'
               selectionColor="#46c6e9" />
           </View>
           <View style={modalStyles.publicCheck}>
-          <Text>Is public</Text>
-          <CheckBox/>
+            <Text>Is public</Text>
+            <CheckBox  onValueChange={(value) => this._onChange(value, 'isPublic')} />
           </View>
         </View>
-
-
         <View style={modalStyles.modalButtons}>
-            <TouchableOpacity style={modalStyles.modalButtonAdd} activeOpacity={0.5} onPress={() => props.onAnswered({})}>
-                <Text>Answer</Text>
-            </TouchableOpacity >
-            <TouchableOpacity style={modalStyles.modalButtonClose} activeOpacity={0.5} onPress={() => props.onClose()}>
-                <Text>Close</Text>
-            </TouchableOpacity >
+          <TouchableOpacity style={modalStyles.modalButtonAdd} activeOpacity={0.5} onPress={this._onAnswer}>
+            <Text>Answer</Text>
+          </TouchableOpacity >
+          <TouchableOpacity style={modalStyles.modalButtonClose} activeOpacity={0.5} onPress={() => this.props.onClose()}>
+            <Text>Close</Text>
+          </TouchableOpacity >
         </View>
-    </FixitModal>);
+      </FixitModal>);
+  }
 }
 
-const AcceptModel = (props)=>{
+const AcceptModel = (props) => {
   const id = props.advertDate.photos[0]._id;
   return (
-      <FixitModal isVisible={props.isVisible} bodyStyle={{ width: 320, height: 460 }}>
-          <View style={modalStyles.header}>
-              <Text style={modalStyles.headerTitle}>ACCEPTING QUOTE</Text>
+    <FixitModal isVisible={props.isVisible} bodyStyle={{ width: 320, height: 460 }}>
+      <View style={modalStyles.header}>
+        <Text style={modalStyles.headerTitle}>ACCEPTING QUOTE</Text>
+      </View>
+      <View style={modalStyles.top}>
+        <View style={modalStyles.image}>
+          <Image resizeMode='cover' style={{ height: '100%', width: '100%' }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
+        </View>
+        <View style={modalStyles.topRight}>
+          <Text style={modalStyles.title}>{props.advertDate.title}</Text>
+          <Text style={modalStyles.name}>{props.advertDate.createdBy}</Text>
+          <View style={modalStyles.info}>
+            <View style={modalStyles.infoItem}>
+              <Ionicons name='md-time' style={modalStyles.icon} />
+              <Text style={modalStyles.infoText}>{`${timeSince(props.advertDate.createdAt)} ago`}</Text>
+            </View>
           </View>
-          <View style={modalStyles.top}>
-              <View style={modalStyles.image}>
-                  <Image resizeMode='cover' style={{ height: '100%', width: '100%' }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
-              </View>
-              <View style={modalStyles.topRight}>
-                  <Text style={modalStyles.title}>{props.advertDate.title}</Text>
-                  <Text style={modalStyles.name}>{props.advertDate.createdBy}</Text>
-                  <View style={modalStyles.info}>
-                      <View style={modalStyles.infoItem}>
-                          <Ionicons name='md-time' style={modalStyles.icon} />
-                          <Text style={modalStyles.infoText}>{`${timeSince(props.advertDate.createdAt)} ago`}</Text>
-                      </View>
-                  </View>
-              </View>
-          </View>
-         
+        </View>
+      </View>
 
 
 
 
-          <View style={modalStyles.acceptQuote}>
 
-                        <View style={modalStyles.quoteValues}>
-                            <Text>Your Message:</Text>
-                        </View>
-                        <TextInput
-                            style={modalStyles.TextInput}
-                            multiline={true}
-                            numberOfLines={2}
-                            underlineColorAndroid='#46c6e9'
-                            selectionColor="#46c6e9" />
-                        <View style={modalStyles.quoteValues}>
-                            <Text>You can contact me by...</Text>
-                        </View>
-                        <View style={modalStyles.contact}>
-                            <CheckBox  />
-                            <MaterialCommunityIcons name='phone' style={styles.icon} />
-                            <Text style={modalStyles.infoText}>stephan.henkel@gmail.com</Text>
-                        </View>
-                        <TouchableOpacity style={modalStyles.contactAdd}>
-                            <Feather name='plus-circle' style={styles.icon} />
-                            <Text style={modalStyles.infoText}>Add new</Text>
-                        </TouchableOpacity >
+      <View style={modalStyles.acceptQuote}>
 
-                        </View>
+        <View style={modalStyles.quoteValues}>
+          <Text>Your Message:</Text>
+        </View>
+        <TextInput
+          style={modalStyles.TextInput}
+          multiline={true}
+          numberOfLines={2}
+          underlineColorAndroid='#46c6e9'
+          selectionColor="#46c6e9" />
+        <View style={modalStyles.quoteValues}>
+          <Text>You can contact me by...</Text>
+        </View>
+        <View style={modalStyles.contact}>
+          <CheckBox />
+          <MaterialCommunityIcons name='phone' style={styles.icon} />
+          <Text style={modalStyles.infoText}>stephan.henkel@gmail.com</Text>
+        </View>
+        <TouchableOpacity style={modalStyles.contactAdd}>
+          <Feather name='plus-circle' style={styles.icon} />
+          <Text style={modalStyles.infoText}>Add new</Text>
+        </TouchableOpacity >
+
+      </View>
 
 
 
-          <View style={modalStyles.modalButtons}>
-              <TouchableOpacity style={modalStyles.modalButtonAdd} activeOpacity={0.5} onPress={() => props.onAccepted({})}>
-                  <Text>Send</Text>
-              </TouchableOpacity >
-              <TouchableOpacity style={modalStyles.modalButtonClose} activeOpacity={0.5} onPress={() => props.onClose()}>
-                  <Text>Close</Text>
-              </TouchableOpacity >
-          </View>
-      </FixitModal>
+      <View style={modalStyles.modalButtons}>
+        <TouchableOpacity style={modalStyles.modalButtonAdd} activeOpacity={0.5} onPress={() => props.onAccepted({})}>
+          <Text>Send</Text>
+        </TouchableOpacity >
+        <TouchableOpacity style={modalStyles.modalButtonClose} activeOpacity={0.5} onPress={() => props.onClose()}>
+          <Text>Close</Text>
+        </TouchableOpacity >
+      </View>
+    </FixitModal>
   );
 }
 
@@ -471,88 +494,88 @@ const styles = {
 
 const modalStyles = {
   header: {
-      flexDirection: 'row',
-      backgroundColor: '#264559',
-      height: 46,
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: 10,
+    flexDirection: 'row',
+    backgroundColor: '#264559',
+    height: 46,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 10,
   },
   container: {
-      padding: 10,
+    padding: 10,
   },
   headerTitle: {
-      color: '#fff',
-      fontWeight: '800',
+    color: '#fff',
+    fontWeight: '800',
   },
   top: {
-      width: '100%',
-      height: 130,
-      backgroundColor: '#eeeeee',
-      padding: 10,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
+    width: '100%',
+    height: 130,
+    backgroundColor: '#eeeeee',
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   image: {
-      width: '48%',
-      height: '100%',
+    width: '48%',
+    height: '100%',
   },
   topRight: {
-      width: '50%',
-      justifyContent: 'space-between',
+    width: '50%',
+    justifyContent: 'space-between',
   },
   title: {
-      fontSize: 16,
-      height: '40%',
+    fontSize: 16,
+    height: '40%',
   },
   name: {
-      fontWeight: 'bold',
-      fontSize: 20,
-      marginTop: 5,
-      marginBottom: 5,
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginTop: 5,
+    marginBottom: 5,
   },
   info: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   infoItem: {
-      flexDirection: 'row',
-      alignItems: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   icon: {
-      color: '#46c6e9',
-      fontSize: 25,
+    color: '#46c6e9',
+    fontSize: 25,
   },
   infoText: {
-      marginRight: 7,
-      marginLeft: 8,
+    marginRight: 7,
+    marginLeft: 8,
   },
   addContactInput: {
-      height: 80,
-      paddingTop: 10,
-      paddingBottom: 10,
+    height: 80,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   modalButtons: {
-      width: '100%',
-      flexDirection: 'row',
-      height: 50,
-      borderTopWidth: 1,
-      borderTopColor: '#ccc',
+    width: '100%',
+    flexDirection: 'row',
+    height: 50,
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
   },
   modalButtonAdd: {
-      width: '50%',
-      height: 50,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRightWidth: 1,
-      borderRightColor: '#ccc',
+    width: '50%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRightWidth: 1,
+    borderRightColor: '#ccc',
   },
   modalButtonClose: {
-      width: '50%',
-      height: 50,
-      justifyContent: 'center',
-      alignItems: 'center'
+    width: '50%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   acceptQuote: {
     paddingLeft: 10,
@@ -566,32 +589,32 @@ const modalStyles = {
     marginRight: 10,
     paddingTop: 20,
     paddingRight: 40
-},
-TextInput: {
+  },
+  TextInput: {
     marginTop: 5,
     width: '95%',
     borderColor: '#cccccc',
     borderWidth: 1
-},
-helperText: {
+  },
+  helperText: {
     paddingLeft: 10,
     color: '#cccccc',
     fontStyle: 'italic',
-},
-contact: {
+  },
+  contact: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-},
-contactAdd: {
+  },
+  contactAdd: {
     width: '85%',
     flexDirection: 'row',
     alignItems: 'center',
-},
-publicCheck: {
-  width: '90%',
-  flexDirection: 'row',
-  alignItems: 'center',
-  paddingTop: 20,
-},
+  },
+  publicCheck: {
+    width: '90%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 20,
+  },
 }

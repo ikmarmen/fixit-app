@@ -174,7 +174,6 @@ class AdvertsListStore {
   }
 
   @action addNew = (advert)=>{
-    debugger;
     this.adverts.unshift(advert);
   }
 }
@@ -264,7 +263,6 @@ export class NewAdvertStore {
       .then(data => {
         this.isUploading = false;
         let store = new AdvertStore(data);
-        debugger;
         advertsListStore.addNew(store);
         MyadvertsListStore.addNew(store);
         Actions.myAdvert({ type: ActionConst.REPLACE, store:store });

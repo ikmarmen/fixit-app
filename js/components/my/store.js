@@ -23,6 +23,8 @@ export class AdvertStore {
   @action acceptQuote = (data) => {
 
   }
+  @action answer = (data)=>{
+  }
 }
 
 class FilterStore {
@@ -217,7 +219,6 @@ class MyAdvertsListStore {
   }
 
   @action addNew = (advert)=>{
-    debugger;
     this.adverts.unshift(advert);
   }
 }
