@@ -90,7 +90,7 @@ class InterestedListStore {
     }
   }
 
-  load = (append = true, isRefrash = false) => {
+  load = async (append = true, isRefrash = false) => {
     let that = this;
 
     let request = {

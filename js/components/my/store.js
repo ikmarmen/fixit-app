@@ -23,7 +23,32 @@ export class AdvertStore {
   @action acceptQuote = (data) => {
 
   }
-  @action answer = (data)=>{
+  @action answer = (data) => {
+    this.advert.questions.map((current, index, array) => {
+      if (array[index]._id === data.question._id) {
+        array[index].answer = {
+          _id: 0,
+          body: data.answer,
+          isPublic: data.isPublic
+        }
+      }
+    });
+    let request ={
+      questionId: data.question._id,
+      answer: data.answer
+    }
+    this.saveAnsver(request);
+  }
+  saveAnsver = async (data) => {
+    var that = this;
+
+    let request = qs.stringify({ body: data.answer });
+    Fetch(`posts/${this.advert._id}/questions/${data.questionId}/answer`, { method: 'POST', body: request })
+      .then(data => {
+      })
+      .catch(error => {
+        that.error = error.message;
+      });
   }
 }
 
@@ -129,7 +154,7 @@ class MyAdvertsListStore {
     }
   }
 
-  load = (append = true, isRefrash = false) => {
+  load = async (append = true, isRefrash = false) => {
     let that = this;
 
     let request = {
@@ -218,7 +243,7 @@ class MyAdvertsListStore {
     return this.adverts.filter((item) => item.advert.status === selectedTab.key);
   }
 
-  @action addNew = (advert)=>{
+  @action addNew = (advert) => {
     this.adverts.unshift(advert);
   }
 }

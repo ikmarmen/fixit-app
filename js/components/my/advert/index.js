@@ -26,10 +26,12 @@ export default class MyAdvert extends Component {
   }
 
   _onAccepted = (data) => {
+    data.userData = this.state.userData;
     this.store.acceptQuote(data);
     this.setState({ acceptModalIsVisible: false, userData: null })
   }
   _onAnswerd = (data) => {
+    data.question = this.state.question;
     this.store.answer(data);
     this.setState({ answerModalIsVisible: false, question: null })
   }
@@ -82,10 +84,14 @@ export default class MyAdvert extends Component {
             </View>
             {this.state.selectedTab == 'QUESTIONS'
               ? <View style={styles.questions}>
-                <Faq questions={this.store.advert.questions} onAnswered={(question) => this.setState({ answerModalIsVisible: true, question: question })} />
+                <Faq
+                  questions={this.store.advert.questions}
+                  onAnswered={(question) => { this.setState({ answerModalIsVisible: true, question: question })}} />
               </View>
               : <View style={styles.quotes}>
-                <Quote quotes={this.store.advert.bids} onAccepted={(quote) => this.setState({ acceptModalIsVisible: true, userData: quote })} />
+                <Quote
+                  quotes={this.store.advert.bids}
+                  onAccepted={(quote) => this.setState({ acceptModalIsVisible: true, userData: quote })} />
               </View>
             }
           </View>
@@ -220,7 +226,7 @@ class AnswerModal extends Component {
           </View>
           <View style={modalStyles.publicCheck}>
             <Text>Is public</Text>
-            <CheckBox  onValueChange={(value) => this._onChange(value, 'isPublic')} />
+            <CheckBox onValueChange={(value) => this._onChange(value, 'isPublic')} />
           </View>
         </View>
         <View style={modalStyles.modalButtons}>

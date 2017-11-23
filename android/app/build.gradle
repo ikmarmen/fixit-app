@@ -116,7 +116,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
-        versionName "0.1"
+        versionName "0.1.3"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -145,7 +145,7 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
              signingConfig signingConfigs.release
-             ext.betaDistributionReleaseNotes="New build of Fixit"
+             ext.betaDistributionReleaseNotes="Fixed some errores, added my fixets QUotes and Questions loading"
              ext.betaDistributionGroupAliases="margasoft"
              ext.betaDistributionNotifications=true
         }
