@@ -59,7 +59,7 @@ export default class Quote extends Component {
                                 <Text style={styles.name}>{this.store.advert.createdBy}</Text>
                                 <View style={styles.info}>
                                     <SimpleLineIcons name='location-pin' style={styles.icon} />
-                                    <Text style={styles.infoText}>{this.store.advert.distance + 'km'}</Text>
+                                    <Text style={styles.infoText}>{parseInt(this.store.advert.distance/1000) + 'km'}</Text>
                                     <Ionicons name='md-time' style={styles.icon} />
                                     <Text style={styles.infoText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
                                 </View>

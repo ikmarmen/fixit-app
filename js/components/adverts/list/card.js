@@ -46,7 +46,7 @@ export default class FixItCard extends Component {
 
                   <View style={styles.cardInfoTop}>
                   <SimpleLineIcons name='location-pin' style={styles.icon} />
-                    <Text style={styles.cardText}>{`${this.store.advert.distance} km`}</Text>
+                    <Text style={styles.cardText}>{`${parseInt(this.store.advert.distance/1000)} km`}</Text>
                     <Ionicons name='md-time' style={styles.icon} />
                     <Text style={styles.cardText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
                     <Feather name='eye' style={styles.icon} />

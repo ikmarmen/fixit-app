@@ -58,7 +58,7 @@ export default class MyAdvert extends Component {
                 <View style={styles.info}>
                   <View style={styles.infoItem}>
                     <SimpleLineIcons name='location-pin' style={styles.icon} />
-                    <Text style={styles.infoText}>{this.store.advert.distance + 'km'}</Text>
+                    <Text style={styles.infoText}>{parseInt(this.store.advert.distance/1000) + 'km'}</Text>
                   </View>
                   <View style={styles.infoItem}>
                     <Ionicons name='md-time' style={styles.icon} />
@@ -153,7 +153,7 @@ const Quote = (props) => {
       <View style={styles.quotesList} key={quote._id}>
         <View style={styles.quotesListTitle}>
           <View style={styles.quoteName}>
-            <Text style={styles.qouteAuthtor}>Archie Tempel</Text>
+            <Text style={styles.qouteAuthtor}>{quote.createdBy}</Text>
             <View style={styles.rating}>
               <MaterialCommunityIcons name='star' style={styles.rate} />
               <MaterialCommunityIcons name='star' style={styles.rate} />
@@ -162,7 +162,7 @@ const Quote = (props) => {
               <MaterialCommunityIcons name='star-outline' style={styles.rate} />
             </View>
           </View>
-          <Text>2{`${timeSince(quote.createdAt)} ago`}</Text>
+          <Text>{`${timeSince(quote.createdAt)} ago`}</Text>
         </View>
         <View style={styles.quotesListTitle}>
           <View style={styles.quotesMessage}>

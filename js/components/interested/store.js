@@ -96,7 +96,8 @@ class InterestedListStore {
     let request = {
       skip: this.pageNumber * this.pageCount,
       take: this.pageCount,
-      search: this.searchKeyword
+      search: this.searchKeyword,
+      forRequester: true
     };
 
     request.order = {
@@ -107,7 +108,7 @@ class InterestedListStore {
     request = qs.stringify(request);
     this.isLoading = true;
 
-    Fetch('posts/my', { method: 'POST', body: request })
+    Fetch('posts/all', { method: 'POST', body: request })
       .then(data => {
         if (append) {
           data.map((item) => {

@@ -36,7 +36,7 @@ export default class Advert extends Component {
             <View style={styles.infoLeft}>
               
               <SimpleLineIcons name='location-pin' style={styles.icon} />
-              <Text style={styles.infoText}>{this.store.advert.distance+'km'}</Text>
+              <Text style={styles.infoText}>{parseInt(this.store.advert.distance/1000)+'km'}</Text>
               <Ionicons name='md-time' style={styles.icon} />
               <Text style={styles.infoText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
 
@@ -49,7 +49,7 @@ export default class Advert extends Component {
                 </View>
               </TouchableOpacity >
             </View>
-            <Text note style={styles.description}>{this.store.advert.description}</Text>
+            <Text note style={styles.description}>{this.store.advert.description ? this.store.advert.description : ''}</Text>
           </View>
           <View style={styles.rowViewContainer} />
           <Comments store={this.store} />
