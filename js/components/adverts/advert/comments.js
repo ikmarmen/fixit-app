@@ -12,14 +12,14 @@ export default class AdvertsComments extends Component {
 
   _renderQuestion = (question) => {
     return (
-      <View  style={styles.qaContainer} key={question._id} >
+      <View style={styles.qaContainer} key={question._id} >
         <View >
-          <Text note  style={styles.questionText} >{`Q: ${question.body}`}</Text>
+          <Text note style={styles.questionText} >{`Q: ${question.body}`}</Text>
         </View>
         {question.answer
           &&
           <View >
-            <Text note  style={styles.answerText}>{`A: ${question.answer.body}`}</Text>
+            <Text note style={styles.answerText}>{`A: ${question.answer.body}`}</Text>
           </View>
           ||
           null
@@ -30,7 +30,7 @@ export default class AdvertsComments extends Component {
 
   render() {
     return <View style={styles.container}>
-      <Text  style={styles.commentTitle} >QUESTIONS</Text>
+      <Text style={styles.commentTitle} >QUESTIONS</Text>
 
       <View>
         <TextInput style={styles.textInput}
@@ -41,7 +41,7 @@ export default class AdvertsComments extends Component {
           value={this.store.newQuestion} />
         <View style={styles.commentBottom} >
           <TouchableOpacity style={styles.btnContainer} activeOpacity={0.5} onPress={this.store.addQuestion} >
-              <Text  style={styles.btnText}>Send Question</Text>
+            <Text style={styles.btnText}>Send Question</Text>
           </TouchableOpacity >
         </View>
       </View>
@@ -50,56 +50,59 @@ export default class AdvertsComments extends Component {
 
 
       <View >
-        {this.store.advert.questions.map((question) => {
-          return this._renderQuestion(question)
-        })}
+        {this.store.advert.questions
+          ? this.store.advert.questions.map((question) => {
+            return this._renderQuestion(question)
+          })
+          : null
+        }
       </View>
 
-  
+
     </View>
   }
 }
 const styles = StyleSheet.create({
-container: {
-  width: '95%',
-  backgroundColor: '#e0e0e0',
-  paddingLeft: 5, 
-  paddingRight: 5, 
-  paddingTop: 2, 
-  marginLeft: 10,
-  paddingBottom: 10,
-  flexDirection: 'column',
-},
-commentTitle: {
-padding: 10,
-fontWeight: 'bold',
-},
-qaContainer: {
-  borderBottomWidth: 2,
-  borderBottomColor: '#ccc',
-  width: '95%',
-  marginLeft: 10,
-  padding: 5,
-},
-questionText: {
-  color: '#444',  
-},
-answerText: {
-  color: '#999',  
-},
-textInput: {
-  marginTop: 10, 
-  borderColor: 'gray', 
-  borderWidth: 0.5,
-  marginLeft: 10,
-  width: '95%',
-},
-commentBottom: {
-  width: '100%',
-  alignItems: 'center',
-  marginTop: 10,
-},
-  btnContainer: {   
+  container: {
+    width: '95%',
+    backgroundColor: '#e0e0e0',
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingTop: 2,
+    marginLeft: 10,
+    paddingBottom: 10,
+    flexDirection: 'column',
+  },
+  commentTitle: {
+    padding: 10,
+    fontWeight: 'bold',
+  },
+  qaContainer: {
+    borderBottomWidth: 2,
+    borderBottomColor: '#ccc',
+    width: '95%',
+    marginLeft: 10,
+    padding: 5,
+  },
+  questionText: {
+    color: '#444',
+  },
+  answerText: {
+    color: '#999',
+  },
+  textInput: {
+    marginTop: 10,
+    borderColor: 'gray',
+    borderWidth: 0.5,
+    marginLeft: 10,
+    width: '95%',
+  },
+  commentBottom: {
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  btnContainer: {
     width: '75%',
     height: 40,
     borderRadius: 20,

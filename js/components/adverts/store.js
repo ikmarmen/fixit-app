@@ -10,8 +10,8 @@ class FilterStore {
   orderList = [
     { label: 'Time: newest first', value: 'createdDate:asc' },
     { label: 'Time: olds first', value: 'createdDate:desc' },
-    { label: 'Distanse: nearest first', value: 'distanse:desc' },
-    { label: 'Distanse: faraway first', value: 'distanse:asc' }
+    { label: 'Distance: nearest first', value: 'distance:desc' },
+    { label: 'Distance: faraway first', value: 'distance:asc' }
   ];
   @observable selectedOrder = 'createdDate:asc';
   @observable maxDistance = '10';
@@ -113,7 +113,7 @@ class AdvertsListStore {
     request = qs.stringify(request);
     this.isLoading = true;
 
-    Fetch('posts/all', { method: 'POST', body: request })
+    Fetch('posts/allNew', { method: 'POST', body: request })
       .then(data => {
         if (append) {
           data.map((item) => {
