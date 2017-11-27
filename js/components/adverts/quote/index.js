@@ -22,7 +22,7 @@ export default class Quote extends Component {
         this.store = QuoteStore;
     }
     _renderImage = () => {
-        let id = this.store.advert.photos[0]._id;
+        let id = this.store.advert.photoIds[0];
         return (
             <Image resizeMode='cover' style={{ height: '100%', width: '100%' }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
         );
