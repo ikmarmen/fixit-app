@@ -39,8 +39,6 @@ export default class FixItCard extends Component {
             <View style={styles.card}>
               <View style={styles.cardtitleContainer}>
                 <Text style={styles.cardTitle}>{this.store.advert.userName}</Text>
-              </View>
-              <View style={styles.cardtitleContainer}>
                 <Text style={styles.cardTitle}>{this.store.advert.title}</Text>
               </View>
 

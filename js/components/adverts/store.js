@@ -95,7 +95,8 @@ class AdvertsListStore {
       maxDistance: this.filterStore.maxDistance,
       skip: this.pageNumber * this.pageCount,
       take: this.pageCount,
-      search: this.searchKeyword
+      search: this.searchKeyword,
+      exceptRequester: true
     };
 
     var order = this.filterStore.selectedOrder.split(':');
