@@ -185,6 +185,7 @@ export class AdvertStore {
   @observable advert = null;
   @observable error = null;
   @observable newQuestion = null;
+  @observable questions = null;
 
   constructor(advert) {
     autorun(() => this.showErrors());
@@ -199,14 +200,22 @@ export class AdvertStore {
   }
 
   @action addQuestion = async () => {
-    var that = this;
-
     let request = qs.stringify({ body: this.newQuestion });
     try
     {
-      const data = await Fetch(`posts/${this.advert._id}/questions`, { method: 'POST', body: request });
-      this.advert.questions = data;
+      this.advert.questions = await Fetch(`posts/${this.advert._id}/questions`, { method: 'POST', body: request });
       this.newQuestion = null;
+    }
+    catch(error)
+    {
+      this.error = error.message;
+    }
+  }
+
+  @action loadQuestions = async()=>{
+    try
+    {
+      this.questions = await Fetch(`posts/${this.advert._id}/questions/all`, { method: 'POST' });
     }
     catch(error)
     {

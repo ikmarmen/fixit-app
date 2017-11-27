@@ -10,6 +10,10 @@ export default class AdvertsComments extends Component {
     this.store = props.store;
   }
 
+  async componentWillMount() {
+    await this.store.loadQuestions();
+  }
+
   _renderQuestion = (question) => {
     return (
       <View style={styles.qaContainer} key={question._id} >
@@ -29,37 +33,33 @@ export default class AdvertsComments extends Component {
   }
 
   render() {
-    return <View style={styles.container}>
-      <Text style={styles.commentTitle} >QUESTIONS</Text>
+    return (
+      <View style={styles.container}>
+        <Text style={styles.commentTitle} >QUESTIONS</Text>
 
-      <View>
-        <TextInput style={styles.textInput}
-          multiline={true}
-          numberOfLines={1}
-          placeholder='Want to ask somethig?'
-          onChangeText={this.store.addQuestionText}
-          value={this.store.newQuestion} />
-        <View style={styles.commentBottom} >
-          <TouchableOpacity style={styles.btnContainer} activeOpacity={0.5} onPress={this.store.addQuestion} >
-            <Text style={styles.btnText}>Send Question</Text>
-          </TouchableOpacity >
+        <View>
+          <TextInput style={styles.textInput}
+            multiline={true}
+            numberOfLines={1}
+            placeholder='Want to ask somethig?'
+            onChangeText={this.store.addQuestionText}
+            value={this.store.newQuestion} />
+          <View style={styles.commentBottom} >
+            <TouchableOpacity style={styles.btnContainer} activeOpacity={0.5} onPress={this.store.addQuestion} >
+              <Text style={styles.btnText}>Send Question</Text>
+            </TouchableOpacity >
+          </View>
+        </View>
+        <View >
+          {this.store.questions
+            ? this.store.questions.map((question) => {
+              return this._renderQuestion(question)
+            })
+            : null
+          }
         </View>
       </View>
-
-
-
-
-      <View >
-        {this.store.advert.questions
-          ? this.store.advert.questions.map((question) => {
-            return this._renderQuestion(question)
-          })
-          : null
-        }
-      </View>
-
-
-    </View>
+    );
   }
 }
 const styles = StyleSheet.create({
