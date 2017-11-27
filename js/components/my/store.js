@@ -5,7 +5,7 @@ import Fetch from '../../utils/fetch-json';
 import MyAdvertFilterConst from '../../constants/myAdvertFilterConst';
 import LocationStore from '../../stores/locationStore';
 
-export class AdvertStore {
+export class MyAdvertStore {
   @observable advert = null;
   @observable error = null;
   @observable questions = null;
@@ -205,12 +205,12 @@ class MyAdvertsListStore {
       const data = await Fetch('posts/allNew', { method: 'POST', body: request })
       if (append) {
         data.map((item) => {
-          this.adverts.push(new AdvertStore(item))
+          this.adverts.push(new MyAdvertStore(item))
         });
       } else {
         this.adverts.clear();
         data.map((item) => {
-          this.adverts.push(new AdvertStore(item))
+          this.adverts.push(new MyAdvertStore(item))
         });
       }
       this.isLoading = false;

@@ -5,6 +5,7 @@ import Fetch from '../../utils/fetch-json';
 import LocationStore from '../../stores/locationStore';
 import MyadvertsListStore from '../my/store';
 import { AuthStore } from '../auth/authStore';
+import {MyAdvertStore} from '../my/store';
 
 class FilterStore {
   orderList = [
@@ -355,10 +356,10 @@ export class NewAdvertStore {
     Fetch('posts/', { method: 'POST', body: request, headers: { 'Content-Type': 'multipart/form-data' } })
       .then(data => {
         this.isUploading = false;
-        let store = new AdvertStore(data);
-        advertsListStore.addNew(store);
-        MyadvertsListStore.addNew(store);
-        Actions.myAdvert({ type: ActionConst.REPLACE, store: store });
+        advertsListStore.addNew(new AdvertStore(data));
+        let myAdvertStore = new MyAdvertStore(data);
+        MyadvertsListStore.addNew(myAdvertStore);
+        Actions.myAdvert({ type: ActionConst.REPLACE, store: myAdvertStore });
       })
       .catch(error => {
         this.isUploading = false;
