@@ -107,7 +107,7 @@ class AdvertsListStore {
       request.zip = this.filterStore.zip;
     } else {
       request.longitude = LocationStore.location.longitude;
-      request.latitude = LocationStore.location.latitude
+      request.latitude = LocationStore.location.latitude;
     }
 
     request = qs.stringify(request);
@@ -214,7 +214,7 @@ class QuoteStore {
       let contacts = this.contacts.filter(item => item.isSelected);
       let request = qs.stringify({ amount: this.amount.toJS(), duration: this.duration.toJS(), message: this.message, contacts: contacts });
 
-      Fetch(`posts/${this.advert._id}/quote`, { method: 'POST', body: request })
+      Fetch(`posts/${this.advert._id}/quotes`, { method: 'POST', body: request })
           .then(data => {
               this.close();
           })

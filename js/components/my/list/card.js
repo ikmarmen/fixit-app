@@ -22,7 +22,7 @@ export default class MyCard extends Component {
   }
 
   _renderImage = () => {
-    let id = this.store.advert.photos[0]._id;
+    let id = this.store.advert.photoIds[0];
     return (
       <Image resizeMode='stretch' style={{ flex: 1, height: 200, width: 200 }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
     );
@@ -49,13 +49,13 @@ export default class MyCard extends Component {
               <View style={styles.cardInfo}>
                 <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
                   <View style={styles.myfixitQuotes} >
-                    <Text style={styles.cardInfoTextLeft}>{`${this.store.advert.bids.length} QUOTES`}</Text>
+                    <Text style={styles.cardInfoTextLeft}>{`${this.store.advert.bidsCount} QUOTES`}</Text>
                     <Text style={styles.cardInfonew}>(8new)</Text>
                   </View>
                 </TouchableOpacity >
                 <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
                   <View style={styles.myfixitQuotes}>
-                    <Text style={styles.cardInfoTextRight}>{`${this.store.advert.questions.length} QUESTIONS`}</Text>
+                    <Text style={styles.cardInfoTextRight}>{`${this.store.advert.questionsCount} QUESTIONS`}</Text>
                     <Text style={styles.cardInfonew}>(3new)</Text>
                   </View>
                 </TouchableOpacity >

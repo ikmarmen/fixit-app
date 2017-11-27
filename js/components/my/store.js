@@ -3,10 +3,13 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import qs from 'qs';
 import Fetch from '../../utils/fetch-json';
 import MyAdvertFilterConst from '../../constants/myAdvertFilterConst';
+import LocationStore from '../../stores/locationStore';
 
 export class AdvertStore {
   @observable advert = null;
   @observable error = null;
+  @observable questions = null;
+  @observable quotes = null;
 
   constructor(advert) {
     autorun(() => this.showErrors());
@@ -23,8 +26,9 @@ export class AdvertStore {
   @action acceptQuote = (data) => {
 
   }
+
   @action answer = (data) => {
-    this.advert.questions.map((current, index, array) => {
+    this.questions.map((current, index, array) => {
       if (array[index]._id === data.question._id) {
         array[index].answer = {
           _id: 0,
@@ -39,6 +43,29 @@ export class AdvertStore {
     }
     this.saveAnsver(request);
   }
+
+  @action loadQuestions = async()=>{
+    try
+    {
+      this.questions = await Fetch(`posts/${this.advert._id}/questions/all`, { method: 'POST' });
+    }
+    catch(error)
+    {
+      this.error = error.message;
+    }
+  }
+
+  @action loadQuotes = async()=>{
+    try
+    {
+      this.quotes = await Fetch(`posts/${this.advert._id}/quotes/all`, { method: 'POST' });
+    }
+    catch(error)
+    {
+      this.error = error.message;
+    }
+  }
+
   saveAnsver = async (data) => {
     let request = qs.stringify({ body: data.answer });
     try {
@@ -159,7 +186,10 @@ class MyAdvertsListStore {
       skip: this.pageNumber * this.pageCount,
       take: this.pageCount,
       search: this.searchKeyword,
-      forRequester: true
+      forRequester: true,
+      maxDistance: 5000,
+      longitude: LocationStore.location.longitude,
+      latitude: LocationStore.location.latitude,
     };
 
     var order = this.filterStore.selectedOrder.split(':');
@@ -172,7 +202,7 @@ class MyAdvertsListStore {
     this.isLoading = true;
 
     try {
-      const data = await Fetch('posts/all', { method: 'POST', body: request })
+      const data = await Fetch('posts/allNew', { method: 'POST', body: request })
       if (append) {
         data.map((item) => {
           this.adverts.push(new AdvertStore(item))
