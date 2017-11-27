@@ -33,22 +33,20 @@ export class AdvertStore {
         }
       }
     });
-    let request ={
+    let request = {
       questionId: data.question._id,
       answer: data.answer
     }
     this.saveAnsver(request);
   }
   saveAnsver = async (data) => {
-    var that = this;
-
     let request = qs.stringify({ body: data.answer });
-    Fetch(`posts/${this.advert._id}/questions/${data.questionId}/answer`, { method: 'POST', body: request })
-      .then(data => {
-      })
-      .catch(error => {
-        that.error = error.message;
-      });
+    try {
+      await Fetch(`posts/${this.advert._id}/questions/${data.questionId}/answer`, { method: 'POST', body: request });
+    }
+    catch (error) {
+      this.error = error.message;
+    }
   }
 }
 
@@ -173,30 +171,30 @@ class MyAdvertsListStore {
     request = qs.stringify(request);
     this.isLoading = true;
 
-    Fetch('posts/all', { method: 'POST', body: request })
-      .then(data => {
-        if (append) {
-          data.map((item) => {
-            that.adverts.push(new AdvertStore(item))
-          });
-        } else {
-          that.adverts.clear();
-          data.map((item) => {
-            that.adverts.push(new AdvertStore(item))
-          });
-        }
-        that.isLoading = false;
-        if (isRefrash) {
-          that.isRefreshing = false;
-        }
-      })
-      .catch(error => {
-        that.isLoading = false;
-        if (isRefrash) {
-          that.isRefreshing = false;
-        }
-        that.error = error.message;
-      });
+    try {
+      const data = await Fetch('posts/all', { method: 'POST', body: request })
+      if (append) {
+        data.map((item) => {
+          this.adverts.push(new AdvertStore(item))
+        });
+      } else {
+        this.adverts.clear();
+        data.map((item) => {
+          this.adverts.push(new AdvertStore(item))
+        });
+      }
+      this.isLoading = false;
+      if (isRefrash) {
+        this.isRefreshing = false;
+      }
+    }
+    catch (error) {
+      this.isLoading = false;
+      if (isRefrash) {
+        this.isRefreshing = false;
+      }
+      this.error = error.message;
+    }
   }
 
   @action openFilters = () => {

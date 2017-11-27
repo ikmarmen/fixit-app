@@ -11,7 +11,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import SliderMarker from '../../../controls/sliderMarker';
 import FixitModal from '../../../controls/modal';
-import QuoteStore from './store';
+import {quoteStore as QuoteStore} from '../store';
 import Config from '../../../../config.js';
 import { timeSince } from '../../../utils/dateHelper';
 

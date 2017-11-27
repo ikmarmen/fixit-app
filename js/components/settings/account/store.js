@@ -4,7 +4,7 @@ import qs from 'qs';
 import Fetch from '../../../utils/fetch-json';
 import { AuthStore } from '../../auth/authStore';
 
-class QuoteStore {
+class AccountStore {
     @observable authStore = AuthStore;
     @observable error = null;
     @observable oldPassword = null;
@@ -58,5 +58,5 @@ class QuoteStore {
     //End account actions
 }
 
-const quoteStore = new QuoteStore()
-export default quoteStore
+const accountStore = new AccountStore()
+export default accountStore
