@@ -2,21 +2,18 @@ import Config from '../../config.js';
 import { Platform, AsyncStorage } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import {AuthStore} from '../components/auth/authStore'
+import { AuthStore } from '../components/auth/authStore'
 
-
-function parseJson(response) {
-  return response.json();
-}
 function checkStatus(data) {
-  if(data.error && data.error.status === 401){
+  if (data.error && data.error.status === 401) {
     //Ugly Hack
-    throw data.error;
-  }else if(data.error){
-     throw data;
-  }else{
+    alert(JSON.stringify(data.error));
+  } else if (data.error) {
+    alert(JSON.stringify(data));
+  } else {
     return data;
   }
+  return data;
 }
 
 export default async function enhancedFetch(url, options) {
@@ -33,7 +30,8 @@ export default async function enhancedFetch(url, options) {
   if (options.body && typeof options.body !== 'string' && !(options.body instanceof FormData)) {
     options.body = JSON.stringify(options.body);
   }
-  return fetch(`${Config.BASE_URL}${url}`, options)
-    .then(parseJson)
-    .then(checkStatus);
+  const response = await fetch(`${Config.BASE_URL}${url}`, options);
+  const json = await response.json();
+
+  return checkStatus(json);
 }

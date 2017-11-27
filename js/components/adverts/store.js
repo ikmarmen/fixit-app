@@ -113,30 +113,31 @@ class AdvertsListStore {
     request = qs.stringify(request);
     this.isLoading = true;
 
-    Fetch('posts/allNew', { method: 'POST', body: request })
-      .then(data => {
-        if (append) {
-          data.map((item) => {
-            that.adverts.push(new AdvertStore(item))
-          });
-        } else {
-          that.adverts.clear();
-          data.map((item) => {
-            that.adverts.push(new AdvertStore(item))
-          });
-        }
-        that.isLoading = false;
-        if (isRefrash) {
-          that.isRefreshing = false;
-        }
-      })
-      .catch(error => {
-        that.isLoading = false;
-        if (isRefrash) {
-          that.isRefreshing = false;
-        }
-        that.error = error.message;
-      });
+    try {
+      let data = await Fetch('posts/allNew', { method: 'POST', body: request });
+
+      if (append) {
+        data.map((item) => {
+          that.adverts.push(new AdvertStore(item))
+        });
+      } else {
+        that.adverts.clear();
+        data.map((item) => {
+          that.adverts.push(new AdvertStore(item))
+        });
+      }
+      that.isLoading = false;
+      if (isRefrash) {
+        that.isRefreshing = false;
+      }
+    }
+    catch (error) {
+      this.isLoading = false;
+      if (isRefrash) {
+        this.isRefreshing = false;
+      }
+      this.error = error.message;
+    }
   }
 
   @action onRefresh = () => {
@@ -169,11 +170,11 @@ class AdvertsListStore {
     this.load(false, true);
   }
 
-  @action openFilters = ()=>{
+  @action openFilters = () => {
     this.filterStore.open();
   }
 
-  @action addNew = (advert)=>{
+  @action addNew = (advert) => {
     this.adverts.unshift(advert);
   }
 }
@@ -197,18 +198,20 @@ export class AdvertStore {
     }
   }
 
-  @action addQuestion = () => {
+  @action addQuestion = async () => {
     var that = this;
 
     let request = qs.stringify({ body: this.newQuestion });
-    Fetch(`posts/${this.advert._id}/questions`, { method: 'POST', body: request })
-      .then(data => {
-        that.advert.questions = data;
-        that.newQuestion = null;
-      })
-      .catch(error => {
-        that.error = error.message;
-      });
+    try
+    {
+      const data = await Fetch(`posts/${this.advert._id}/questions`, { method: 'POST', body: request });
+      this.advert.questions = data;
+      this.newQuestion = null;
+    }
+    catch(error)
+    {
+      this.error = error.message;
+    }
   }
 
   @action addQuestionText = (text) => {
@@ -239,7 +242,7 @@ export class NewAdvertStore {
   }
 
   @action addPhotos = (photos) => {
-    this.photos= photos;
+    this.photos = photos;
     Actions.newAdvert({ type: ActionConst.PUSH, store: this })
   }
 
@@ -265,7 +268,7 @@ export class NewAdvertStore {
         let store = new AdvertStore(data);
         advertsListStore.addNew(store);
         MyadvertsListStore.addNew(store);
-        Actions.myAdvert({ type: ActionConst.REPLACE, store:store });
+        Actions.myAdvert({ type: ActionConst.REPLACE, store: store });
       })
       .catch(error => {
         this.isUploading = false;
