@@ -162,7 +162,7 @@ const Quote = (props) => {
       <View style={styles.quotesList} key={quote._id}>
         <View style={styles.quotesListTitle}>
           <View style={styles.quoteName}>
-            <Text style={styles.qouteAuthtor}>{quote.createdBy}</Text>
+            <Text style={styles.qouteAuthtor}>{quote.userName}</Text>
             <View style={styles.rating}>
               <MaterialCommunityIcons name='star' style={styles.rate} />
               <MaterialCommunityIcons name='star' style={styles.rate} />

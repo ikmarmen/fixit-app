@@ -33,10 +33,13 @@ export default class FixItCard extends Component {
 
             <Image key={this.store.advert.photoIds[0]}
               resizeMode='cover'
-              style={ styles.img }
+              style={styles.img}
               source={{ uri: `${Config.BASE_URL}posts/photo/${this.store.advert.photoIds[0]}` }} />
 
             <View style={styles.card}>
+              <View style={styles.cardtitleContainer}>
+                <Text style={styles.cardTitle}>{this.store.advert.userName}</Text>
+              </View>
               <View style={styles.cardtitleContainer}>
                 <Text style={styles.cardTitle}>{this.store.advert.title}</Text>
               </View>
@@ -106,10 +109,10 @@ const styles = StyleSheet.create({
   cardtitleContainer: {
     height: 55,
   },
-  img:{
-    height: 200, 
-    width: null, 
-    flex: 1, 
+  img: {
+    height: 200,
+    width: null,
+    flex: 1,
     resizeMode: 'cover'
   },
   cardTitle: {
