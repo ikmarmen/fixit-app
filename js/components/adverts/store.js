@@ -203,7 +203,7 @@ export class AdvertStore {
     let request = qs.stringify({ body: this.newQuestion });
     try
     {
-      this.advert.questions = await Fetch(`posts/${this.advert._id}/questions`, { method: 'POST', body: request });
+      this.questions = await Fetch(`posts/${this.advert._id}/questions`, { method: 'POST', body: request });
       this.newQuestion = null;
     }
     catch(error)
