@@ -104,7 +104,7 @@ export default class MyAdvert extends Component {
           </View>
         </ScrollView>
         <AcceptModal isVisible={this.state.acceptModalIsVisible}
-          advertDate={this.store.advert}
+          advertData={this.store.advert}
           userData={this.state.userData}
           onClose={() => this.setState({ acceptModalIsVisible: false, userData: null })}
           onAccepted={(data) => this._onAccepted(data)}

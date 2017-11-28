@@ -11,7 +11,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import SliderMarker from '../../../controls/sliderMarker';
 import FixitModal from '../../../controls/modal';
-import {quoteStore as QuoteStore} from '../store';
+import { quoteStore as QuoteStore } from '../store';
 import Config from '../../../../config.js';
 import { timeSince } from '../../../utils/dateHelper';
 
@@ -59,7 +59,7 @@ export default class Quote extends Component {
                                 <Text style={styles.name}>{this.store.advert.createdBy}</Text>
                                 <View style={styles.info}>
                                     <SimpleLineIcons name='location-pin' style={styles.icon} />
-                                    <Text style={styles.infoText}>{parseInt(this.store.advert.distance/1000) + 'km'}</Text>
+                                    <Text style={styles.infoText}>{parseInt(this.store.advert.distance / 1000) + 'km'}</Text>
                                     <Ionicons name='md-time' style={styles.icon} />
                                     <Text style={styles.infoText}>{`${timeSince(this.store.advert.createdAt)} ago`}</Text>
                                 </View>
@@ -94,8 +94,7 @@ export default class Quote extends Component {
                             <Text>Your Message:</Text>
                         </View>
                         <TextInput
-                      
-                        style={styles.TextInput}
+                            style={styles.TextInput}
                             multiline={true}
                             onChangeText={(text) => this._sliderValuesChange(text, 'message')}
                             numberOfLines={2}

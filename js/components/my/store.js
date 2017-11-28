@@ -23,8 +23,16 @@ export class MyAdvertStore {
     }
   }
 
-  @action acceptQuote = (data) => {
-
+  @action acceptQuote = async (data) => {
+    try
+    {
+      let request = qs.stringify({ contacts: data.contacts, message:data.message, quote:data.userData });
+      await Fetch(`posts/${this.advert._id}/quotes/accept`, { method: 'POST', body: request});
+    }
+    catch(error)
+    {
+      this.error = error.message;
+    }
   }
 
   @action answer = (data) => {
