@@ -2,7 +2,7 @@ import Config from '../../config.js';
 import { Platform } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import RNFetchBlob from 'react-native-fetch-blob';
-import {AuthStore} from '../components/auth/authStore'
+import {AuthStore} from '../components/auth/store'
 
 function checkStatus(data) {
   if(data.error){

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
-import { LoginStore, AuthStore } from './authStore';
+import { LoginStore, AuthStore } from './store';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import FloatingLabelInput from '../../controls/floatingLabelInput';
 

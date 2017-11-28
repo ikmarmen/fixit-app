@@ -2,7 +2,7 @@ import Config from '../../config.js';
 import { Platform, AsyncStorage } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { AuthStore } from '../components/auth/authStore'
+import { AuthStore } from '../components/auth/store'
 
 function checkStatus(data) {
   if (data.error && data.error.status === 401) {

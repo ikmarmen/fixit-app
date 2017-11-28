@@ -2,7 +2,7 @@ import { observable, computed, action, autorun } from 'mobx';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import qs from 'qs';
 import Fetch from '../../../utils/fetch-json';
-import { AuthStore } from '../../auth/authStore';
+import { AuthStore } from '../../auth/store';
 
 class AccountStore {
     @observable authStore = AuthStore;

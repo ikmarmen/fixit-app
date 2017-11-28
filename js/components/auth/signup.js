@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import FloatingLabelInput from '../../controls/floatingLabelInput';
-import { SignupStore } from './authStore';
+import { SignupStore } from './store';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
 @observer

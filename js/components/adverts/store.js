@@ -4,7 +4,7 @@ import qs from 'qs';
 import Fetch from '../../utils/fetch-json';
 import LocationStore from '../../stores/locationStore';
 import MyadvertsListStore from '../my/store';
-import { AuthStore } from '../auth/authStore';
+import { AuthStore } from '../auth/store';
 import {MyAdvertStore} from '../my/store';
 
 class FilterStore {

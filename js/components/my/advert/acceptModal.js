@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import { timeSince } from '../../../utils/dateHelper';
-import { AuthStore } from '../../auth/authStore';
+import { AuthStore } from '../../auth/store';
 
 export default class AcceptModel extends Component {
   constructor(props) {

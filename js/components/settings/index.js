@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { observer } from 'mobx-react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { AuthStore } from '../auth/authStore';
+import { AuthStore } from '../auth/store';
 
 //import SettingsStore from './store';
 

@@ -4,7 +4,7 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import Fetch from '../../utils/fetch-json';
 import qs from 'qs';
 import LocationStore from '../../stores/locationStore';
-import { Answers, Crashlytics }  from 'react-native-fabric';
+import { Answers, Crashlytics } from 'react-native-fabric';
 
 class AuthenticationStore {
   @observable user = null;
@@ -12,10 +12,8 @@ class AuthenticationStore {
   @observable error = null;
   @observable canStart = false;
 
-
   constructor() {
-    reaction(() => [this.user, this.canStart, LocationStore.location], () => this.redirectloginOrHome(arguments));
-    reaction(() => [this.token, this.canStart], () => this.manageToken(arguments));
+    debugger;
     reaction(() => this.error, () => this.showErrors(arguments));
 
     AsyncStorage.getItem('TOKEN', (err, result) => {
@@ -23,7 +21,8 @@ class AuthenticationStore {
         this.token = result;
         this.fetchUserInfo();
       } else {
-        this.canStart = true
+        this.removeToken();
+        Actions.login({ type: ActionConst.RESET });
       }
     });
   }
@@ -36,56 +35,40 @@ class AuthenticationStore {
     }
   }
 
-  redirectloginOrHome() {
-    if (this.canStart) {
-      if (this.user && LocationStore.location) {
-        Actions.tabbar({ type: ActionConst.RESET });
-      } else if (!this.user) {
-        Actions.login({ type: ActionConst.RESET });
-      }
-    }
-  }
-
-  manageToken() {
-    if (this.canStart) {
-      if (this.token) {
-        AsyncStorage.setItem('TOKEN', this.token)
-      } else {
-        AsyncStorage.removeItem('TOKEN');
-      }
-    }
-  }
-
-  @computed
-  get isValid() {
-    return !!(this.user && this.user.password && this.user.email);
-  }
-
-  @action
-  setProp = (value, name) => {
-    this.user[name] = value;
-  }
-
-  @action
   fetchUserInfo() {
     Fetch('startup', { method: 'GET' })
       .then(data => {
-        let id = setTimeout(() => {
-          Answers.logLogin('Internal', true, data.user);
-          this.user = data.user;
-          this.canStart = true;
-          clearTimeout(id);
-        }, 1500);
+        Answers.logLogin('Internal', true, data.user);
+        this.user = data.user;
+        Actions.tabbar({ type: ActionConst.RESET });
       })
       .catch(error => {
-        this.user = null;
-        this.canStart = true
+        this.removeToken();
+        Actions.login({ type: ActionConst.RESET });
         this.error = error.message;
       });
   }
 
-  @action
-  update = () => {
+  @action removeToken(){
+    this.token = null;
+    this.user = null;
+    AsyncStorage.removeItem('TOKEN');
+  }
+
+  @action addToken(token){
+    this.token = token;
+    AsyncStorage.setItem('TOKEN', this.token)
+  }
+
+  @computed get isValid() {
+    return !!(this.user && this.user.password && this.user.email);
+  }
+
+  @action setProp = (value, name) => {
+    this.user[name] = value;
+  }
+
+  @action update = () => {
     let that = this;
     let request = qs.stringify(that.user);
 
@@ -98,15 +81,14 @@ class AuthenticationStore {
       });
   }
 
-  @action
-  login = (request) => {
+  @action login = (request) => {
     let that = this;
     request = qs.stringify(request);
 
     Fetch('user/login', { method: 'POST', body: request })
       .then(data => {
         if (data.token) {
-          this.token = data.token;
+          this.addToken(data.token);
           this.fetchUserInfo();
         } else {
           that.error = 'Wrong Username or Password';
@@ -117,21 +99,21 @@ class AuthenticationStore {
       });
   }
 
-  @action
-  logout = () => {
+  @action logout = () => {
     let that = this;
     if (this.token) {
       let request = qs.stringify({ token: this.token });
       Fetch('user/logout', { method: 'POST', body: request })
         .then(data => {
-          this.token = null;
-          this.user = null;
+         this.removeToken();
+         Actions.login({ type: ActionConst.RESET });
         })
         .catch(error => {
           that.error = error.message;
         });
     } else {
-      this.user = null;
+      this.removeToken();
+      Actions.login({ type: ActionConst.RESET });
     }
   }
 
@@ -177,7 +159,7 @@ export class SignupStore {
       Fetch('user', { method: 'POST', body: request })
         .then(data => {
           if (data.tokens && data.tokens[0]) {
-            AuthStore.token = data.tokens[0];
+            AuthStore.addToken(data.tokens[0]);
             AuthStore.fetchUserInfo();
           }
         })

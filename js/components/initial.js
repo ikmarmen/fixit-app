@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
-import {AuthStore} from './auth/authStore';
+import {AuthStore} from './auth/store';
 import LocationStore from '../stores/locationStore';
 
-export default class Loading extends Component {
+export default class Initial extends Component {
+  constructor(props) {
+    super(props);
+    this.store = AuthStore;
+  }
+
   render() {
     return       <View style={styles.container}>
         <Image

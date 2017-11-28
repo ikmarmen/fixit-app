@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx';
 import { Router, Scene, Actions, Switch } from 'react-native-router-flux';
-import AuthStore from './auth/authStore'
+import AuthStore from './auth/store'
 import { NativeModules, processColor, BackHandler, Platform } from 'react-native';
 const { StatusBarManager } = NativeModules;
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 //Signin Signup
-import Loading from './loading';
+import Initial from './initial';
 import Login from './auth/login';
 import Signup from './auth/signup';
 import ForgotPassword from './auth/forgotPassword';
@@ -90,7 +90,7 @@ export default class AppRouter extends React.Component {
             icon={props => { return TabIcon(props, 'notifications') }}
           />
         </Scene>
-        <Scene key="loading" component={Loading} initial={true} />
+        <Scene key="loading" component={Initial} initial={true} />
         <Scene key="login" component={Login} hideNavBar={true} />
         <Scene key="signup" component={Signup} />
         <Scene key="forgotPassword" component={ForgotPassword} />
