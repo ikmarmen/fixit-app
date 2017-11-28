@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
-import {AuthStore} from './auth/store';
+import { AuthStore } from './auth/store';
 import LocationStore from '../stores/locationStore';
 
 export default class Initial extends Component {
   constructor(props) {
     super(props);
-    this.store = AuthStore;
+    this.authStore = AuthStore;
+    this.socationStore = LocationStore;
   }
 
   render() {
-    return       <View style={styles.container}>
-        <Image
-          style={styles.logoImage}
-          source={require('../../img/logoAnim.gif')}
-        />
-      </View>
+    return (<View style={styles.container}>
+      <Image
+        style={styles.logoImage}
+        source={require('../../img/logoAnim.gif')}
+      />
+    </View>);
   }
 }
 

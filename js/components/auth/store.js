@@ -3,7 +3,6 @@ import { AsyncStorage } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Fetch from '../../utils/fetch-json';
 import qs from 'qs';
-import LocationStore from '../../stores/locationStore';
 import { Answers, Crashlytics } from 'react-native-fabric';
 
 class AuthenticationStore {
