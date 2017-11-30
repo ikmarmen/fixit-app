@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "689461720507",
+    "project_id": "fixit-c5a38"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689461720507:android:78bc4453c4433f22",
+        "android_client_info": {
+          "package_name": "com.fixit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689461720507-jpjov2pbdn32mved3nar9ju32p8e4j26.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fixit",
+            "certificate_hash": "fb4466580d34e2a1f805c8bfe88bcdf2f5490161"
+          }
+        },
+        {
+          "client_id": "689461720507-73lfkcuoao10ep4ed04v7uem733vh0o1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_pvIH-WcXNZ1ywW_L3RXm-SXB_H7HTrw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
