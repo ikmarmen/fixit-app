@@ -12,7 +12,6 @@ class AuthenticationStore {
   @observable canStart = false;
 
   constructor() {
-    debugger;
     reaction(() => this.error, () => this.showErrors(arguments));
 
     AsyncStorage.getItem('TOKEN', (err, result) => {

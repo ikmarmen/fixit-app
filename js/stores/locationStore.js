@@ -1,5 +1,5 @@
 import { observable, computed, action, autorun } from 'mobx';
-import { PermissionsAndroid, Platform, BackAndroid } from 'react-native';
+import { PermissionsAndroid, Platform, BackAndroid, AsyncStorage } from 'react-native';
 import BackgroundGeolocation from 'react-native-mauron85-background-geolocation';
 
 class LocationStore {
@@ -8,8 +8,16 @@ class LocationStore {
 
   constructor() {
     autorun(() => this.showErrors());
-    let that = this;
+
+    //Ugly hack .BackgroundGeolocation doesn't fire location even after  react-native reloading
+    AsyncStorage.getItem('LOCATION', (err, result) => {
+      if (result) {
+        this.location = JSON.parse(result);
+      }
+    });
+    const that = this;
     BackgroundGeolocation.isLocationEnabled(function (enabled) {
+      
       if (enabled) {
         that.checkPermission().then((hasPermission) => {
           if (hasPermission) {
@@ -45,19 +53,28 @@ class LocationStore {
 
   startLocationTracking() {
     BackgroundGeolocation.configure({
-      startForeground: false,
+      startForeground:false,
       debug: false,
-      locationProvider: BackgroundGeolocation.provider.ANDROID_ACTIVITY_PROVIDER,
-      interval: 60000,
+      stopOnTerminate: true,
+      locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
+      interval: 10000,
       fastestInterval: 5000,
       activitiesInterval: 10000,
       mode: 0
     });
+    BackgroundGeolocation.on('start', () => {
+      console.log('[INFO] BackgroundGeolocation service has been started');
+    });
+
+    BackgroundGeolocation.on('stop', () => {
+      console.log('[INFO] BackgroundGeolocation service has been stopped');
+    });
     BackgroundGeolocation.start(() => {
-      //BackgroundGeolocation.getLogEntries(100, printAndroidLogs);
+      BackgroundGeolocation.getLogEntries(100, printAndroidLogs);
     });
     BackgroundGeolocation.on('location', (location) => {
-      this.location = location
+      this.location = location;
+      this.saveLocation(location);
     });
 
     BackgroundGeolocation.on('error', (error) => {
@@ -70,6 +87,10 @@ class LocationStore {
       alert(this.error);
       this.error = null;
     }
+  }
+
+  saveLocation(location){
+    AsyncStorage.setItem('LOCATION', JSON.stringify(location))
   }
 }
 

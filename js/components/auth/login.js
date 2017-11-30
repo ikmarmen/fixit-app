@@ -12,7 +12,7 @@ import {
 import { LoginStore, AuthStore } from "./store";
 import { Actions, ActionConst } from "react-native-router-flux";
 import FloatingLabelInput from "../../controls/floatingLabelInput";
-//import { GoogleSignin } from "react-native-google-signin";
+import { GoogleSignin } from "react-native-google-signin";
 
 @observer
 export default class Login extends Component {
@@ -35,13 +35,25 @@ export default class Login extends Component {
   };
 
   onGoogleLogin = () => {
-   /*  GoogleSignin.hasPlayServices({ autoResolve: true })
+    GoogleSignin.hasPlayServices({ autoResolve: true })
       .then(() => {
-        // play services are available. can now configure library
+        GoogleSignin.configure({
+          iosClientId: "689461720507-ll9mctnldbresjlnvc8qdomq7il7gsfq.apps.googleusercontent.com",
+          webClientId: "689461720507-dhqve6g6h69sg02sqsi8kkr7f5l85a0v.apps.googleusercontent.com"
+        }).then(() => {
+          GoogleSignin.signIn()
+            .then(user => {
+              console.log(user);
+            })
+            .catch(err => {
+              console.log("WRONG SIGNIN", err);
+            })
+            .done();
+        });
       })
       .catch(err => {
         console.log("Play services error", err.code, err.message);
-      }); */
+      });
   };
 
   onFacebookLogin = () => {};
