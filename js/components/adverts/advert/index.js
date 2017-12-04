@@ -22,11 +22,11 @@ export default class Advert extends Component {
         <View>
           <View height={250} width='100%' >
             <Swiper>
-              {this.store.advert.photoIds.map((photoId) => {
-                return <Image key={photoId}
+              {this.store.advert.photos.map((photo) => {
+                return <Image key={photo._id}
                   resizeMode='cover'
                   style={styles.image}
-                  source={{ uri: `${Config.BASE_URL}posts/photo/${photoId}` }} />
+                  source={{ uri: `${Config.BASE_URL}posts/photo/${photo._id}` }} />
               })}
             </Swiper>
           </View>

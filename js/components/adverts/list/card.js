@@ -31,10 +31,10 @@ export default class FixItCard extends Component {
         <View style={styles.container}>
           <View style={styles.cardContainer}>
 
-            <Image key={this.store.advert.photoIds[0]}
+            <Image key={this.store.advert.photos[0]._id}
               resizeMode='cover'
               style={styles.img}
-              source={{ uri: `${Config.BASE_URL}posts/photo/${this.store.advert.photoIds[0]}` }} />
+              source={{ uri: `${Config.BASE_URL}posts/photo/${this.store.advert.photos[0]._id}` }} />
 
             <View style={styles.card}>
               <View style={styles.cardtitleContainer}>

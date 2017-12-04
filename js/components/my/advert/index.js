@@ -44,7 +44,7 @@ export default class MyAdvert extends Component {
   }
 
   render() {
-    const id = this.store.advert.photoIds[0];
+    const id = this.store.advert.photos[0]._id;
     return (
       <View style={styles.container}>
         <View style={styles.header}>

@@ -22,7 +22,7 @@ export default class MyCard extends Component {
   }
 
   _renderImage = () => {
-    let id = this.store.advert.photoIds[0];
+    let id = this.store.advert.photos[0]._id;
     return (
       <Image resizeMode='stretch' style={{ flex: 1, height: 200, width: 200 }} source={{ uri: `${Config.BASE_URL}posts/photo/${id}` }} />
     );

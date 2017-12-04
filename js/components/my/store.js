@@ -210,7 +210,7 @@ class MyAdvertsListStore {
     this.isLoading = true;
 
     try {
-      const data = await Fetch('posts/allNew', { method: 'POST', body: request })
+      const data = await Fetch('posts/search', { method: 'POST', body: request })
       if (append) {
         data.map((item) => {
           this.adverts.push(new MyAdvertStore(item))

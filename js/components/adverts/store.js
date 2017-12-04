@@ -116,7 +116,7 @@ class AdvertsListStore {
     this.isLoading = true;
 
     try {
-      let data = await Fetch('posts/allNew', { method: 'POST', body: request });
+      let data = await Fetch('posts/search', { method: 'POST', body: request });
 
       if (append) {
         data.map((item) => {

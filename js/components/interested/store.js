@@ -109,7 +109,7 @@ class InterestedListStore {
     this.isLoading = true;
 
     try {
-      const data = await Fetch('posts/all', { method: 'POST', body: request });
+      const data = await Fetch('posts/search', { method: 'POST', body: request });
 
       if (append) {
         data.map((item) => {

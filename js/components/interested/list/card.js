@@ -43,12 +43,12 @@ export default class MyCard extends Component {
               <View style={styles.cardInfo}>
                 <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
                   <View style={styles.myfixitQuotes} >
-                    <Text style={styles.cardInfoTextLeft}>{`${this.store.advert.bids.length} QUOTES`}</Text>
+                    <Text style={styles.cardInfoTextLeft}>{`${this.store.advert.bids ? this.store.advert.bids.length : 0} QUOTES`}</Text>
                   </View>
                 </TouchableOpacity >
                 <TouchableOpacity activeOpacity={0.5} onPress={this.onFacebookLogin}>
                   <View style={styles.myfixitQuotes}>
-                    <Text style={styles.cardInfoTextRight}>{`${this.store.advert.questions.length} QUESTIONS`}</Text>
+                    <Text style={styles.cardInfoTextRight}>{`${this.store.advert.questions ? this.store.advert.questions.length : 0} QUESTIONS`}</Text>
                   </View>
                 </TouchableOpacity >
               </View>
