@@ -1,0 +1,22 @@
+Hi guys,
+Please, find bellow the summary and our decisions made during webex call.
+
+1. Alerts
+We decided to use push notifications for now. We will use react native fire-base push notifications library to send notifications to android and ios users.
+If I am not wrong, here is the library url https://github.com/evollu/react-native-fcm
+
+2. Mockups
+Ani will update existing mockups and create colored ones till Monday 14/08/2017 (Armenia).
+After meeting and product owners approval, Ani will start development of the FixIt UI. She can/will use the following tools:
+a) https://nativebase.io/
+b) https://github.com/oblador/react-native-vector-icons
+
+3. Code review and planning
+Arsen will have a look to existing codes. We will have a meeting on Friday morning or Monday morning to discuss Arsen`s findings/remarks. 
+More specifically:
+a) How to solve issue with 6MB restriction
+b) How to use geolocation recognition. (we don`t see the real scenario for background recognition usage)
+c) Social Logins. Arsen has a codes and probably can nest them in FixIt project
+d) Identify the parts of the project, which Arsen can do till the end of the month.
+
+If I missed something, please let me know.
