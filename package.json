@@ -41,7 +41,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "jest": "^21.2.1",
     "react-devtools": "^3.0.0",
-    "react-native-scripts": "^1.8.1",
+    "react-native-scripts": "^1.14.1",
     "react-test-renderer": "^16.2.0"
   }
 }
